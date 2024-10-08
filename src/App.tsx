@@ -12,7 +12,7 @@ function App() {
   const [selectedIndex, setSelectedIndex] = useState<number|null>(null);
   const [dropdown, setDropdown] = useState<boolean>(false);
   const openDropdown = () => setDropdown(!dropdown);
-  const [mapCenter, setMapCenter] = useState({center: { lat: 36.357670, lng: 127.386770 }});
+  const [mapCenter, setMapCenter] = useState({ lat: 36.357670, lng: 127.386770 });
   const closeDropdown = () => setDropdown(false);
   const mapRef = useRef<kakao.maps.Map | null>(null);
   const changeLvl = () => {
@@ -20,10 +20,22 @@ function App() {
     if (!map) return;
     map.setLevel(6);
   }
+  const districts = [{name: '유성구', center: { lat: 36.36405586, lng: 127.356163 }}, 
+                    {name: '동구', center: { lat: 36.31204028, lng: 127.4548596 }}, 
+                    {name: '중구', center: { lat: 36.32582989, lng: 127.421381 }}, 
+                    {name: '서구', center: { lat:36.35707299, lng: 127.3834158 }}, 
+                    {name: '대덕구', center: { lat: 36.35218384, lng: 127.4170933 }}];
+  const [selectedDistrict, setSelectedDistrict] = useState<string>('구 선택');
+  const showSelectedDistrict = (districtName: string, newCenter: { lat: number, lng: number }) => {
+    setSelectedDistrict(districtName);  // Update the selected district name
+    setMapCenter(newCenter);
+    changeLvl();
+    closeDropdown();  // Close the dropdown
+  }
 
   return (
     <div className="static">
-      <Map center={mapCenter.center} level={8} className="w-full md:w-full h-screen" onCreate={mapInstance => (mapRef.current = mapInstance)}>
+      <Map center={mapCenter} level={8} className="w-full md:w-full h-screen" onCreate={mapInstance => (mapRef.current = mapInstance)}>
         <MarkerClusterer
           averageCenter={true}
           minLevel={5}
@@ -94,44 +106,50 @@ function App() {
           )}
         </MarkerClusterer>
       </Map>
-      <div className="absolute flex flex-row z-10 w-[14.5vw] h-[5vh] left-[0.625vw] top-[0.926vh] rounded-sm cursor-pointer shadow-lg"
+      <div className="absolute flex flex-row z-10 w-[59.183673vw] md:w-[12.083vw] h-[5.2816901vh] md:h-[4.167vh] left-[0.625vw] top-[0.926vh] rounded-sm cursor-pointer shadow-lg"
         style = {{outline: dropdown ? '3px solid #364F85' : 'none', outlineOffset: '-1px'}}
         onClick={openDropdown}
       >
-        <div className="flex justify-center items-center space-x-1 w-[2.9375vw] h-[5vh] rounded-l-sm bg-white">
-          <Logo className="w-[1.875vw]"/>
+        <div className="flex justify-center items-center space-x-1 w-[6vw] md:w-[3vw] h-[5.2816901vh] md:h-[4.167vh] rounded-l-sm bg-white">
+          <Logo className="h-[3.5211268vh] md:h-[2.78vh]"/>
         </div>
-        <div className="flex items-center w-[11.5625vw] h-[5vh] rounded-r-sm bg-white" >
-          <p className="text-sm text-slate-500">구 선택</p>
-          <DownT className="absolute w-[0.75vw] right-[1.0625vw]"/> 
+        <div className="flex items-center w-[53.183673vw] md:w-[9.083vw] h-[5.2816901vh] md:h-[4.167vh] rounded-r-sm bg-white" >
+          <p className="text-sm text-slate-500">{selectedDistrict}</p>
+          <DownT className="absolute w-[3.0612245vw] md:w-[0.625vw] right-[1.0625vw]"/> 
         </div>
       </div>
       {dropdown && (
-        <div className="absolute z-10 w-[14.5vw] h-[20vh] left-[0.625vw] top-[7.3149vh] rounded-sm bg-white shadow-lg">
+        <div className="absolute z-10 w-[59.183673vw] md:w-[12.083vw] h-[21.126761vh] md:h-[16.667vh] left-[0.625vw] top-[7.3149vh] rounded-sm bg-white shadow-lg">
           <ul className="bg-white">
+            {districts.map((district, index) => (
             <li className="px-4 py-2 text-sm text-slate-500 hover:rounded-t-sm hover:bg-[#5D799F] hover:text-white cursor-pointer"
-                onClick={() => {closeDropdown();
-                                setMapCenter({center: { lat: 36.36405586, lng: 127.356163 }});
-                                changeLvl(); }}>유성구</li>
-            <li className="px-4 py-2 text-sm text-slate-500 hover:bg-[#5D799F] hover:text-white cursor-pointer"
-                onClick={() => {closeDropdown();
-                                setMapCenter({center: { lat: 36.31204028, lng: 127.4548596 }});
-                                changeLvl(); }} >동구</li>
-            <li className="px-4 py-2 text-sm text-slate-500 hover:bg-[#5D799F] hover:text-white cursor-pointer"
-                onClick={() => {closeDropdown();
-                                setMapCenter({center: { lat: 36.32582989, lng: 127.421381 }});
-                                changeLvl(); }}>중구</li>
-            <li className="px-4 py-2 text-sm text-slate-500 hover:bg-[#5D799F] hover:text-white cursor-pointer"
-                onClick={() => {closeDropdown();
-                                setMapCenter({center: { lat:36.35707299, lng: 127.3834158 }});
-                                changeLvl(); }}>서구</li>
-            <li className="px-4 py-2 text-sm text-slate-500 hover:rounded-b-sm hover:bg-[#5D799F] hover:text-white cursor-pointer"
-                onClick={() => {closeDropdown();
-                                setMapCenter({center: { lat: 36.35218384, lng: 127.4170933 }});
-                                changeLvl(); }}>대덕구</li>
+                key={index}
+                onClick={() => {showSelectedDistrict(district.name, district.center);}}>{district.name}</li>
+            // <li className="px-4 py-2 text-sm text-slate-500 hover:bg-[#5D799F] hover:text-white cursor-pointer"
+            //     onClick={() => {closeDropdown();
+            //                     setSelectedDistrict(district.name);
+            //                     setMapCenter({center: { lat: 36.31204028, lng: 127.4548596 }});
+            //                     changeLvl(); }} >동구</li>
+            // <li className="px-4 py-2 text-sm text-slate-500 hover:bg-[#5D799F] hover:text-white cursor-pointer"
+            //     onClick={() => {closeDropdown();
+            //                     setSelectedDistrict(district.name);
+            //                     setMapCenter({center: { lat: 36.32582989, lng: 127.421381 }});
+            //                     changeLvl(); }}>중구</li>
+            // <li className="px-4 py-2 text-sm text-slate-500 hover:bg-[#5D799F] hover:text-white cursor-pointer"
+            //     onClick={() => {closeDropdown();
+            //                     setSelectedDistrict(district.name);
+            //                     setMapCenter({center: { lat:36.35707299, lng: 127.3834158 }});
+            //                     changeLvl(); }}>서구</li>
+            // <li className="px-4 py-2 text-sm text-slate-500 hover:rounded-b-sm hover:bg-[#5D799F] hover:text-white cursor-pointer"
+            //     onClick={() => {closeDropdown();
+            //                     setSelectedDistrict(district.name);
+            //                     setMapCenter({center: { lat: 36.35218384, lng: 127.4170933 }});
+            //                     changeLvl(); }}>대덕구</li>
+            ))}
           </ul>
-        </div>)
-      }
+        </div>
+      )}
+      <Map center={mapCenter} />
       <div className="absolute flex justify-evenly items-center z-10 w-[6.25vw] h-[4.444vh] left-[87.271vw] top-[0.926vh] rounded-sm text-sm font-bold bg-white">
         <div className="w-[2.8125vw] h-[3.556vh] flex justify-center items-center rounded-sm bg-yellow">
           <p className="text-white w-fit h-fit">지도</p>
