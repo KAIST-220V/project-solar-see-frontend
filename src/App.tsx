@@ -10,6 +10,7 @@ import { ReactComponent as ZoomOut } from "./assets/zoom_out.svg";
 function App() {
   const markers = solars.Solars;
   const [selectedIndex, setSelectedIndex] = useState<number|null>(null);
+  const [barIsOpen, setBarState] = useState(false);
 
   return (
     <div className="static">
@@ -61,7 +62,10 @@ function App() {
               key={index}
               position={{ lat: marker.latitude, lng: marker.longitude }}
               clickable={true}
-              onClick={() => setSelectedIndex(index)}>
+              onClick={() => {
+                setSelectedIndex(index);
+                setBarState(true);
+              }}>
               {selectedIndex === index && (
                 <div style={{ minWidth: "150px" }}>
                   <img
@@ -82,6 +86,29 @@ function App() {
               )}
             </MapMarker>
           )}
+          {(barIsOpen && selectedIndex != null) && (<div className="h-[20vh] w-full rounded-t-2xl md:w-[400px] md:h-[90vh] min-h-40 absolute bottom-0 z-10 bg-white overflow-hidden"
+          >
+            <div className="flex justify-center items-center">
+              <img src="img/line.png"   style={{padding: "10px",}} />
+            </div>
+            <div className="m-5 pl-2">
+              <div className="text-xl text-blue font-roboto font-bold">N {markers[selectedIndex].longitude.toFixed(4)}°, E {markers[selectedIndex].latitude.toFixed(4)}°</div>
+              <div className="text-base">태양광 패널 ID: {selectedIndex}</div>
+              <div className="text-base">면적: 100㎡</div>
+              <div className="text-base">예상 발전량: 123,456W</div>
+              {/*<div>면적: {shape_area_m2}</div>*/}
+            </div>
+            <div>
+            <div>
+              <img
+                alt="테스트"
+                src="img/test_image.png"
+                className="md:size-full size-auto rounded-t-l"
+                onClick={() => setSelectedIndex(null)}
+              />
+            </div>
+            </div>
+          </div>)}
         </MarkerClusterer>
       </Map>
       <div className="absolute flex flex-row z-10 w-[22.5vw] h-[4.444vh] left-[0.625vw] top-[0.926vh]">
