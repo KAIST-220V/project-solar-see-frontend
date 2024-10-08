@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div className="static">
-      <Map center={mapCenter.center} level={8} className="w-[50vw] md:w-full h-screen" onCreate={mapInstance => (mapRef.current = mapInstance)}>
+      <Map center={mapCenter.center} level={8} className="w-full md:w-full h-screen" onCreate={mapInstance => (mapRef.current = mapInstance)}>
         <MarkerClusterer
           averageCenter={true}
           minLevel={5}
