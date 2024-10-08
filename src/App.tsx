@@ -9,6 +9,7 @@ import clusterer_below10 from "./assets/clusterer_below10.svg";
 import clusterer_11_30 from "./assets/clusterer_11_30.svg";
 import clusterer_31_70 from "./assets/clusterer_31_70.svg";
 import clusterer_over_70 from "./assets/clusterer_over_70.svg";
+import { motion } from "framer-motion";
 
 type MarkerType = {
   shape_attributes: {
@@ -17,6 +18,7 @@ type MarkerType = {
     shape_area_m2: number;
   };
 };
+
 
 function App() {
   const [markers, setMarkers] = useState<MarkerType[]>([]);
@@ -27,6 +29,9 @@ function App() {
     .then(data => setMarkers(data.panel));
   }, [])
   const [selectedIndex, setSelectedIndex] = useState<number|null>(null);
+  const [barIsOpen, setBarState] = useState(false);
+  const [barIsExpanded, setBarExpand] = useState(false);
+  const animateState = barIsExpanded ? "opened" : "closed";
 
   return (
     <div className="static">
@@ -109,7 +114,10 @@ function App() {
               key={index}
               position={{ lat: marker.shape_attributes.mean_point_latitude, lng: marker.shape_attributes.mean_point_logitude }}
               clickable={true}
-              onClick={() => setSelectedIndex(index)}>
+              onClick={() => {
+                setSelectedIndex(index);
+                setBarState(true);
+              }}>
               {selectedIndex === index && (
                 <div style={{ minWidth: "150px" }}>
                   <img
@@ -130,6 +138,37 @@ function App() {
               )}
             </MapMarker>
           )}
+          {(barIsOpen && selectedIndex != null) && (<div className="absolute top-0 left-0 w-full h-[100dvh] overflow-hidden">
+            <motion.div className="h-[90dvh] w-full rounded-t-2xl md:w-[400px] min-h-40 absolute bottom-0 z-10 bg-white"
+              drag="y" dragConstraints={{ top: 0, bottom: 0 }}
+              animate={animateState}
+              variants={{
+                opened: { top: '10dvh' },
+                closed: { top: '60dvh' },
+              }}
+            >
+            <div className="flex justify-center items-center" onClick={()=>setBarExpand(!barIsExpanded)}>
+              <img src="img/line.png" style={{padding: "10px", pointerEvents: "none"}}/>
+            </div>
+            <div className="m-5 pl-2">
+              <div className="text-xl text-blue font-roboto font-bold">N {markers[selectedIndex].shape_attributes.mean_point_logitude.toFixed(4)}°, E {markers[selectedIndex].shape_attributes.mean_point_latitude.toFixed(4)}°</div>
+              <div className="text-base">태양광 패널 ID: {selectedIndex}</div>
+              <div className="text-base">면적: 100㎡</div>
+              <div className="text-base">예상 발전량: 123,456W</div>
+              {/*<div>면적: {shape_area_m2}</div>*/}
+            </div>
+            <div>
+            <div className="flex justify-center items-center">
+              <img
+                alt="테스트"
+                src="img/test_image.png"
+                className="md:size-full size-auto rounded-t-l"
+                onClick={() => setSelectedIndex(null)}
+              />
+            </div>
+            </div>
+          </motion.div>
+          </div>)}
         </MarkerClusterer>
       </Map>
       <div className="absolute flex flex-row z-10 w-[22.5vw] h-[4.444vh] left-[0.625vw] top-[0.926vh]">
