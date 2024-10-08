@@ -1,65 +1,113 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
-import solars from "./solars.json";
 import { ReactComponent as Logo } from "./assets/logo_yellow.svg";
 import { ReactComponent as Search } from "./assets/search.svg";
 import { ReactComponent as CurrentLocation } from "./assets/current_location.svg";
 import { ReactComponent as ZoomIn } from "./assets/zoom_in.svg";
 import { ReactComponent as ZoomOut } from "./assets/zoom_out.svg";
+import clusterer_below10 from "./assets/clusterer_below10.svg";
+import clusterer_11_30 from "./assets/clusterer_11_30.svg";
+import clusterer_31_70 from "./assets/clusterer_31_70.svg";
+import clusterer_over_70 from "./assets/clusterer_over_70.svg";
+
+type MarkerType = {
+  shape_attributes: {
+    mean_point_latitude: number;
+    mean_point_logitude: number;
+    shape_area_m2: number;
+  };
+};
 
 function App() {
-  const markers = solars.Solars;
+  const [markers, setMarkers] = useState<MarkerType[]>([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/data/solarPanels.json", {
+      method: 'GET',
+    }).then(res => res.json())
+    .then(data => setMarkers(data.panel));
+  }, [])
   const [selectedIndex, setSelectedIndex] = useState<number|null>(null);
 
   return (
     <div className="static">
-      <Map center={{ lat: 36.357670, lng: 127.386770 }} level={7} className="w-full h-screen" mapTypeId={'SKYVIEW'}>
+      <Map center={{ lat: 36.357670, lng: 127.386770 }} level={7} className="w-full h-screen">
         <MarkerClusterer
           averageCenter={true}
           minLevel={5}
-          calculator={[10, 30, 50]} // 클러스터의 크기 구분 값, 각 사이값마다 설정된 text나 style이 적용된다
+          calculator={[10, 30, 70]} // 클러스터의 크기 구분 값, 각 사이값마다 설정된 text나 style이 적용된다
           styles={[{ // calculator 각 사이 값 마다 적용될 스타일을 지정한다
-            width : '30px', height : '30px',
-            background: 'rgba(51, 204, 255, .8)',
-            borderRadius: '15px',
+            width: '12.9vw',
+            minWidth: '38px',
+            height: '6.87vh',
+            minHeight: '33px',
+            backgroundImage: `url(${clusterer_below10})`,
+            backgroundSize: "contain",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
             color: '#FFFFFF',
             textAlign: 'center',
-            fontWeight: 'bold',
-            lineHeight: '31px',
+            justifyContent: 'center',
+            textAlignVertical: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            paddingBottom:'4px',
           },
           {
-              width : '40px', height : '40px',
-              background: 'rgba(255, 153, 0, .8)',
-              borderRadius: '20px',
-              color: '#FFFFFF',
-              textAlign: 'center',
-              fontWeight: 'bold',
-              lineHeight: '41px'
+            width: '12.9vw',
+            minWidth: '38px',
+            height: '6.87vh',
+            minHeight: '33px',
+            backgroundImage: `url(${clusterer_11_30})`,
+            backgroundSize: "contain",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            color: '#FFFFFF',
+            textAlign: 'center',
+            justifyContent: 'center',
+            textAlignVertical: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            paddingBottom:'4px',
           },
           {
-              width : '50px', height : '50px',
-              background: 'rgba(255, 51, 204, .8)',
-              borderRadius: '25px',
-              color: '#FFFFFF',
-              textAlign: 'center',
-              fontWeight: 'bold',
-              lineHeight: '51px'
+            width: '12.9vw',
+            minWidth: '38px',
+            height: '6.87vh',
+            minHeight: '33px',
+            backgroundImage: `url(${clusterer_31_70})`,
+            backgroundSize: "contain",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            color: '#FFFFFF',
+            textAlign: 'center',
+            justifyContent: 'center',
+            textAlignVertical: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            paddingBottom:'4px'
           },
           {
-              width : '60px', height : '60px',
-              background: 'rgba(255, 80, 80, .8)',
-              borderRadius: '30px',
-              color: '#FFFFFF',
-              textAlign: 'center',
-              fontWeight: 'bold',
-              lineHeight: '61px'
-          }
-          ]} 
+            width: '12.9vw',
+            minWidth: '38px',
+            height: '6.87vh',
+            minHeight: '33px',
+            backgroundImage: `url(${clusterer_over_70})`,
+            backgroundSize: "contain",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            color: '#FFFFFF',
+            textAlign: 'center',
+            justifyContent: 'center',
+            textAlignVertical: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            paddingBottom:'4px'
+          }]} 
         >
           {markers.map((marker, index) => 
             <MapMarker 
               key={index}
-              position={{ lat: marker.latitude, lng: marker.longitude }}
+              position={{ lat: marker.shape_attributes.mean_point_latitude, lng: marker.shape_attributes.mean_point_logitude }}
               clickable={true}
               onClick={() => setSelectedIndex(index)}>
               {selectedIndex === index && (
