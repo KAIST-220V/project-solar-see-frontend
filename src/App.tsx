@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import solars from "./solars.json";
-import { ReactComponent as Logo } from "./assets/logo_yellow.svg";
-import { ReactComponent as Search } from "./assets/search.svg";
+import { ReactComponent as Logo } from "./assets/logo_100px.svg";
+import { ReactComponent as DownT } from "./assets/triangle.svg";
 import { ReactComponent as CurrentLocation } from "./assets/current_location.svg";
 import { ReactComponent as ZoomIn } from "./assets/zoom_in.svg";
 import { ReactComponent as ZoomOut } from "./assets/zoom_out.svg";
@@ -10,10 +10,20 @@ import { ReactComponent as ZoomOut } from "./assets/zoom_out.svg";
 function App() {
   const markers = solars.Solars;
   const [selectedIndex, setSelectedIndex] = useState<number|null>(null);
+  const [dropdown, setDropdown] = useState<boolean>(false);
+  const openDropdown = () => setDropdown(!dropdown);
+  const [mapCenter, setMapCenter] = useState({center: { lat: 36.357670, lng: 127.386770 }});
+  const closeDropdown = () => setDropdown(false);
+  const mapRef = useRef<kakao.maps.Map | null>(null);
+  const changeLvl = () => {
+    const map = mapRef.current;
+    if (!map) return;
+    map.setLevel(6);
+  }
 
   return (
     <div className="static">
-      <Map center={{ lat: 36.357670, lng: 127.386770 }} level={7} className="w-full h-screen" mapTypeId={'SKYVIEW'}>
+      <Map center={mapCenter.center} level={8} className="w-[50vw] md:w-full h-screen" onCreate={mapInstance => (mapRef.current = mapInstance)}>
         <MarkerClusterer
           averageCenter={true}
           minLevel={5}
@@ -84,16 +94,44 @@ function App() {
           )}
         </MarkerClusterer>
       </Map>
-      <div className="absolute flex flex-row z-10 w-[22.5vw] h-[4.444vh] left-[0.625vw] top-[0.926vh]">
-        <div className="flex justify-center items-center space-x-1 w-[7.8125vw] h-[4.444vh] rounded-l-sm bg-yellow">
-          <Logo className="w-[1.25vw]"/>
-          <p>SolarSee</p>
+      <div className="absolute flex flex-row z-10 w-[14.5vw] h-[5vh] left-[0.625vw] top-[0.926vh] rounded-sm cursor-pointer shadow-lg"
+        style = {{outline: dropdown ? '3px solid #364F85' : 'none', outlineOffset: '-1px'}}
+        onClick={openDropdown}
+      >
+        <div className="flex justify-center items-center space-x-1 w-[2.9375vw] h-[5vh] rounded-l-sm bg-white">
+          <Logo className="w-[1.875vw]"/>
         </div>
-        <div className="flex items-center px-2 w-[14.6875vw] h-[4.444vh] rounded-r-sm bg-white">
-          <p className="text-sm text-slate-500">장소, 주소 검색</p>
-          <Search className="absolute w-[1.25vw] right-2"/>
+        <div className="flex items-center w-[11.5625vw] h-[5vh] rounded-r-sm bg-white" >
+          <p className="text-sm text-slate-500">구 선택</p>
+          <DownT className="absolute w-[0.75vw] right-[1.0625vw]"/> 
         </div>
       </div>
+      {dropdown && (
+        <div className="absolute z-10 w-[14.5vw] h-[20vh] left-[0.625vw] top-[7.3149vh] rounded-sm bg-white shadow-lg">
+          <ul className="bg-white">
+            <li className="px-4 py-2 text-sm text-slate-500 hover:rounded-t-sm hover:bg-[#5D799F] hover:text-white cursor-pointer"
+                onClick={() => {closeDropdown();
+                                setMapCenter({center: { lat: 36.36405586, lng: 127.356163 }});
+                                changeLvl(); }}>유성구</li>
+            <li className="px-4 py-2 text-sm text-slate-500 hover:bg-[#5D799F] hover:text-white cursor-pointer"
+                onClick={() => {closeDropdown();
+                                setMapCenter({center: { lat: 36.31204028, lng: 127.4548596 }});
+                                changeLvl(); }} >동구</li>
+            <li className="px-4 py-2 text-sm text-slate-500 hover:bg-[#5D799F] hover:text-white cursor-pointer"
+                onClick={() => {closeDropdown();
+                                setMapCenter({center: { lat: 36.32582989, lng: 127.421381 }});
+                                changeLvl(); }}>중구</li>
+            <li className="px-4 py-2 text-sm text-slate-500 hover:bg-[#5D799F] hover:text-white cursor-pointer"
+                onClick={() => {closeDropdown();
+                                setMapCenter({center: { lat:36.35707299, lng: 127.3834158 }});
+                                changeLvl(); }}>서구</li>
+            <li className="px-4 py-2 text-sm text-slate-500 hover:rounded-b-sm hover:bg-[#5D799F] hover:text-white cursor-pointer"
+                onClick={() => {closeDropdown();
+                                setMapCenter({center: { lat: 36.35218384, lng: 127.4170933 }});
+                                changeLvl(); }}>대덕구</li>
+          </ul>
+        </div>)
+      }
       <div className="absolute flex justify-evenly items-center z-10 w-[6.25vw] h-[4.444vh] left-[87.271vw] top-[0.926vh] rounded-sm text-sm font-bold bg-white">
         <div className="w-[2.8125vw] h-[3.556vh] flex justify-center items-center rounded-sm bg-yellow">
           <p className="text-white w-fit h-fit">지도</p>
