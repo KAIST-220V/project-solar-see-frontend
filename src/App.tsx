@@ -6,10 +6,12 @@ import { ReactComponent as DownT } from "./assets/triangle.svg";
 import { ReactComponent as CurrentLocation } from "./assets/current_location.svg";
 import { ReactComponent as ZoomIn } from "./assets/zoom_in.svg";
 import { ReactComponent as ZoomOut } from "./assets/zoom_out.svg";
+import { motion } from "framer-motion";
 
 function App() {
   const markers = solars.Solars;
   const [selectedIndex, setSelectedIndex] = useState<number|null>(null);
+
   const [dropdown, setDropdown] = useState<boolean>(false);
   const openDropdown = () => setDropdown(!dropdown);
   const [mapCenter, setMapCenter] = useState({ lat: 36.357670, lng: 127.386770 });
@@ -32,6 +34,10 @@ function App() {
     changeLvl();
     closeDropdown();  // Close the dropdown
   }
+
+  const [barIsOpen, setBarState] = useState(false);
+  const [barIsExpanded, setBarExpand] = useState(false);
+  const animateState = barIsExpanded ? "opened" : "closed";
 
   return (
     <div className="static">
@@ -83,7 +89,10 @@ function App() {
               key={index}
               position={{ lat: marker.latitude, lng: marker.longitude }}
               clickable={true}
-              onClick={() => setSelectedIndex(index)}>
+              onClick={() => {
+                setSelectedIndex(index);
+                setBarState(true);
+              }}>
               {selectedIndex === index && (
                 <div style={{ minWidth: "150px" }}>
                   <img
@@ -104,6 +113,37 @@ function App() {
               )}
             </MapMarker>
           )}
+          {(barIsOpen && selectedIndex != null) && (<div className="absolute top-0 left-0 w-full h-[100dvh] overflow-hidden">
+            <motion.div className="h-[90dvh] w-full rounded-t-2xl md:w-[400px] min-h-40 absolute bottom-0 z-10 bg-white"
+              drag="y" dragConstraints={{ top: 0, bottom: 0 }}
+              animate={animateState}
+              variants={{
+                opened: { top: '10dvh' },
+                closed: { top: '60dvh' },
+              }}
+            >
+            <div className="flex justify-center items-center" onClick={()=>setBarExpand(!barIsExpanded)}>
+              <img src="img/line.png" style={{padding: "10px", pointerEvents: "none"}}/>
+            </div>
+            <div className="m-5 pl-2">
+              <div className="text-xl text-blue font-roboto font-bold">N {markers[selectedIndex].longitude.toFixed(4)}°, E {markers[selectedIndex].latitude.toFixed(4)}°</div>
+              <div className="text-base">태양광 패널 ID: {selectedIndex}</div>
+              <div className="text-base">면적: 100㎡</div>
+              <div className="text-base">예상 발전량: 123,456W</div>
+              {/*<div>면적: {shape_area_m2}</div>*/}
+            </div>
+            <div>
+            <div className="flex justify-center items-center">
+              <img
+                alt="테스트"
+                src="img/test_image.png"
+                className="md:size-full size-auto rounded-t-l"
+                onClick={() => setSelectedIndex(null)}
+              />
+            </div>
+            </div>
+          </motion.div>
+          </div>)}
         </MarkerClusterer>
       </Map>
       <div className="absolute flex flex-row z-10 w-[59.183673vw] md:w-[12.083vw] h-[5.2816901vh] md:h-[4.167vh] left-[0.625vw] top-[0.926vh] rounded-sm cursor-pointer shadow-lg"

@@ -6,8 +6,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'yellow': "#FFCD00"
+        'yellow': "#FFCD00",
+        'blue': "#364F85"
       }
+    },
+    fontFamily: {
+      'roboto': ['Roboto', 'sans-serif'],
     },
   },
   plugins: [],
