@@ -6,11 +6,14 @@ import { ReactComponent as Search } from "./assets/search.svg";
 import { ReactComponent as CurrentLocation } from "./assets/current_location.svg";
 import { ReactComponent as ZoomIn } from "./assets/zoom_in.svg";
 import { ReactComponent as ZoomOut } from "./assets/zoom_out.svg";
+import { motion } from "framer-motion";
 
 function App() {
   const markers = solars.Solars;
   const [selectedIndex, setSelectedIndex] = useState<number|null>(null);
   const [barIsOpen, setBarState] = useState(false);
+  const [barIsExpanded, setBarExpand] = useState(false);
+  const animateState = barIsExpanded ? "opened" : "closed";
 
   return (
     <div className="static">
@@ -86,10 +89,17 @@ function App() {
               )}
             </MapMarker>
           )}
-          {(barIsOpen && selectedIndex != null) && (<div className="h-[20vh] w-full rounded-t-2xl md:w-[400px] md:h-[90vh] min-h-40 absolute bottom-0 z-10 bg-white overflow-hidden"
-          >
-            <div className="flex justify-center items-center">
-              <img src="img/line.png"   style={{padding: "10px",}} />
+          {(barIsOpen && selectedIndex != null) && (<div className="absolute top-0 left-0 w-full h-[100dvh] overflow-hidden">
+            <motion.div className="h-[90dvh] w-full rounded-t-2xl md:w-[400px] min-h-40 absolute bottom-0 z-10 bg-white"
+              drag="y" dragConstraints={{ top: 0, bottom: 0 }}
+              animate={animateState}
+              variants={{
+                opened: { top: '10dvh' },
+                closed: { top: '60dvh' },
+              }}
+            >
+            <div className="flex justify-center items-center" onClick={()=>setBarExpand(!barIsExpanded)}>
+              <img src="img/line.png" style={{padding: "10px", pointerEvents: "none"}}/>
             </div>
             <div className="m-5 pl-2">
               <div className="text-xl text-blue font-roboto font-bold">N {markers[selectedIndex].longitude.toFixed(4)}°, E {markers[selectedIndex].latitude.toFixed(4)}°</div>
@@ -99,7 +109,7 @@ function App() {
               {/*<div>면적: {shape_area_m2}</div>*/}
             </div>
             <div>
-            <div>
+            <div className="flex justify-center items-center">
               <img
                 alt="테스트"
                 src="img/test_image.png"
@@ -108,6 +118,7 @@ function App() {
               />
             </div>
             </div>
+          </motion.div>
           </div>)}
         </MarkerClusterer>
       </Map>
