@@ -6,7 +6,7 @@ import { ReactComponent as Search } from "./assets/search.svg";
 import { ReactComponent as CurrentLocation } from "./assets/current_location.svg";
 import { ReactComponent as ZoomIn } from "./assets/zoom_in.svg";
 import { ReactComponent as ZoomOut } from "./assets/zoom_out.svg";
-import { motion } from "framer-motion";
+import { delay, motion } from "framer-motion";
 
 function App() {
   const markers = solars.Solars;
@@ -89,14 +89,27 @@ function App() {
               )}
             </MapMarker>
           )}
-          {(barIsOpen && selectedIndex != null) && (<div className="absolute top-0 left-0 w-full h-[100dvh] overflow-hidden">
-            <motion.div className="h-[90dvh] w-full rounded-t-2xl md:w-[400px] min-h-40 absolute bottom-0 z-10 bg-white"
+          {(barIsOpen && selectedIndex != null) && (<div className="absolute bottom-0 w-full h-full overflow-hidden">
+            <motion.div className="h-full w-full md:w-[400px] absolute top-[60dvh] rounded-t-2xl min-h-40 z-10 bg-white will-change-transforms"
               drag="y" dragConstraints={{ top: 0, bottom: 0 }}
               animate={animateState}
               variants={{
                 opened: { top: '10dvh' },
                 closed: { top: '60dvh' },
               }}
+              transition={{ type: "tween", ease: [0.12, 0, 0.39, 0], duration: 0.3 }}
+              onDragEnd={
+                (event, info) => {
+                  const offsetThreshold = 150;
+                  const deltaThreshold = 5;
+                  const isOverOffsetThreshold = Math.abs(info.offset.y) > offsetThreshold;
+                  const isOverDeltaThreshold = Math.abs(info.delta.y) > deltaThreshold;
+                  const isOverThreshold = isOverOffsetThreshold || isOverDeltaThreshold;
+                  if (!isOverThreshold) return;
+                  const newIsOpened = info.offset.y < 0;
+                  setBarExpand(newIsOpened);
+                }
+              }
             >
             <div className="flex justify-center items-center" onClick={()=>setBarExpand(!barIsExpanded)}>
               <img src="img/line.png" style={{padding: "10px", pointerEvents: "none"}}/>
@@ -113,6 +126,7 @@ function App() {
               <img
                 alt="테스트"
                 src="img/test_image.png"
+                /*src=markers[i-1]["image_url"]*/
                 className="md:size-full size-auto rounded-t-l"
                 onClick={() => setSelectedIndex(null)}
               />
