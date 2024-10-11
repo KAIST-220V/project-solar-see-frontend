@@ -6,7 +6,7 @@ import { ReactComponent as Search } from "./assets/search.svg";
 import { ReactComponent as CurrentLocation } from "./assets/current_location.svg";
 import { ReactComponent as ZoomIn } from "./assets/zoom_in.svg";
 import { ReactComponent as ZoomOut } from "./assets/zoom_out.svg";
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 function App() {
   const markers = solars.Solars;
