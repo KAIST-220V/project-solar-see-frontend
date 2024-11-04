@@ -11,46 +11,31 @@ import KakaoMap from "../components/KakaoMap";
 import { District, Loc, MarkerType } from "../types/interface";
 import { MapMarker } from "react-kakao-maps-sdk";
 import KakaoMapSnackBar from "../components/KakaoMapSnackBar";
+import { on } from "events";
+
+const INITIAL_CENTER: Readonly<Loc> = {
+  lat: 36.35767,
+  lng: 127.38677,
+};
+
+const DISTRICTS: Readonly<District[]> = [
+  { name: "유성구", center: { lat: 36.36405586, lng: 127.356163 } },
+  { name: "동구", center: { lat: 36.31204028, lng: 127.4548596 } },
+  { name: "중구", center: { lat: 36.32582989, lng: 127.421381 } },
+  { name: "서구", center: { lat: 36.35707299, lng: 127.3834158 } },
+  { name: "대덕구", center: { lat: 36.35218384, lng: 127.4170933 } },
+];
 
 function MapPage() {
   const [markers, setMarkers] = useState<MarkerType[]>([]);
-
   const [dropdown, setDropdown] = useState<boolean>(false);
-  const openDropdown = () => setDropdown(!dropdown);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-
-  const [mapCenter, setMapCenter] = useState<Loc>({
-    lat: 36.35767,
-    lng: 127.38677,
-  });
-  const closeDropdown = () => setDropdown(false);
-  const mapRef = useRef<kakao.maps.Map | null>(null);
-  const changeLvl = (level: number) => {
-    const map = mapRef.current;
-    if (!map) return;
-    map.setLevel(level);
-  };
-
-  const districts: District[] = [
-    { name: "유성구", center: { lat: 36.36405586, lng: 127.356163 } },
-    { name: "동구", center: { lat: 36.31204028, lng: 127.4548596 } },
-    { name: "중구", center: { lat: 36.32582989, lng: 127.421381 } },
-    { name: "서구", center: { lat: 36.35707299, lng: 127.3834158 } },
-    { name: "대덕구", center: { lat: 36.35218384, lng: 127.4170933 } },
-  ];
+  const [mapCenter, setMapCenter] = useState<Loc>(INITIAL_CENTER);
   const [selectedDistrict, setSelectedDistrict] = useState<string>("구 선택");
-  const showSelectedDistrict = (
-    districtName: string,
-    newCenter: { lat: number; lng: number }
-  ) => {
-    setSelectedDistrict(districtName); // Update the selected district name
-    setMapCenter(newCenter);
-    changeLvl(6);
-    closeDropdown(); // Close the dropdown
-  };
-
   const [barIsExpanded, setBarExpand] = useState(false);
   const [barIsOpen, setBarOpen] = useState(false);
+
+  const mapRef = useRef<kakao.maps.Map | null>(null);
 
   useEffect(() => {
     fetch("http://localhost:3000/data/solarPanels.json", {
@@ -59,6 +44,22 @@ function MapPage() {
       .then((res) => res.json())
       .then((data) => setMarkers(data.panel));
   }, []);
+
+  const changeMapLevel = (level: number) => {
+    const map = mapRef.current;
+    if (map) map.setLevel(level);
+  };
+
+  const onDistrictMenuClick = (updatedDistrict: District) => () => {
+    setSelectedDistrict(updatedDistrict.name);
+    setMapCenter(updatedDistrict.center);
+    changeMapLevel(6);
+    setDropdown(false);
+  };
+
+  const onDropDownClick = () => {
+    setDropdown(!dropdown);
+  };
 
   return (
     <div className="static">
@@ -77,7 +78,7 @@ function MapPage() {
           selectedIndex={selectedIndex}
           setSelectedIndex={setSelectedIndex}
           setBarOpen={setBarOpen}
-          barIsExpanded={false}
+          barIsExpanded={barIsExpanded}
           setBarExpand={setBarExpand}
         />
       )}
@@ -88,7 +89,7 @@ function MapPage() {
           outline: dropdown ? "3px solid #364F85" : "none",
           outlineOffset: "-1px",
         }}
-        onClick={openDropdown}
+        onClick={onDropDownClick}
       >
         <div className="flex justify-center items-center space-x-1 w-[6vw] md:w-[3vw] h-[5.2816901vh] md:h-[4.167vh] rounded-l-sm bg-white">
           <Logo className="h-[3.5211268vh] md:h-[2.78vh]" />
@@ -101,13 +102,11 @@ function MapPage() {
       {dropdown && (
         <div className="absolute z-10 w-[59.183673vw] md:w-[12.083vw] h-[21.126761vh] md:h-[16.667vh] left-[0.625vw] top-[7.3149vh] rounded-sm bg-white shadow-lg">
           <ul className="bg-white">
-            {districts.map((district, index) => (
+            {DISTRICTS.map((district, index) => (
               <li
                 className="px-4 py-2 text-sm text-slate-500 hover:rounded-t-sm hover:bg-[#5D799F] hover:text-white cursor-pointer"
                 key={index}
-                onClick={() => {
-                  showSelectedDistrict(district.name, district.center);
-                }}
+                onClick={onDistrictMenuClick(district)}
               >
                 {district.name}
               </li>
