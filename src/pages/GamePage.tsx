@@ -1,7 +1,12 @@
+import { useState } from "react";
 import sample from "../assets/image_4_2 1.jpg";
-import Game from "../components/Game";
+import KakaoMapButtons from "../components/KakaoMapButtons";
 
 function GamePage() {
+  const [message, setMessage] = useState('');
+    const [round, setRound] = useState(1);
+    const [score, setScore] = useState(0);
+    const [check, setCheck] = useState([]);
     const panel = 
     {
       polygon:[
@@ -147,23 +152,38 @@ function GamePage() {
         },
       ]
     }
-
+  
+    const handlePolygonClick = (event: React.MouseEvent<SVGPolygonElement, MouseEvent>) => {
+      const { clientX, clientY } = event;
+      setMessage(`Clicked at position: (${clientX}, ${clientY})`);
+    };
+    
   return (
     <div className='static'>
+      <p>태양광 패널 찾기</p>
+      <KakaoMapButtons />
       <div className='flex flex-row'>
-        <p>태양광 패널 찾기</p>
-        <div className='flex flex-row'>
-          <p>지도</p>
-          <p>게임</p>
-        </div>
+        <p>Round {round}</p>
+        <p>{score}</p>
       </div>
-      <Game
-        round={1}
-        score={9}
-        image={sample}
-        panels={panel}
-        life={5}
-      />
+      <p>SolarSee AI는 패널 {panel.polygon.length}개를 찾았어요.</p>
+      <p>최대 {panel.polygon.length}개의 패널을 선택해 주세요.</p>
+      <h2>{message}</h2>
+      <div className='relative flex bg-black w-full aspect-square'>
+        <img src={sample} className='w-full aspect-square' alt=''/>
+        <svg className='absolute left-0 top-0 z-10' width="100%" height="100%" viewBox='0 0 100 100'>
+        {panel.polygon.map((pan: any, index: number) => (
+            <polygon
+              points={pan.all_points_x.map((point: number, i: number) => 
+                `${point * 100 / 393},${pan.all_points_y[i] * 100 / 393}`
+              ).join(' ')} 
+              fill='rgba(0, 0, 0, 0)' 
+              onClick={handlePolygonClick}
+              key={index}
+            />
+        ))}
+        </svg>
+      </div>  
     </div>
   );
 }
