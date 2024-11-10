@@ -11,7 +11,7 @@ export interface District {
 export interface MarkerType {
   shape_attributes: {
     mean_point_latitude: number;
-    mean_point_logitude: number;
+    mean_point_longitude: number;
     shape_area_m2: number;
   };
 }

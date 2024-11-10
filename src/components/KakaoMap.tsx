@@ -104,7 +104,7 @@ function KakaoMap(props: Props) {
             key={index}
             position={{
               lat: marker.shape_attributes.mean_point_latitude,
-              lng: marker.shape_attributes.mean_point_logitude,
+              lng: marker.shape_attributes.mean_point_longitude,
             }}
             clickable={true}
             onClick={() => {
