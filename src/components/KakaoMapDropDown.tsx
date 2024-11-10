@@ -35,23 +35,23 @@ function KakaoMapDropDown(props: Props) {
   return (
     <>
       <div
-        className="absolute flex flex-row z-10 w-[59.183673vw] md:w-[12.083vw] h-[5.2816901vh] md:h-[4.167vh] left-[0.625vw] top-[0.926vh] rounded-sm cursor-pointer shadow-lg"
+        className="absolute flex flex-row z-10 w-[59.183673vw] md:w-[12.083vw] h-[5.2816901vh] md:h-[4.167vh] left-[3.307vw] top-[0.926vh] rounded-sm cursor-pointer shadow-lg bg-white"
         style={{
           outline: isDropDownOpen ? "3px solid #364F85" : "none",
           outlineOffset: "-1px",
         }}
         onClick={onDropDownClick}
       >
-        <div className="flex justify-center items-center space-x-1 w-[6vw] md:w-[3vw] h-[5.2816901vh] md:h-[4.167vh] rounded-l-sm bg-white">
+        <div className="flex justify-center items-center w-[7.6335vw] md:w-[3vw] h-[5.2816901vh] md:h-[4.167vh] rounded-l-sm bg-white">
           <Logo className="h-[3.5211268vh] md:h-[2.78vh]" />
         </div>
-        <div className="flex items-center w-[53.183673vw] md:w-[9.083vw] h-[5.2816901vh] md:h-[4.167vh] rounded-r-sm bg-white">
+        <div className="flex items-center w-[48vw] md:w-[9.083vw] h-[5.2816901vh] md:h-[4.167vh] rounded-r-sm bg-white">
           <p className="text-sm text-slate-500">{props.selectedDistrict}</p>
-          <DownT className="absolute w-[3.0612245vw] md:w-[0.625vw] right-[1.0625vw]" />
+          <DownT className="absolute w-[3.0612245vw] md:w-[0.625vw] right-[3vw]" />
         </div>
       </div>
       {isDropDownOpen && (
-        <div className="absolute z-10 w-[59.183673vw] md:w-[12.083vw] h-[21.126761vh] md:h-[16.667vh] left-[0.625vw] top-[7.3149vh] rounded-sm bg-white shadow-lg">
+        <div className="absolute z-10 w-[59.183673vw] md:w-[12.083vw] h-[21.126761vh] md:h-[16.667vh] left-[3.307vw] top-[7.3149vh] rounded-sm bg-white shadow-lg">
           <ul className="bg-white">
             {DISTRICTS.map((district, index) => (
               <li

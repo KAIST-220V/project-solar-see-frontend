@@ -1,6 +1,6 @@
 import { useState } from "react";
 import sample from "../assets/image_4_2 1.jpg";
-import KakaoMapButtons from "../components/KakaoMapButtons";
+import GameButton from "../components/GameButton";
 
 function GamePage() {
   const [message, setMessage] = useState('');
@@ -161,7 +161,7 @@ function GamePage() {
   return (
     <div className='static'>
       <p>태양광 패널 찾기</p>
-      <KakaoMapButtons />
+      <GameButton />
       <div className='flex flex-row'>
         <p>Round {round}</p>
         <p>{score}</p>
