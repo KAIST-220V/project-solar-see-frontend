@@ -53,7 +53,7 @@ function KakaoMapSnackBar(props: Props) {
             N{" "}
             {props.markers[
               props.selectedIndex
-            ].shape_attributes.mean_point_logitude.toFixed(4)}
+            ].shape_attributes.mean_point_longitude.toFixed(4)}
             °, E{" "}
             {props.markers[
               props.selectedIndex
