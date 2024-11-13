@@ -162,19 +162,31 @@ function GamePlay() {
   const [marks, setMarks] = useState<Position[]>([]);
   const handleImageClick = (event: React.MouseEvent<SVGElement, MouseEvent>) => {
     const { clientX, clientY } = event;
+    const eventTarget = event.target as SVGElement;
+    const rect = eventTarget.getBoundingClientRect();
     if (count < panel.polygon.length) {
-      setMarks([...marks, { x: clientX, y: clientY, pIndex: -1}]);
+      setMarks([...marks, { x: clientX - rect.left, y: clientY - rect.top, pIndex: -1}]);
       setCount(count => count + 1);
     }
-    console.log(check);
+    console.log(clientX - rect.left, clientY - rect.top);
+    console.log(marks);
   };
   const handlePolygonClick = (key: number, event: React.MouseEvent<SVGPolygonElement, MouseEvent>) => {
-    const { clientX, clientY } = event;
     event.stopPropagation();
-    if (count < panel.polygon.length) {
-      setMarks([...marks, { x: clientX, y: clientY, pIndex: key }]);
-      setCount(count => count + 1);
-      setCheck(check => check.map((cnt, i) => i === key ? cnt + 1 : cnt))
+    const { clientX, clientY } = event;
+    const eventTarget = event.target as SVGPolygonElement;
+    const svgElement = eventTarget.closest('svg');
+    if (svgElement) {
+      const rect = svgElement.getBoundingClientRect();
+      if (count < panel.polygon.length) {
+        setMarks([...marks, { x: clientX - rect.left, y: clientY - rect.top, pIndex: key }]);
+        setCount(count => count + 1);
+        setCheck(check => check.map((cnt, i) => i === key ? cnt + 1 : cnt))
+      }
+      console.log(clientX - rect.left, clientY - rect.top);
+      console.log(marks);
+    } else {
+      console.log("can't find closest svg!!");
     }
   };
   const handleMarkClick = (key: number, event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
@@ -212,9 +224,9 @@ function GamePlay() {
         <div className='absolute top-0 left-0 w-full h-full'>
           {marks.map((mark, index) => (
             <img src={checkmark}
-              className="fixed w-8 h-8 z-20 select-none"
+              className="absolute w-8 h-8 z-20 select-none"
               key={`mark-${index}`}
-              style={{top: `${mark.y-25}px`, left: `${mark.x-12}px`}}
+              style={{top: `${mark.y-26}px`, left: `${mark.x-12}px`}}
               onClick={(event) => handleMarkClick(index, event)}
               ></img>
           ))}
