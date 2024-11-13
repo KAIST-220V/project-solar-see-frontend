@@ -15,16 +15,18 @@ type Props = {
   score: number;
   check: any[];
   setCheck: React.Dispatch<React.SetStateAction<any[]>>;
+  marks: Position[];
+  setMarks: React.Dispatch<React.SetStateAction<Position[]>>;
 };
 
 function GamePlay(props: Props) {
   const [count, setCount] = useState(0);
-  const [marks, setMarks] = useState<Position[]>([]);
+  
 
   const handleImageClick = (event: React.MouseEvent<SVGElement, MouseEvent>) => {
     const { clientX, clientY } = event;
     if (count < props.panelsInImage.polygon.length) {
-      setMarks([...marks, { x: clientX, y: clientY, pIndex: -1}]);
+      props.setMarks([...props.marks, { x: clientX, y: clientY, pIndex: -1}]);
       setCount(count => count + 1);
     }
   };
@@ -32,17 +34,17 @@ function GamePlay(props: Props) {
     const { clientX, clientY } = event;
     event.stopPropagation();
     if (count < props.panelsInImage.polygon.length) {
-      setMarks([...marks, { x: clientX, y: clientY, pIndex: key }]);
+      props.setMarks([...props.marks, { x: clientX, y: clientY, pIndex: key }]);
       setCount(count => count + 1);
       props.setCheck(check => check.map((cnt, i) => i === key ? cnt + 1 : cnt))
     }
   };
   const handleMarkClick = (key: number, event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     event.stopPropagation();
-    setMarks(marks => marks.filter((_, i) => i !== key));
+    props.setMarks(marks => marks.filter((_, i) => i !== key));
     const tmp = [...props.check];
-    if (marks[key].pIndex != -1) {
-      props.setCheck(check => check.map((cnt, i) => i === marks[key].pIndex ? cnt - 1 : cnt));
+    if (props.marks[key].pIndex != -1) {
+      props.setCheck(check => check.map((cnt, i) => i === props.marks[key].pIndex ? cnt - 1 : cnt));
     }
     setCount(count => count - 1);
   }
@@ -69,7 +71,7 @@ function GamePlay(props: Props) {
           ))}
         </svg>
         <div className='absolute top-0 left-0 w-full h-full'>
-          {marks.map((mark, index) => (
+          {props.marks.map((mark, index) => (
             <img src={checkmark}
               className="fixed w-8 h-8 z-20 select-none"
               key={`mark-${index}`}
