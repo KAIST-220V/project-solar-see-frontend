@@ -11,12 +11,13 @@ type Position = {
 }
 type scoreProps = {
     marks: Position[];
-    panel: { polygon: {all_points_x: number[]; all_points_y: number[]}[] };
+    panel: {all_points_x: number[]; all_points_y: number[]}[];
     lifeCount: number;
+    setLifeCount: React.Dispatch<React.SetStateAction<number>>;
+    setIsGameMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function GameScore(props: scoreProps)
-    {
+function GameScore(props: scoreProps) {
     const [round, setRound] = useState(1);
     const [score, setScore] = useState(0);
     const [showWrong, setShowWrong] = useState(false);
@@ -44,13 +45,13 @@ function GameScore(props: scoreProps)
     }
 
     const isMarkInPanel = (mark: Position) => {
-        const isInPanel = props.panel.polygon.some((polygon) => isInPolygon(mark, polygon));
+        const isInPanel = props.panel.some((polygon) => isInPolygon(mark, polygon));
         if(!isInPanel) { wrongClicks++; }
         return isInPanel;
     };
 
     const getPanelCorners = (mark: Position) => {
-        const panelWithMark = props.panel.polygon.find((polygon) => isInPolygon(mark, polygon));
+        const panelWithMark = props.panel.find((polygon) => isInPolygon(mark, polygon));
         if (panelWithMark) {
           return panelWithMark.all_points_x.map((x, index) => ({
             x,
@@ -99,7 +100,7 @@ function GameScore(props: scoreProps)
         <div className='relative flex w-full aspect-square mt-[2vh] mb-[2vh]'>
             <img src={sample} className='w-full aspect-square' alt=''/>
             <svg className='absolute left-0 top-0 z-10' width="100%" height="100%" viewBox='0 0 100 100'>
-            {props.panel.polygon.map((pan: any, index: number) => (
+            {props.panel.map((pan: any, index: number) => (
                 <polygon
                 points={pan.all_points_x.map((point: number, i: number) => 
                     `${point * 100 / 393},${pan.all_points_y[i] * 100 / 393}`
@@ -162,7 +163,7 @@ function GameScore(props: scoreProps)
         </div>
 
         <div className="flex flex-col items-center top-[76.05634vh]">
-            <p>{props.panel.polygon.length}개 중 {props.marks.length}개 맞힘, {wrongClicks}개 틀림, {props.panel.polygon.length - props.marks.length}개 놓침</p>
+            <p>{props.panel.length}개 중 {props.marks.length}개 맞힘, {wrongClicks}개 틀림, {props.panel.length - props.marks.length}개 놓침</p>
             <p className='text-lg font-bold text-yellow'>{props.marks.length}점</p>
         </div>
 
@@ -171,7 +172,7 @@ function GameScore(props: scoreProps)
             
             <div className="flex flex-row justify-between top-[88.967136vh]">
                 <button className="rounded-lg bg-[#FFA629] w-[44.2744809vw] h-[6.45533991vh]">AI의 실수 잡아내기</button>
-                <button className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh]">다음 게임 시작하기</button>
+                <button className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh]" onClick={() => props.setIsGameMode(true)}>다음 게임 시작하기</button>
             </div>
         </>
         )}

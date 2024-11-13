@@ -17,6 +17,7 @@ type Props = {
   setCheck: React.Dispatch<React.SetStateAction<any[]>>;
   marks: Position[];
   setMarks: React.Dispatch<React.SetStateAction<Position[]>>;
+  setIsGameMode: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function GamePlay(props: Props) {
@@ -27,7 +28,7 @@ function GamePlay(props: Props) {
     const { clientX, clientY } = event;
     const eventTarget = event.target as SVGElement;
     const rect = eventTarget.getBoundingClientRect();
-    if (count < props.panelsInImage.polygon.length) {
+    if (count < props.panelsInImage.length) {
       props.setMarks([...props.marks, { x: clientX - rect.left, y: clientY - rect.top, pIndex: -1}]);
       setCount(count => count + 1);
     }
@@ -39,7 +40,7 @@ function GamePlay(props: Props) {
     const svgElement = eventTarget.closest('svg');
     if (svgElement) {
       const rect = svgElement.getBoundingClientRect();
-      if (count < props.panelsInImage.polygon.length) {
+      if (count < props.panelsInImage.length) {
         props.setMarks([...props.marks, { x: clientX - rect.left, y: clientY - rect.top, pIndex: key }]);
         setCount(count => count + 1);
         props.setCheck(check => check.map((cnt, i) => i === key ? cnt + 1 : cnt))
@@ -65,12 +66,12 @@ function GamePlay(props: Props) {
         <p>Round {props.round}</p>
         <p>{props.score}</p>
       </div>
-      <p>SolarSee AI는 패널 {props.panelsInImage.polygon.length}개를 찾았어요.</p>
-      <p>최대 {props.panelsInImage.polygon.length}개의 패널을 선택해 주세요.</p>
+      <p>SolarSee AI는 패널 {props.panelsInImage.length}개를 찾았어요.</p>
+      <p>최대 {props.panelsInImage.length}개의 패널을 선택해 주세요.</p>
       <div className='relative flex bg-black aspect-square'>
         <img src={sample} className='w-full select-none aspect-square' alt='' />
         <svg className='absolute left-0 top-0 z-10 w-full h-full' viewBox='0 0 100 100' onClick={handleImageClick}>
-          {props.panelsInImage.polygon.map((pan: any, index: number) => (
+          {props.panelsInImage.map((pan: any, index: number) => (
             <polygon
               points={pan.all_points_x.map((point: number, i: number) =>
                 `${point * 100 / 393},${pan.all_points_y[i] * 100 / 393}`
@@ -92,7 +93,7 @@ function GamePlay(props: Props) {
           ))}
         </div>
       </div>
-      <button className="bg-yellow">채점하기</button>
+      <button className="bg-yellow" onClick={() => props.setIsGameMode(false)}>채점하기</button>
     </div>
   )
 }

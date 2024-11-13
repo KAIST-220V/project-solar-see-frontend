@@ -15,3 +15,8 @@ export interface MarkerType {
     shape_area_m2: number;
   };
 }
+
+export interface PanelInImages {
+  all_points_x: number[];
+  all_points_y: number[];
+}
