@@ -6,8 +6,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'yellow': "#FFCD00",
-        'blue': "#364F85"
+        'blue': "#364F85",
+        'yellow': "#FFCD00"
       }
     },
     fontFamily: {

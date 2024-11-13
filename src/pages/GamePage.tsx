@@ -43,6 +43,7 @@ function GamePage() {
       />}
       {!isGameMode && <GameScore
         panel={panel}
+        checks={check}
         marks={marks}
         lifeCount={lifeCount}
         setLifeCount={setLifeCount}
