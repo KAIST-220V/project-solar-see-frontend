@@ -25,7 +25,7 @@ function KakaoMap(props: Props) {
     >
       <MarkerClusterer
         averageCenter={true}
-        minLevel={5}
+        minLevel={3}
         calculator={[10, 30, 70]} // 클러스터의 크기 구분 값, 각 사이값마다 설정된 text나 style이 적용된다
         styles={[
           {

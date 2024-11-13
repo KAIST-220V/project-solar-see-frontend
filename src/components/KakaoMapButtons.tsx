@@ -2,20 +2,22 @@ import React from "react";
 import { ReactComponent as CurrentLocation } from "../assets/current_location.svg";
 import { ReactComponent as ZoomIn } from "../assets/zoom_in.svg";
 import { ReactComponent as ZoomOut } from "../assets/zoom_out.svg";
+import { useNavigate } from "react-router-dom";
 
 function KakaoMapButtons() {
+  const navigate = useNavigate();
   return (
     <>
-      <div className="absolute flex justify-evenly items-center z-10 w-[6.25vw] h-[4.444vh] left-[87.271vw] top-[0.926vh] rounded-sm text-sm font-bold bg-white">
-        <div className="w-[2.8125vw] h-[3.556vh] flex justify-center items-center rounded-sm bg-yellow">
-          <p className="text-white w-fit h-fit">지도</p>
+      <div className="absolute flex justify-evenly items-center z-10 w-[25.445vw] h-[5.28169vh] left-[71.246vw] top-[0.926vh] rounded-sm text-sm bg-white">
+        <div className="w-[12.468vw] h-[4.2253vh] flex justify-center items-center rounded-sm hover:cursor-pointer bg-blue">
+          <p className="w-fit h-fit text-white">지도</p>
         </div>
-        <div className="w-[2.8125vw] h-[3.556vh] flex justify-center items-center">
-          <p className="w-fit h-fit">게임</p>
+        <div className="w-[12.468vw] h-[4.2253vh] flex justify-center items-center rounded-sm hover:cursor-pointer bg-white" onClick={() => navigate("/game")}>
+          <p className="w-fit h-fit text-blue">게임</p>
         </div>
       </div>
 
-      <div className="absolute flex justify-evenly items-center z-10 w-[5vw] h-[4.444vh] left-[94.271vw] top-[0.926vh] rounded-sm bg-white">
+      <div className="absolute flex justify-evenly items-center z-10 w-[5vw] h-[4.444vh] left-[94.271vw] top-[0.926vh] rounded-sm bg-white hidden md:block">
         <p className="font-bold text-yellow">로그인</p>
       </div>
 
