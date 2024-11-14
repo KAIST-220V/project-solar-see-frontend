@@ -4,7 +4,6 @@ import { ReactComponent as EmptyLogo } from "../assets/logo_outline.svg";
 import { ReactComponent as Correct } from "../assets/check1.svg";
 import { ReactComponent as Wrong } from "../assets/check2.svg";
 import sample from "../assets/image_4_2 1.jpg";
-import { Polygon } from "react-kakao-maps-sdk";
 
 type Position = {
     x: number;
@@ -12,8 +11,14 @@ type Position = {
     pIndex: number;
 }
 type scoreProps = {
+    round: number;
+    setRound: React.Dispatch<React.SetStateAction<number>>;
+    score: number;
+    setScore: React.Dispatch<React.SetStateAction<number>>;
     checks: number[];
+    setChecks: React.Dispatch<React.SetStateAction<number[]>>;
     marks: Position[];
+    setMarks: React.Dispatch<React.SetStateAction<Position[]>>;
     panel: {all_points_x: number[]; all_points_y: number[]}[];
     lifeCount: number;
     setLifeCount: React.Dispatch<React.SetStateAction<number>>;
@@ -21,77 +26,55 @@ type scoreProps = {
 }
 
 function GameScore(props: scoreProps) {
-    const [round, setRound] = useState(1);
-    const [score, setScore] = useState(0);
     const [logos, setLogos] = useState<JSX.Element[]>([]);
-    let correctClicks = 0;
-    let wrongClicks = 0;
+    const correctClicks = props.checks.filter((num: number) => num == 1).length;
+    const wrongClicks = props.marks.filter((value: Position) => value.pIndex == -1).length;
 
-      useEffect(() => {
-        // lifeCount개의 Logo + (5-lifeCount)개의 EmptyLogo
+    useEffect(() => {
         const newLogos = [
-          ...Array(props.lifeCount).fill(null).map((_, index) => <Logo key={index} className="w-[7.6335878vw] h-[7.6335878vw]"
+          ...Array(props.lifeCount - wrongClicks).fill(null).map((_, index) => <Logo key={index} className="w-[7.6335878vw] h-[7.6335878vw]"
                                                                 style={{marginRight: index < props.lifeCount ? '9.6692112vw' : '0'}}/>),
-          ...Array(5 - props.lifeCount).fill(null).map((_, index) => <EmptyLogo key={props.lifeCount + index} className="w-[7.6335878vw] h-[7.6335878vw]"
+          ...Array(5 - props.lifeCount + wrongClicks).fill(null).map((_, index) => <EmptyLogo key={props.lifeCount + index} className="w-[7.6335878vw] h-[7.6335878vw]"
                                                                     style={{marginRight: index < 4 ? '9.6692112vw' : '0'}}/>)
         ];
         setLogos(newLogos);
-      }, [props.lifeCount]);
-    
-      useEffect(() => {
-        if (wrongClicks !== 0) {
-          setLogos((prevLogos) => {
-            const updatedLogos = prevLogos.map((logo, index) => {
-                return index >= 5-wrongClicks ? <EmptyLogo key={index} className="w-[7.6335878vw] h-[7.6335878vw]"
-                                            style={{marginRight: index < 4 ? '9.6692112vw' : '0'}}/> : logo;
-              });
-              props.setLifeCount(props.lifeCount - wrongClicks);
-            return updatedLogos;
-          });
-        }
-      }, [wrongClicks]);
+        props.setScore(props.score + correctClicks);
+        props.setLifeCount(Math.max(0, props.lifeCount - wrongClicks));
+      }, []);
 
-      console.log('Checks:', props.checks);
-      console.log('Panel:', props.panel);
-      console.log('Marks:', props.marks);
+    const handleNextGame = () => {
+        props.setIsGameMode(true);
+        props.setRound(props.round + 1);
+        props.setChecks([]);
+        props.setMarks([]);
+    }
 
     return (
     <div className="sm:p-4 md:p-6 lg:p-8">
         <div className='flex flex-row justify-between w-full'>
-            <p className="text-lg">ROUND {round}</p>
-            <p>{score}</p>
+            <p className="text-lg">ROUND {props.round}</p>
+            <p>{props.score}</p>
         </div>
 
         <div className='relative flex w-full aspect-square'>
             <img src={sample} className='w-full aspect-square' alt=''/>
             <svg className='absolute left-0 top-0 z-10' width="100%" height="100%" viewBox='0 0 100 100'>
-            {props.panel.map((pan: any, index: number) => (
-                <polygon
-                points={pan.all_points_x.map((point: number, i: number) => 
-                    `${point * 100 / 393},${pan.all_points_y[i] * 100 / 393}`
-                ).join(' ')}
-                fill='rgba(0, 0, 0, 0)' 
-                stroke="rgb(127, 168, 255)"
-                strokeWidth="1"
-                key={index}
-                />
-            ))}
             {props.checks.map((count, i) => 
-                count === 0 && props.panel[i] && (
+                props.panel[i] && (
                     <polygon key={i} 
                     points={props.panel[i].all_points_x.map((point: number, j: number) => 
                         `${point * 100 / 393},${props.panel[i].all_points_y[j] * 100 / 393}`
                     ).join(' ')}
                     fill="rgba(0, 0, 0, 0)"
-                    stroke="#FF7729"
+                    stroke={`${count === 0 ? "#FF7729" : "rgb(127, 168, 255)"}`}
                     strokeWidth="1"
                     />
                 )
             )}
             </svg>
             <ul>
-                {props.marks.map((location) => (
-                    <li key={location.pIndex}>
+                {props.marks.map((location, index) => (
+                    <li key={index}>
                         {location.pIndex!==-1 && (
                         <Correct
                             style={{
@@ -104,7 +87,6 @@ function GameScore(props: scoreProps) {
                             zIndex: 20
                             }}/>
                         )}
-                        {location.pIndex!==-1 && correctClicks++}
                         {location.pIndex===-1 && (
                         <Wrong
                             style={{
@@ -117,7 +99,6 @@ function GameScore(props: scoreProps) {
                             zIndex: 20
                             }}/>
                         )}
-                        {location.pIndex===-1 && wrongClicks++}
                     </li>
                 ))}
             </ul>
@@ -138,7 +119,7 @@ function GameScore(props: scoreProps) {
 
         <div className="flex flex-row justify-between top-[88.967136vh]">
             <button className="rounded-lg bg-[#FFA629] w-[44.2744809vw] h-[6.45533991vh]">AI의 실수 잡아내기</button>
-            <button className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh]" onClick={() => props.setIsGameMode(true)}>다음 게임 시작하기</button>
+            <button className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh]" onClick={handleNextGame}>다음 게임 시작하기</button>
         </div>
 
     </div>
