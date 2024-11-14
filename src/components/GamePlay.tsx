@@ -13,8 +13,8 @@ type Props = {
   panelsInImage: any;
   round: number;
   score: number;
-  check: any[];
-  setCheck: React.Dispatch<React.SetStateAction<any[]>>;
+  check: number[];
+  setCheck: React.Dispatch<React.SetStateAction<number[]>>;
   marks: Position[];
   setMarks: React.Dispatch<React.SetStateAction<Position[]>>;
   setIsGameMode: React.Dispatch<React.SetStateAction<boolean>>;
@@ -46,7 +46,8 @@ function GamePlay(props: Props) {
         props.setCheck(check => check.map((cnt, i) => i === key ? cnt + 1 : cnt))
       }
       console.log(clientX - rect.left, clientY - rect.top);
-      console.log(props.marks);
+      console.log(props.check);
+      console.log(key);
     } else {
       console.log("can't find closest svg!!");
     }
