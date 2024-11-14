@@ -26,8 +26,8 @@ function GamePage() {
     .then((res) => res.json())
     .then((data) => {
       setPanel(data.polygon)
-     setCheck(Array(data.polygon.length).fill(0)) });
-  }, []);
+      setCheck(Array(data.polygon.length).fill(0)) });
+  }, [round]);
   
  
   return (
@@ -45,9 +45,15 @@ function GamePage() {
         setIsGameMode={setIsGameMode}
       />}
       {!isGameMode && <GameScore
+        round={round}
+        setRound={setRound}
+        score={score}
+        setScore={setScore}
         panel={panel}
         checks={check}
+        setChecks={setCheck}
         marks={marks}
+        setMarks={setMarks}
         lifeCount={lifeCount}
         setLifeCount={setLifeCount}
         setIsGameMode={setIsGameMode}
