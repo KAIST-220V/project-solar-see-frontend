@@ -45,6 +45,7 @@ function GameScore(props: scoreProps) {
                 return index >= 5-wrongClicks ? <EmptyLogo key={index} className="w-[7.6335878vw] h-[7.6335878vw]"
                                             style={{marginRight: index < 4 ? '9.6692112vw' : '0'}}/> : logo;
               });
+              props.setLifeCount(props.lifeCount - wrongClicks);
             return updatedLogos;
           });
         }
