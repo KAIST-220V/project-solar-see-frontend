@@ -13,7 +13,7 @@ type Position = {
 function GamePage() {
   const [round, setRound] = useState(1);
   const [score, setScore] = useState(0);
-  const [check, setCheck] = useState<any[]>([]);
+  const [check, setCheck] = useState<number[]>([0]);
   const [panel, setPanel] = useState<PanelInImages[]>([]);
   const [marks, setMarks] = useState<Position[]>([]);
   const [isGameMode, setIsGameMode] = useState(true);
@@ -24,9 +24,12 @@ function GamePage() {
       method: "GET",
     })
     .then((res) => res.json())
-    .then((data) => setPanel(data.polygon));
+    .then((data) => {
+      setPanel(data.polygon)
+     setCheck(Array(data.polygon.length).fill(0)) });
   }, []);
-    
+  
+ 
   return (
     <div className='static'>
       <p>태양광 패널 찾기</p>

@@ -12,7 +12,7 @@ type Position = {
     pIndex: number;
 }
 type scoreProps = {
-    checks: any[];
+    checks: number[];
     marks: Position[];
     panel: {all_points_x: number[]; all_points_y: number[]}[];
     lifeCount: number;
@@ -75,6 +75,18 @@ function GameScore(props: scoreProps) {
                 key={index}
                 />
             ))}
+            {props.checks.map((count, i) => 
+                count === 0 && props.panel[i] && (
+                    <polygon key={i} 
+                    points={props.panel[i].all_points_x.map((point: number, j: number) => 
+                        `${point * 100 / 393},${props.panel[i].all_points_y[j] * 100 / 393}`
+                    ).join(' ')}
+                    fill="rgba(0, 0, 0, 0)"
+                    stroke="#FF7729"
+                    strokeWidth="1"
+                    />
+                )
+            )}
             </svg>
             <ul>
                 {props.marks.map((location) => (
@@ -107,22 +119,6 @@ function GameScore(props: scoreProps) {
                         {location.pIndex===-1 && wrongClicks++}
                     </li>
                 ))}
-
-                <svg className='absolute left-0 top-0 z-10' width="100%" height="100%" viewBox='0 0 100 100'>
-                {props.checks.map((count, i) => 
-                    count === 0 && props.panel[i] && (
-                        <polygon key={i} 
-                        points={props.panel[i].all_points_x.map((point: number, i: number) => 
-                            `${point * 100 / 393},${props.panel[i].all_points_y[i] * 100 / 393}`
-                        ).join(' ')}
-                        fill="rgba(0, 0, 0, 0)"
-                        stroke="rgb(100, 47, 16)"
-                        strokeWidth="1"
-                        />
-                    )
-                )}
-                </svg>
-
             </ul>
         </div>
 
