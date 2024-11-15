@@ -20,7 +20,7 @@ function GamePage() {
   const [lifeCount, setLifeCount] = useState(5);
 
   useEffect(() => {
-    fetch("http://localhost:3000/data/panel.json", {
+    fetch("/data/panel.json", {
       method: "GET",
     })
       .then((res) => res.json())

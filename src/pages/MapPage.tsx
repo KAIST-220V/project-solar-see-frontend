@@ -20,7 +20,7 @@ function MapPage() {
   const mapRef = useRef<kakao.maps.Map | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/data/solarPanels.json", {
+    fetch("/data/solarPanels.json", {
       method: "GET",
     })
       .then((res) => res.json())
