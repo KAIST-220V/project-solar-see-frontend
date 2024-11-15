@@ -12,7 +12,10 @@ function KakaoMapButtons() {
         <div className="w-[12.468vw] h-[4.2253vh] flex justify-center items-center rounded-sm hover:cursor-pointer bg-blue">
           <p className="w-fit h-fit text-white">지도</p>
         </div>
-        <div className="w-[12.468vw] h-[4.2253vh] flex justify-center items-center rounded-sm hover:cursor-pointer bg-white" onClick={() => navigate("/game")}>
+        <div
+          className="w-[12.468vw] h-[4.2253vh] flex justify-center items-center rounded-sm hover:cursor-pointer bg-white"
+          onClick={() => navigate("/game")}
+        >
           <p className="w-fit h-fit text-blue">게임</p>
         </div>
       </div>

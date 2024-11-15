@@ -8,7 +8,7 @@ type Position = {
   x: number;
   y: number;
   pIndex: number;
-}
+};
 
 function GamePage() {
   const [round, setRound] = useState(1);
@@ -23,41 +23,45 @@ function GamePage() {
     fetch("http://localhost:3000/data/panel.json", {
       method: "GET",
     })
-    .then((res) => res.json())
-    .then((data) => {
-      setPanel(data.polygon)
-      setCheck(Array(data.polygon.length).fill(0)) });
+      .then((res) => res.json())
+      .then((data) => {
+        setPanel(data.polygon);
+        setCheck(Array(data.polygon.length).fill(0));
+      });
   }, [round]);
-  
- 
+
   return (
-    <div className='static'>
+    <div className="static">
       <p>태양광 패널 찾기</p>
       <GameButton />
-      {isGameMode && <GamePlay 
-        panelsInImage={panel}
-        round={round}
-        score={score}
-        check={check}
-        setCheck={setCheck}
-        marks={marks}
-        setMarks={setMarks}
-        setIsGameMode={setIsGameMode}
-      />}
-      {!isGameMode && <GameScore
-        round={round}
-        setRound={setRound}
-        score={score}
-        setScore={setScore}
-        panel={panel}
-        checks={check}
-        setChecks={setCheck}
-        marks={marks}
-        setMarks={setMarks}
-        lifeCount={lifeCount}
-        setLifeCount={setLifeCount}
-        setIsGameMode={setIsGameMode}
-      />}
+      {isGameMode && (
+        <GamePlay
+          panelsInImage={panel}
+          round={round}
+          score={score}
+          check={check}
+          setCheck={setCheck}
+          marks={marks}
+          setMarks={setMarks}
+          setIsGameMode={setIsGameMode}
+        />
+      )}
+      {!isGameMode && (
+        <GameScore
+          round={round}
+          setRound={setRound}
+          score={score}
+          setScore={setScore}
+          panel={panel}
+          checks={check}
+          setChecks={setCheck}
+          marks={marks}
+          setMarks={setMarks}
+          lifeCount={lifeCount}
+          setLifeCount={setLifeCount}
+          setIsGameMode={setIsGameMode}
+        />
+      )}
     </div>
   );
 }
