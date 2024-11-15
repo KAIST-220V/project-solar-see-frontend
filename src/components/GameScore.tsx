@@ -27,7 +27,7 @@ type scoreProps = {
 
 function GameScore(props: scoreProps) {
   const [logos, setLogos] = useState<JSX.Element[]>([]);
-  const correctClicks = props.checks.filter((num: number) => num === 1).length;
+  const correctClicks = props.checks.filter((num: number) => num >= 1).length;
   const wrongClicks = props.marks.filter(
     (value: Position) => value.pIndex === -1
   ).length;
