@@ -12,6 +12,7 @@ module.exports = {
     },
     fontFamily: {
       'roboto': ['Roboto', 'sans-serif'],
+      'handwriting': ['Comic Sans MS', 'cursive']
     },
   },
   plugins: [],
