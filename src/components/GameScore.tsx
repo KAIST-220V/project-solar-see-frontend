@@ -69,9 +69,9 @@ function GameScore(props: scoreProps) {
 
   return (
     <div className="sm:p-4 md:p-6 lg:p-8">
-      <div className="flex flex-row justify-between w-full">
-        <p className="text-lg">ROUND {props.round}</p>
-        <p>{props.score}</p>
+      <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
+        <p>ROUND {props.round}</p>
+        <p className="text-right">{props.score.toString().padStart(3, '0')}</p>
       </div>
 
       <div className="relative flex w-full aspect-square">
