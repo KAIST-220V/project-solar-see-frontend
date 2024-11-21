@@ -18,9 +18,32 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SSH_PORT }} 
           script: |
+            echo "===== 현재 위치 확인 ====="
             pwd
+            
+            echo "===== 디렉토리 내용 확인 ====="
             ls -la
-            cd ~/project-solar-see-frontend  # 프로젝트 디렉토리로 이동
-            git pull origin main
+            
+            echo "===== 프로젝트 디렉토리로 이동 ====="
+            cd ~/project-solar-see-frontend || exit 1
+            
+            echo "===== Git 브랜치 확인 ====="
+            git checkout main
+            git branch
+            
+            echo "===== Git Pull 실행 ====="
+            git pull
+            git log -1 --format="%H" # 최신 커밋 해시 출력
+            
+            echo "===== Node 버전 확인 ====="
+            node -v
+            
+            echo "===== NPM 설치 시작 ====="
             npm install
+            npm list --depth=0 # 설치된 패키지 확인
+            
+            echo "===== 빌드 시작 ====="
             npm run build
+            
+            echo "===== 빌드 결과 확인 ====="
+            ls -la dist/ # 빌드 결과물 확인
