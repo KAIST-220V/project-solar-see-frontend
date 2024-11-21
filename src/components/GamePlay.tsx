@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ReactComponent as Logo } from "../assets/logo_100px.svg";
 import sample from "../assets/image_4_2 1.jpg";
 import checkmark from "../assets/check1.png";
 import { NumberLiteralType } from "typescript";
@@ -22,6 +23,7 @@ type Props = {
 
 function GamePlay(props: Props) {
   const [count, setCount] = useState(0);
+  const [logos, setLogos] = useState<JSX.Element[]>([]);
 
   const handleImageClick = (
     event: React.MouseEvent<SVGElement, MouseEvent>
@@ -84,9 +86,9 @@ function GamePlay(props: Props) {
 
   return (
     <div className="sm:p-4 md:p-6 lg:p-8">
-      <div className="flex flex-row">
-        <p>Round {props.round}</p>
-        <p>{props.score}</p>
+      <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
+        <p>ROUND {props.round}</p>
+        <p className="text-right">{props.score.toString().padStart(3, '0')}</p>
       </div>
       <p>SolarSee AI는 패널 {props.panelsInImage.length}개를 찾았어요.</p>
       <p>최대 {props.panelsInImage.length}개의 패널을 선택해 주세요.</p>
@@ -102,8 +104,7 @@ function GamePlay(props: Props) {
               points={pan.all_points_x
                 .map(
                   (point: number, i: number) =>
-                    `${(point * 100) / 393},${
-                      (pan.all_points_y[i] * 100) / 393
+                    `${(point * 100) / 393},${(pan.all_points_y[i] * 100) / 393
                     }`
                 )
                 .join(" ")}
@@ -126,9 +127,17 @@ function GamePlay(props: Props) {
           ))}
         </div>
       </div>
-      <button className="bg-yellow" onClick={() => props.setIsGameMode(false)}>
-        채점하기
-      </button>
+      <div className="flex justify-center top-[69.95305vh]">
+        {logos.map((logo, index) => (
+          <div key={index}>{logo}</div>
+        ))}
+      </div>
+      <div className="flex flex-row justify-between top-[88.967136vh] mt-1">
+        <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
+          onClick={() => props.setIsGameMode(false)}>
+          결과보기 ({count}/{props.panelsInImage.length})
+        </button>
+      </div>
     </div>
   );
 }
