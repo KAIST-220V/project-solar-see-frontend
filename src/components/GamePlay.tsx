@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { ReactComponent as Logo } from "../assets/logo_100px.svg";
+import { ReactComponent as EmptyLogo } from "../assets/logo_outline.svg";
 import sample from "../assets/image_4_2 1.jpg";
-import checkmark from "../assets/check1.png";
-import { NumberLiteralType } from "typescript";
+import { ReactComponent as Correct } from "../assets/check1.svg";
 
 type Position = {
   x: number;
@@ -18,12 +18,31 @@ type Props = {
   setCheck: React.Dispatch<React.SetStateAction<number[]>>;
   marks: Position[];
   setMarks: React.Dispatch<React.SetStateAction<Position[]>>;
-  setIsGameMode: React.Dispatch<React.SetStateAction<boolean>>;
+  setMode: React.Dispatch<React.SetStateAction<string>>;
+  lifeCount: number;
+  setLifeCount: React.Dispatch<React.SetStateAction<number>>;
 };
 
 function GamePlay(props: Props) {
   const [count, setCount] = useState(0);
-  const [logos, setLogos] = useState<JSX.Element[]>([]);
+  const newLogos = [
+    ...Array(props.lifeCount)
+      .fill(null)
+      .map((_, index) => (
+        <Logo
+          key={index}
+          className="w-[10vw] h-[10vw]"
+        />
+      )),
+    ...Array(5 - props.lifeCount)
+      .fill(null)
+      .map((_, index) => (
+        <EmptyLogo
+          key={props.lifeCount + index}
+          className="w-[10vw] h-[10vw]"
+        />
+      )),
+  ];
 
   const handleImageClick = (
     event: React.MouseEvent<SVGElement, MouseEvent>
@@ -60,11 +79,6 @@ function GamePlay(props: Props) {
           check.map((cnt, i) => (i === key ? cnt + 1 : cnt))
         );
       }
-      console.log(clientX - rect.left, clientY - rect.top);
-      console.log(props.check);
-      console.log(key);
-    } else {
-      console.log("can't find closest svg!!");
     }
   };
 
@@ -85,14 +99,24 @@ function GamePlay(props: Props) {
   };
 
   return (
-    <div className="sm:p-4 md:p-6 lg:p-8">
-      <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
-        <p>ROUND {props.round}</p>
-        <p className="text-right">{props.score.toString().padStart(3, '0')}</p>
+    <div className="absolute relative top-[10vh] h-[90vh]">
+      <div className="px-3">
+        <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
+          <p>ROUND {props.round}</p>
+          <p>{props.score.toString().padStart(3, '0')}</p>
+        </div>
+        <p>
+          <span>SolarSee AI는 패널 </span>
+          <span className="font-handwriting">{props.panelsInImage.length}</span>
+          <span>개를 찾았어요.</span>
+        </p>
+        <p>
+          <span>최대 </span>
+          <span className="font-handwriting">{props.panelsInImage.length}</span>
+          <span>개의 패널을 선택해 주세요.</span>
+        </p>
       </div>
-      <p>SolarSee AI는 패널 {props.panelsInImage.length}개를 찾았어요.</p>
-      <p>최대 {props.panelsInImage.length}개의 패널을 선택해 주세요.</p>
-      <div className="relative flex bg-black aspect-square">
+      <div className="relative flex aspect-square mt-3">
         <img src={sample} className="w-full select-none aspect-square" alt="" />
         <svg
           className="absolute left-0 top-0 z-10 w-full h-full"
@@ -116,25 +140,28 @@ function GamePlay(props: Props) {
         </svg>
         <div className="absolute top-0 left-0 w-full h-full">
           {props.marks.map((mark, index) => (
-            <img
-              src={checkmark}
-              alt="Map"
-              className="absolute w-8 h-8 z-20 select-none"
-              key={`mark-${index}`}
-              style={{ top: `${mark.y - 26}px`, left: `${mark.x - 12}px` }}
-              onClick={(event) => handleMarkClick(index, event)}
-            ></img>
+            <Correct
+              key={index}
+              style={{
+                position: "absolute",
+                left: `${mark.x-12}px`,
+                top: `${mark.y-26}px`,
+                width: "27.9px",
+                height: "29px",
+                zIndex: 20,
+              }}
+            />
           ))}
         </div>
       </div>
-      <div className="flex justify-center top-[69.95305vh]">
-        {logos.map((logo, index) => (
+      <div className="flex mt-3 justify-evenly">
+        {newLogos.map((logo, index) => (
           <div key={index}>{logo}</div>
         ))}
       </div>
-      <div className="flex flex-row justify-between top-[88.967136vh] mt-1">
+      <div className="absolute bottom-[5vh] w-full px-3">
         <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
-          onClick={() => props.setIsGameMode(false)}>
+          onClick={() => props.setMode('score')}>
           결과보기 ({count}/{props.panelsInImage.length})
         </button>
       </div>

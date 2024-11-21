@@ -22,59 +22,53 @@ type scoreProps = {
   panel: { all_points_x: number[]; all_points_y: number[] }[];
   lifeCount: number;
   setLifeCount: React.Dispatch<React.SetStateAction<number>>;
-  setIsGameMode: React.Dispatch<React.SetStateAction<boolean>>;
+  setMode: React.Dispatch<React.SetStateAction<string>>;
+  isClaimed: boolean;
+  setIsClaimed: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function GameScore(props: scoreProps) {
-  const [logos, setLogos] = useState<JSX.Element[]>([]);
   const correctClicks = props.checks.filter((num: number) => num >= 1).length;
   const wrongClicks = props.marks.filter(
     (value: Position) => value.pIndex === -1
   ).length;
-
-  useEffect(() => {
-    const newLogos = [
-      ...Array(props.lifeCount - wrongClicks)
-        .fill(null)
-        .map((_, index) => (
-          <Logo
-            key={index}
-            className="w-[7.6335878vw] h-[7.6335878vw]"
-            style={{
-              marginRight: index < props.lifeCount ? "9.6692112vw" : "0",
-            }}
-          />
-        )),
-      ...Array(5 - props.lifeCount + wrongClicks)
-        .fill(null)
-        .map((_, index) => (
-          <EmptyLogo
-            key={props.lifeCount + index}
-            className="w-[7.6335878vw] h-[7.6335878vw]"
-            style={{ marginRight: index < 4 ? "9.6692112vw" : "0" }}
-          />
-        )),
-    ];
-    setLogos(newLogos);
-    props.setScore(props.score + correctClicks);
-    props.setLifeCount(Math.max(0, props.lifeCount - wrongClicks));
-  }, []);
+  const logos = [
+    ...Array(props.lifeCount - wrongClicks)
+      .fill(null)
+      .map((_, index) => (
+        <Logo
+          key={index}
+          className="w-[10vw] h-[10vw]"
+        />
+      )),
+    ...Array(5 - props.lifeCount + wrongClicks)
+      .fill(null)
+      .map((_, index) => (
+        <EmptyLogo
+          key={props.lifeCount + index}
+          className="w-[10vw] h-[10vw]"
+        />
+      )),
+  ];
 
   const handleNextGame = () => {
-    props.setIsGameMode(true);
+    props.setScore(props.score + correctClicks)
+    props.setLifeCount(Math.max(0, props.lifeCount - wrongClicks))
+    props.setMode('game');
     props.setRound(props.round + 1);
     props.setChecks([]);
     props.setMarks([]);
   };
 
   return (
-    <div className="sm:p-4 md:p-6 lg:p-8">
-      <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
-        <p>ROUND {props.round}</p>
-        <p className="text-right">{props.score.toString().padStart(3, '0')}</p>
+    <div className="absolute relative top-[10vh] h-[90vh]">
+      <div className="px-3">
+        <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
+          <p>ROUND {props.round}</p>
+          <p>{(props.score+correctClicks).toString().padStart(3, '0')}</p>
+        </div>
       </div>
-
-      <div className="relative flex w-full aspect-square">
+      <div className="relative flex aspect-square mt-3">
         <img src={sample} className="w-full aspect-square" alt="" />
         <svg
           className="absolute left-0 top-0 z-10"
@@ -109,9 +103,8 @@ function GameScore(props: scoreProps) {
                 <Correct
                   style={{
                     position: "absolute",
-                    left: `${location.x}px`,
-                    top: `${location.y}px`,
-                    transform: "translate(-50%, -50%)",
+                    left: `${location.x-12}px`,
+                    top: `${location.y-26}px`,
                     width: "27.9px",
                     height: "29px",
                     zIndex: 20,
@@ -122,9 +115,8 @@ function GameScore(props: scoreProps) {
                 <Wrong
                   style={{
                     position: "absolute",
-                    left: `${location.x}px`,
-                    top: `${location.y}px`,
-                    transform: "translate(-50%, -50%)",
+                    left: `${location.x-12}px`,
+                    top: `${location.y-26}px`,
                     width: "27.9px",
                     height: "29px",
                     zIndex: 20,
@@ -136,22 +128,32 @@ function GameScore(props: scoreProps) {
         </ul>
       </div>
 
-      <div className="flex justify-center top-[69.95305vh]">
+      <div className="flex mt-3 justify-evenly">
         {logos.map((logo, index) => (
           <div key={index}>{logo}</div>
         ))}
       </div>
 
-      <div className="flex flex-col items-center top-[76.05634vh]">
+      {props.isClaimed ? <div className="absolute bottom-[13vh] w-full">
+        <p className="text-center w-full">1건의 실수 제보가 접수 되었습니다!</p>
+      </div> : <div className="flex flex-col items-center mt-3">
         <p>
           {props.panel.length}개 중 {correctClicks}개 맞힘, {wrongClicks}개
           틀림, {props.panel.length - correctClicks}개 놓침
         </p>
         <p className="text-3xl font-bold text-yellow">{correctClicks}점</p>
-      </div>
+      </div>}
 
-      <div className="flex flex-row justify-between top-[88.967136vh]">
-        <button className="rounded-lg bg-[#FFA629] w-[44.2744809vw] h-[6.45533991vh]">
+      {props.isClaimed ? <div className="absolute bottom-[5vh] w-full px-3">
+        <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
+          onClick={handleNextGame}>
+          다음 게임 시작하기
+        </button>
+      </div> : <div className="absolute bottom-[5vh] justify-evenly flex w-full">
+        <button
+          className="rounded-lg bg-[#FFA629] w-[44.2744809vw] h-[6.45533991vh]"
+          onClick={() => props.setMode('claim')}
+        >
           AI의 실수 잡아내기
         </button>
         <button
@@ -160,7 +162,7 @@ function GameScore(props: scoreProps) {
         >
           다음 게임 시작하기
         </button>
-      </div>
+      </div>}
     </div>
   );
 }
