@@ -46,4 +46,4 @@ jobs:
             npm run build
             
             echo "===== 빌드 결과 확인 ====="
-            ls -la dist/ # 빌드 결과물 확인
+            ls -la build/ # 빌드 결과물 확인
