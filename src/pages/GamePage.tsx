@@ -5,6 +5,7 @@ import GamePlay from "../components/GamePlay";
 import GameScore from "../components/GameScore";
 import GameStory from "../components/GameStory";
 import Cookies from "js-cookie";
+import GameClaim from "../components/GameClaim";
 
 type Position = {
   x: number;
@@ -18,9 +19,10 @@ function GamePage() {
   const [check, setCheck] = useState<number[]>([0]);
   const [panel, setPanel] = useState<PanelInImages[]>([]);
   const [marks, setMarks] = useState<Position[]>([]);
-  const [isGameMode, setIsGameMode] = useState(true);
+  const [mode, setMode] = useState('game');
   const [lifeCount, setLifeCount] = useState(5);
   const [isFirstVisit, setIsFirstVisit] = useState(true);
+  const [isClaimed, setIsClaimed] = useState(false);
 
   useEffect(() => {
     fetch("/data/panel.json", {
@@ -38,19 +40,20 @@ function GamePage() {
     if (visited) {
       setIsFirstVisit(false);
     }
-  })
+  }, [])
+
   return (
-    <div className={"static"}>
+    <div className="static">
       {isFirstVisit && (
         <GameStory
           setIsFirstVisit={setIsFirstVisit}
         />
       )}
       {!isFirstVisit && (
-        <div className="m-3 p-3">
-          <p className="font-bold text-center">태양광 패널 찾기</p>
+        <div>
+          <p className="absolute font-semibold flex top-[2vh] h-[5.28169vh] items-center w-full justify-center">태양광 패널 찾기</p>
           <GameButton />
-          {isGameMode && (
+          {mode == 'game' && (
             <GamePlay
               panelsInImage={panel}
               round={round}
@@ -59,10 +62,12 @@ function GamePage() {
               setCheck={setCheck}
               marks={marks}
               setMarks={setMarks}
-              setIsGameMode={setIsGameMode}
+              setMode={setMode}
+              lifeCount={lifeCount}
+              setLifeCount={setLifeCount}
             />
           )}
-          {!isGameMode && (
+          {mode == 'score' && (
             <GameScore
               round={round}
               setRound={setRound}
@@ -75,7 +80,24 @@ function GamePage() {
               setMarks={setMarks}
               lifeCount={lifeCount}
               setLifeCount={setLifeCount}
-              setIsGameMode={setIsGameMode}
+              setMode={setMode}
+              isClaimed={isClaimed}
+              setIsClaimed={setIsClaimed}
+            />
+          )}
+          {mode == 'claim' && (
+            <GameClaim
+              round={round}
+              setRound={setRound}
+              score={score}
+              setScore={setScore}
+              panel={panel}
+              checks={check}
+              marks={marks}
+              lifeCount={lifeCount}
+              setLifeCount={setLifeCount}
+              setMode={setMode}
+              setIsClaimed={setIsClaimed}
             />
           )}
         </div>
