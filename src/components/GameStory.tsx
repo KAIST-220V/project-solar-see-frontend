@@ -13,7 +13,7 @@ function GameButton(props: Props) {
       <div className="m-5 font-roboto">
         <div className="space-y-8 text-white">
           <p>
-            깨끗한 공(기), 푸른 하늘, 지속 가능한 에너지. 신재생 에너지는 우리의
+            깨끗한 공기, 푸른 하늘, 지속 가능한 에너지. 신재생 에너지는 우리의
             환경을 지키고, 후세대를 위한 필수불가결한 존재입니다.
           </p>
           <p>
