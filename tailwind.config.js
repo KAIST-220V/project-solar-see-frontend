@@ -8,7 +8,10 @@ module.exports = {
       colors: {
         'blue': "#364F85",
         'yellow': "#FFCD00"
-      }
+      },
+      boxShadow: {
+        custom: "2px 2px 6px rgba(0, 0, 0, 0.1), -1px -1px 1px rgba(0, 0, 0, 0.05)", // 커스텀 그림자
+      },
     },
     fontFamily: {
       'roboto': ['Roboto', 'sans-serif'],
