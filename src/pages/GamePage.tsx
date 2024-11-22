@@ -53,7 +53,7 @@ function GamePage() {
         <div>
           <p className="absolute font-semibold flex top-[2vh] h-[5.28169vh] items-center w-full justify-center">태양광 패널 찾기</p>
           <GameButton />
-          {mode == 'game' && (
+          {mode === 'game' && (
             <GamePlay
               panelsInImage={panel}
               round={round}
@@ -65,9 +65,10 @@ function GamePage() {
               setMode={setMode}
               lifeCount={lifeCount}
               setLifeCount={setLifeCount}
+              setIsClaimed={setIsClaimed}
             />
           )}
-          {mode == 'score' && (
+          {mode === 'score' && (
             <GameScore
               round={round}
               setRound={setRound}
@@ -85,7 +86,7 @@ function GamePage() {
               setIsClaimed={setIsClaimed}
             />
           )}
-          {mode == 'claim' && (
+          {mode === 'claim' && (
             <GameClaim
               round={round}
               setRound={setRound}

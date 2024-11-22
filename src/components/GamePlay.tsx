@@ -21,6 +21,7 @@ type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
   lifeCount: number;
   setLifeCount: React.Dispatch<React.SetStateAction<number>>;
+  setIsClaimed: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function GamePlay(props: Props) {
@@ -84,7 +85,7 @@ function GamePlay(props: Props) {
 
   const handleMarkClick = (
     key: number,
-    event: React.MouseEvent<HTMLImageElement, MouseEvent>
+    event: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => {
     event.stopPropagation();
     props.setMarks((marks) => marks.filter((_, i) => i !== key));
@@ -142,6 +143,7 @@ function GamePlay(props: Props) {
           {props.marks.map((mark, index) => (
             <Correct
               key={index}
+              onClick={(event) => handleMarkClick(index, event)}
               style={{
                 position: "absolute",
                 left: `${mark.x-12}px`,
@@ -159,9 +161,9 @@ function GamePlay(props: Props) {
           <div key={index}>{logo}</div>
         ))}
       </div>
-      <div className="absolute bottom-[5vh] w-full px-3">
+      <div className="flex bottom-[5vh] w-full px-3">
         <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
-          onClick={() => props.setMode('score')}>
+          onClick={() => {props.setIsClaimed(false); props.setMode('score')}}>
           결과보기 ({count}/{props.panelsInImage.length})
         </button>
       </div>
