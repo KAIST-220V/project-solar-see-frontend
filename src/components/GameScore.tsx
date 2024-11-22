@@ -149,7 +149,7 @@ function GameScore(props: scoreProps) {
           onClick={handleNextGame}>
           다음 게임 시작하기
         </button>
-      </div> : <div className="absolute bottom-[5vh] justify-evenly flex w-full">
+      </div> : <div className="flex bottom-[5vh] justify-evenly flex w-full">
         <button
           className="rounded-lg bg-[#FFA629] w-[44.2744809vw] h-[6.45533991vh]"
           onClick={() => props.setMode('claim')}
