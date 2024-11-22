@@ -163,7 +163,7 @@ function GamePlay(props: Props) {
       </div>
       <div className="flex bottom-[5vh] w-full px-3">
         <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
-          onClick={() => {props.setIsClaimed(false); props.setMode('score')}}>
+          onClick={() => props.setMode('score')}>
           결과보기 ({count}/{props.panelsInImage.length})
         </button>
       </div>

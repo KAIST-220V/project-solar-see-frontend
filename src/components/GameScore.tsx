@@ -146,7 +146,7 @@ function GameScore(props: scoreProps) {
 
       {props.isClaimed ? <div className="absolute bottom-[5vh] w-full px-3">
         <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
-          onClick={handleNextGame}>
+          onClick={() => {props.setIsClaimed(false); handleNextGame()}}>
           다음 게임 시작하기
         </button>
       </div> : <div className="flex bottom-[5vh] justify-evenly flex w-full">
