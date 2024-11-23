@@ -137,8 +137,6 @@ function GamePlay(props: Props) {
               fill="rgba(0, 0, 0, 0)"
               onClick={(event) => handlePolygonClick(index, event)}
               key={index}
-              stroke="rgb(127, 168, 255)"
-              strokeWidth="1"
             />
           ))}
         </svg>
