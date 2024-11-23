@@ -7,7 +7,6 @@ type Props = {
   markers: any;
   selectedIndex: number;
   setSelectedIndex: React.Dispatch<React.SetStateAction<number | null>>;
-  setBarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function KakaoMapSnackBar(props: Props) {
@@ -28,15 +27,20 @@ function KakaoMapSnackBar(props: Props) {
           duration: 0.3,
         }}
         onDragEnd={(event, info) => {
-          const offsetThreshold = 150;
+          const offsetThreshold = 50;
           const deltaThreshold = 5;
           const isOverOffsetThreshold =
             Math.abs(info.offset.y) > offsetThreshold;
           const isOverDeltaThreshold = Math.abs(info.delta.y) > deltaThreshold;
           const isOverThreshold = isOverOffsetThreshold || isOverDeltaThreshold;
           if (!isOverThreshold) return;
-          const newIsOpened = info.offset.y < 0;
-          props.setBarExpand(newIsOpened);
+
+          const isControlDown = info.offset.y > 0;
+          if (props.barIsExpanded && isControlDown) props.setBarExpand(false);
+          else if (!props.barIsExpanded && isControlDown)
+            props.setSelectedIndex(null);
+          else if (!props.barIsExpanded && !isControlDown)
+            props.setBarExpand(true);
         }}
       >
         <div
@@ -44,7 +48,8 @@ function KakaoMapSnackBar(props: Props) {
           onClick={() => props.setBarExpand(!props.barIsExpanded)}
         >
           <img
-            src="img/line.png"
+            alt="line"
+            src="/img/snack_bar_holder.png"
             style={{ padding: "10px", pointerEvents: "none" }}
           />
         </div>

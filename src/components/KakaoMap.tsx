@@ -10,7 +10,6 @@ type Props = {
   mapCenter: Loc;
   mapRef: React.MutableRefObject<kakao.maps.Map | null>;
   markers: MarkerType[];
-  setBarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedIndex: number | null;
   setSelectedIndex: React.Dispatch<React.SetStateAction<number | null>>;
 };
@@ -109,7 +108,6 @@ function KakaoMap(props: Props) {
             clickable={true}
             onClick={() => {
               props.setSelectedIndex(index);
-              props.setBarOpen(true);
             }}
           >
             {props.selectedIndex === index && (
