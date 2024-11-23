@@ -22,6 +22,7 @@ type Props = {
   lifeCount: number;
   setLifeCount: React.Dispatch<React.SetStateAction<number>>;
   setIsClaimed: React.Dispatch<React.SetStateAction<boolean>>;
+  img: string;
 };
 
 function GamePlay(props: Props) {
@@ -118,7 +119,7 @@ function GamePlay(props: Props) {
         </p>
       </div>
       <div className="relative flex aspect-square mt-3">
-        <img src={sample} className="w-full select-none aspect-square" alt="" />
+        <img src={props.img} className="w-full select-none aspect-square" alt="" />
         <svg
           className="absolute left-0 top-0 z-10 w-full h-full"
           viewBox="0 0 100 100"
@@ -129,13 +130,15 @@ function GamePlay(props: Props) {
               points={pan.all_points_x
                 .map(
                   (point: number, i: number) =>
-                    `${(point * 100) / 393},${(pan.all_points_y[i] * 100) / 393
+                    `${(point * 100) / 1024},${(pan.all_points_y[i] * 100) / 1024
                     }`
                 )
                 .join(" ")}
               fill="rgba(0, 0, 0, 0)"
               onClick={(event) => handlePolygonClick(index, event)}
               key={index}
+              stroke="rgb(127, 168, 255)"
+              strokeWidth="1"
             />
           ))}
         </svg>

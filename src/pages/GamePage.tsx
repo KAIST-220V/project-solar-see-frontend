@@ -23,15 +23,18 @@ function GamePage() {
   const [lifeCount, setLifeCount] = useState(5);
   const [isFirstVisit, setIsFirstVisit] = useState(true);
   const [isClaimed, setIsClaimed] = useState(false);
+  const [img, setImg] = useState('');
 
   useEffect(() => {
-    fetch("/data/panel.json", {
+    fetch("https://solar-see.site/api/v1/game/image", {
       method: "GET",
     })
       .then((res) => res.json())
       .then((data) => {
         setPanel(data.polygon);
         setCheck(Array(data.polygon.length).fill(0));
+        setImg(data.image_url)
+        console.log(data.polygon)
       });
   }, [round]);
 
@@ -66,6 +69,7 @@ function GamePage() {
               lifeCount={lifeCount}
               setLifeCount={setLifeCount}
               setIsClaimed={setIsClaimed}
+              img={img}
             />
           )}
           {mode === 'score' && (
@@ -84,6 +88,7 @@ function GamePage() {
               setMode={setMode}
               isClaimed={isClaimed}
               setIsClaimed={setIsClaimed}
+              img={img}
             />
           )}
           {mode === 'claim' && (
@@ -99,6 +104,7 @@ function GamePage() {
               setLifeCount={setLifeCount}
               setMode={setMode}
               setIsClaimed={setIsClaimed}
+              img={img}
             />
           )}
         </div>

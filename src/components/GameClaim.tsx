@@ -23,6 +23,7 @@ type scoreProps = {
   setLifeCount: React.Dispatch<React.SetStateAction<number>>;
   setMode: React.Dispatch<React.SetStateAction<string>>;
   setIsClaimed: React.Dispatch<React.SetStateAction<boolean>>;
+  img: string;
 };
 
 function GameClaim(props: scoreProps) {
@@ -48,7 +49,7 @@ function GameClaim(props: scoreProps) {
         </p>
       </div>
       <div className="relative flex aspect-square mt-3">
-        <img src={sample} className="w-full aspect-square" alt="" />
+        <img src={props.img} className="w-full aspect-square" alt="" />
         <svg
           className="absolute left-0 top-0 z-10"
           width="100%"
@@ -63,8 +64,8 @@ function GameClaim(props: scoreProps) {
                   points={props.panel[i].all_points_x
                     .map(
                       (point: number, j: number) =>
-                        `${(point * 100) / 393},${
-                          (props.panel[i].all_points_y[j] * 100) / 393
+                        `${(point * 100) / 1024},${
+                          (props.panel[i].all_points_y[j] * 100) / 1024
                         }`
                     )
                     .join(" ")}
@@ -83,8 +84,8 @@ function GameClaim(props: scoreProps) {
                   key={i}
                   style={{
                     position: "absolute",
-                    left: `min(calc(${(props.panel[i].all_points_x.reduce((acc, cur) => acc + cur, 0)/props.panel[i].all_points_x.length*100/393)-18}vw), 64vw`,
-                    top: `${(props.panel[i].all_points_y.reduce((acc, cur) => (cur < acc ? cur : acc), Infinity)*100/393)-19}vw`,
+                    left: `min(calc(${(props.panel[i].all_points_x.reduce((acc, cur) => acc + cur, 0)/props.panel[i].all_points_x.length*100/1024)-18}vw), 64vw`,
+                    top: `${(props.panel[i].all_points_y.reduce((acc, cur) => (cur < acc ? cur : acc), Infinity)*100/1024)-19}vw`,
                     width: '36vw',
                     zIndex: 20,
                   }}
@@ -97,8 +98,8 @@ function GameClaim(props: scoreProps) {
                 key={i}
                 style={{
                   position: "absolute",
-                  left: `min(calc(${(props.panel[i].all_points_x.reduce((acc, cur) => acc + cur, 0)/props.panel[i].all_points_x.length*100/393)-18}vw), 64vw)`,
-                  top: `${(props.panel[i].all_points_y.reduce((acc, cur) => (cur < acc ? cur : acc), Infinity)*100/393)-19}vw`,
+                  left: `min(calc(${(props.panel[i].all_points_x.reduce((acc, cur) => acc + cur, 0)/props.panel[i].all_points_x.length*100/1024)-18}vw), 64vw)`,
+                  top: `${(props.panel[i].all_points_y.reduce((acc, cur) => (cur < acc ? cur : acc), Infinity)*100/1024)-19}vw`,
                   width: '36vw',
                   zIndex: 20,
                 }}
