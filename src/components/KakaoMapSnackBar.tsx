@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
+import snack_bar_holder from "../assets/snack_bar_holder.png";
 
 type Props = {
   barIsExpanded: boolean;
@@ -49,7 +50,7 @@ function KakaoMapSnackBar(props: Props) {
         >
           <img
             alt="line"
-            src="/img/snack_bar_holder.png"
+            src={snack_bar_holder}
             style={{ padding: "10px", pointerEvents: "none" }}
           />
         </div>
