@@ -33,7 +33,7 @@ function GamePage() {
       .then((data) => {
         setPanel(data.polygon);
         setCheck(Array(data.polygon.length).fill(0));
-        setImg(data.image_url)
+        setImg(data.image_url);
         console.log(data.polygon)
       });
   }, [round]);

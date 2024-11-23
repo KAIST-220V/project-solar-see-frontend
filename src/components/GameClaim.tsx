@@ -4,7 +4,7 @@ import { ReactComponent as SelectedFalsePositive } from "../assets/SelectedFalse
 import { ReactComponent as FalseNegative } from "../assets/FalseNegative.svg";
 import { ReactComponent as SelectedFalseNegative } from "../assets/SelectedFalseNegative.svg";
 import sample from "../assets/image_4_2 1.jpg";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 type Position = {
   x: number;
@@ -27,8 +27,39 @@ type scoreProps = {
 };
 
 function GameClaim(props: scoreProps) {
-  const [positive, setPositive] = useState(Array(props.checks.length).fill(0));
-  const [negative, setNegative] = useState(Array(props.marks.length).fill(0));
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const handleScroll = () => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const scrollLeft = container.scrollLeft; // 현재 스크롤 위치
+    const containerWidth = container.offsetWidth;
+
+    const newIndex = Math.round(scrollLeft / containerWidth); // 현재 이미지 인덱스 계산
+    setCurrentIndex(newIndex);
+  };
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    container.addEventListener("scroll", handleScroll);
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  
+  const checks = props.checks.reduce((acc: number[], check, i) => {
+    if (check === 0) acc.push(i);
+    return acc;
+  }, []);
+  const marks = props.marks.reduce((acc: number[], mark, i) => {
+    if (mark.pIndex === -1) acc.push(i);
+    return acc;
+  }, []);
+  const [positive, setPositive] = useState(Array(checks.length + marks.length).fill(0));
 
   const handleClaim = () => {
     props.setMode('score')
@@ -48,44 +79,46 @@ function GameClaim(props: scoreProps) {
           <span>의 실수를 잡아내 주세요!</span>
         </p>
       </div>
-      <div className="relative flex aspect-square mt-3">
-        <img src={props.img} className="w-full aspect-square" alt="" />
-        <svg
-          className="absolute left-0 top-0 z-10"
-          width="100%"
-          height="100%"
-          viewBox="0 0 100 100"
-        >
-          {props.checks.map(
-            (count, i) =>
-              props.panel[i] && count === 0 && (
-                <polygon
-                  key={i}
-                  points={props.panel[i].all_points_x
-                    .map(
-                      (point: number, j: number) =>
-                        `${(point * 100) / 1024},${
-                          (props.panel[i].all_points_y[j] * 100) / 1024
-                        }`
-                    )
-                    .join(" ")}
-                  fill="rgba(0, 0, 0, 0)"
-                  stroke="#FF7729"
-                  strokeWidth="1"
-                />
-              )
-          )}
-        </svg>
-
-        {props.checks.map(
-          (count, i) =>
-            props.panel[i] && count === 0 && ( positive[i] == 0 ?
+      <div
+        ref={containerRef}
+        className="relative flex flex-row aspect-square mt-3 bg-slate-30 snap-x overflow-x-auto">
+        {Array.from({ length: checks.length + marks.length }).map(
+          (_, i) => 
+            (
+              i < checks.length 
+                ? (<div className="snap-center w-screen min-w-screen aspect-square relative" key={`div-${i}`}>
+                    <img src={props.img} className="w-screen aspect-square" alt="" />
+                    <svg
+                      className="absolute left-0 top-0 z-10"
+                      width="100%"
+                      height="100%"
+                      viewBox="0 0 100 100"
+                    >
+                  <polygon
+                    points={
+                      props.panel[checks[i]] &&
+                      props.panel[checks[i]].all_points_x &&
+                      props.panel[checks[i]].all_points_y
+                        ? props.panel[checks[i]].all_points_x
+                            .map((point: number, j: number) => {
+                              const yPoint = props.panel[checks[i]].all_points_y[j] ?? 0; // 기본값 0
+                              return `${(point * 100) / 1024},${(yPoint * 100) / 1024}`;
+                            })
+                            .join(' ')
+                        : ''
+                    }
+                    fill="rgba(0, 0, 0, 0)"
+                    stroke="#FF7729"
+                    strokeWidth="1"
+                  />
+                    </svg>
+                    { positive[i] === 0  ?
               <FalsePositive
-                  key={i}
+                  key={`FalsePositive-${i}`}
                   style={{
                     position: "absolute",
-                    left: `min(calc(${(props.panel[i].all_points_x.reduce((acc, cur) => acc + cur, 0)/props.panel[i].all_points_x.length*100/1024)-18}vw), 64vw`,
-                    top: `${(props.panel[i].all_points_y.reduce((acc, cur) => (cur < acc ? cur : acc), Infinity)*100/1024)-19}vw`,
+                    left: `min(calc(${(props.panel[checks[i]].all_points_x.reduce((acc, cur) => acc + cur, 0)/props.panel[checks[i]].all_points_x.length*100/1024)-18}vw), 64vw`,
+                    top: `max(${(props.panel[checks[i]].all_points_y.reduce((acc, cur) => (cur < acc ? cur : acc), Infinity)*100/1024)-19}vw, 0vw)`,
                     width: '36vw',
                     zIndex: 20,
                   }}
@@ -95,73 +128,61 @@ function GameClaim(props: scoreProps) {
                     )
                   }
                 /> : <SelectedFalsePositive
-                key={i}
+                key={`SelectedFalsePositive-${i}`}
                 style={{
                   position: "absolute",
-                  left: `min(calc(${(props.panel[i].all_points_x.reduce((acc, cur) => acc + cur, 0)/props.panel[i].all_points_x.length*100/1024)-18}vw), 64vw)`,
-                  top: `${(props.panel[i].all_points_y.reduce((acc, cur) => (cur < acc ? cur : acc), Infinity)*100/1024)-19}vw`,
+                  left: `min(calc(${(props.panel[checks[i]].all_points_x.reduce((acc, cur) => acc + cur, 0)/props.panel[checks[i]].all_points_x.length*100/1024)-18}vw), 64vw)`,
+                  top: `max(${(props.panel[checks[i]].all_points_y.reduce((acc, cur) => (cur < acc ? cur : acc), Infinity)*100/1024)-19}vw, 0vw)`,
                   width: '36vw',
                   zIndex: 20,
                 }}
-                onClick={() =>
-                  setPositive((prev) =>
-                    prev.map((value, idx) => (idx === i ? 0 : value))
-                  )
-                }
               />
-            )
-        )}
-
-        <ul>
-          {props.marks.map((location, index) => (
-            <li key={index}>
-              {location.pIndex === -1 && (
-                <div>
-                <Wrong
+              }
+                  </div>)
+                : (<div className="relative snap-center w-screen min-w-screen aspect-square" key={`div-${i}`}>
+                    <img src={props.img} className="w-screen aspect-square" alt="" />
+                    <Wrong
+                          style={{
+                            position: "absolute",
+                            left: `${props.marks[marks[i-checks.length]].x-12}px`,
+                            top: `${props.marks[marks[i-checks.length]].y-26}px`,
+                            width: "27.9px",
+                            height: "29px",
+                            zIndex: 20,
+                          }}
+                        />
+                    {positive[i] === 0 ? <FalseNegative
                   style={{
                     position: "absolute",
-                    left: `${location.x-12}px`,
-                    top: `${location.y-26}px`,
-                    width: "27.9px",
-                    height: "29px",
-                    zIndex: 20,
-                  }}
-                />
-                {negative[index] === 0 ? <FalseNegative
-                  style={{
-                    position: "absolute",
-                    left: `calc(${location.x}px - 18vw)`,
-                    top: `${location.y}px`,
+                    left: `min(calc(${props.marks[marks[i-checks.length]].x}px - 18vw), 64vw)`,
+                    top: `max(0vw, ${props.marks[marks[i-checks.length]].y}px)`,
                     width: '36vw',
                     zIndex: 20,
                   }}
                   onClick={() =>
-                    setNegative((prev) =>
-                      prev.map((value, idx) => (idx === index ? 1 : value))
+                    setPositive((prev) =>
+                      prev.map((value, idx) => (idx === i ? 1 : value))
                     )
                   }
                 /> : <SelectedFalseNegative
-                style={{
-                  position: "absolute",
-                  left: `calc(${location.x}px - 18vw)`,
-                  top: `${location.y}px`,
-                  width: '36vw',
-                  zIndex: 20,
-                }}
-                onClick={() =>
-                  setNegative((prev) =>
-                    prev.map((value, idx) => (idx === index ? 0 : value))
-                  )
-                }
-              />}
-                </div>
-              )}
-            </li>
-          ))}
-        </ul>
+                    style={{
+                      position: "absolute",
+                      left: `min(calc(${props.marks[marks[i-checks.length]].x}px - 18vw), 64vw)`,
+                      top: `max(${props.marks[marks[i-checks.length]].y}px, 0vw)`,
+                      width: '36vw',
+                      zIndex: 20,
+                    }}
+                  />}
+                  </div>)
+            )
+          
+        )}
       </div>
-
-
+      <div className="flex flex-row space-x-1 justify-center mt-3">
+        {Array.from({ length : marks.length + checks.length }).map((_, i) => (
+          <div className={`w-[2vw] aspect-square rounded-full ${i === currentIndex ? "bg-[#444444]" : "bg-[#B3B3B3]"}`}></div>
+        ))}
+      </div>
 
       <div className="absolute bottom-[5vh] w-full px-3">
         <button className="rounded-lg bg-[#FFA629] w-full h-[6.45533991vh]"
