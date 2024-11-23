@@ -53,7 +53,7 @@ function KakaoMapSnackBar(props: Props) {
             style={{ padding: "10px", pointerEvents: "none" }}
           />
         </div>
-        <div className="m-5 pl-2">
+        <div className="ml-6 mr-6">
           <div className="text-xl text-blue font-roboto font-bold">
             N{" "}
             {props.markers[
@@ -68,15 +68,14 @@ function KakaoMapSnackBar(props: Props) {
           <div className="text-base">태양광 패널 ID: {props.selectedIndex}</div>
           <div className="text-base">면적: 100㎡</div>
           <div className="text-base">예상 발전량: 123,456W</div>
-          {/*<div>면적: {shape_area_m2}</div>*/}
         </div>
         <div>
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center m-6">
             <img
               alt="테스트"
               src="img/test_image.png"
               /*src=markers[i-1]["image_url"]*/
-              className="md:size-full size-auto rounded-t-l"
+              className="size-full rounded-l"
               onClick={() => props.setSelectedIndex(null)}
             />
           </div>
