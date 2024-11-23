@@ -93,15 +93,12 @@ function GamePage() {
           )}
           {mode === 'claim' && (
             <GameClaim
-              round={round}
-              setRound={setRound}
-              score={score}
-              setScore={setScore}
               panel={panel}
-              checks={check}
+              checks={check.reduce((acc: number[], check, i) => {
+                if (check === 0) acc.push(i);
+                return acc;
+              }, [])}
               marks={marks}
-              lifeCount={lifeCount}
-              setLifeCount={setLifeCount}
               setMode={setMode}
               setIsClaimed={setIsClaimed}
               img={img}
