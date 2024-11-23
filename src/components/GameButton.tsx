@@ -5,7 +5,7 @@ function GameButton() {
 
   return (
     <>
-      <div className="absolute flex justify-evenly items-center z-10 w-[26vw] h-[5.28169vh] left-[71.246vw] top-[2vh] rounded-sm text-sm bg-white shadow-custom">
+      <div className="absolute flex justify-evenly items-center z-10 w-[26vw] h-[5.28169vh] left-[70vw] top-[2vh] rounded-sm text-sm bg-white shadow-custom">
         <div
           className="w-[11.5vw] h-[4.2253vh] flex justify-center items-center rounded-sm hover:cursor-pointer"
           onClick={() => navigate("/")}

@@ -3,7 +3,6 @@ import { ReactComponent as Logo } from "../assets/logo_100px.svg";
 import { ReactComponent as EmptyLogo } from "../assets/logo_outline.svg";
 import { ReactComponent as Correct } from "../assets/check1.svg";
 import { ReactComponent as Wrong } from "../assets/check2.svg";
-import sample from "../assets/image_4_2 1.jpg";
 
 type Position = {
   x: number;
@@ -25,6 +24,7 @@ type scoreProps = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
   isClaimed: boolean;
   setIsClaimed: React.Dispatch<React.SetStateAction<boolean>>;
+  img: string;
 };
 
 function GameScore(props: scoreProps) {
@@ -33,7 +33,7 @@ function GameScore(props: scoreProps) {
     (value: Position) => value.pIndex === -1
   ).length;
   const logos = [
-    ...Array(props.lifeCount - wrongClicks)
+    ...Array(Math.min(0, props.lifeCount - wrongClicks))
       .fill(null)
       .map((_, index) => (
         <Logo
@@ -41,7 +41,7 @@ function GameScore(props: scoreProps) {
           className="w-[10vw] h-[10vw]"
         />
       )),
-    ...Array(5 - props.lifeCount + wrongClicks)
+    ...Array(5 - Math.min(0, props.lifeCount - wrongClicks))
       .fill(null)
       .map((_, index) => (
         <EmptyLogo
@@ -69,7 +69,7 @@ function GameScore(props: scoreProps) {
         </div>
       </div>
       <div className="relative flex aspect-square mt-3">
-        <img src={sample} className="w-full aspect-square" alt="" />
+        <img src={props.img} className="w-full aspect-square" alt="" />
         <svg
           className="absolute left-0 top-0 z-10"
           width="100%"
@@ -84,8 +84,8 @@ function GameScore(props: scoreProps) {
                   points={props.panel[i].all_points_x
                     .map(
                       (point: number, j: number) =>
-                        `${(point * 100) / 393},${
-                          (props.panel[i].all_points_y[j] * 100) / 393
+                        `${(point * 100) / 1024},${
+                          (props.panel[i].all_points_y[j] * 100) / 1024
                         }`
                     )
                     .join(" ")}
