@@ -7,7 +7,6 @@ type Props = {
   markers: any;
   selectedIndex: number;
   setSelectedIndex: React.Dispatch<React.SetStateAction<number | null>>;
-  setBarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function KakaoMapSnackBar(props: Props) {
@@ -28,15 +27,20 @@ function KakaoMapSnackBar(props: Props) {
           duration: 0.3,
         }}
         onDragEnd={(event, info) => {
-          const offsetThreshold = 150;
+          const offsetThreshold = 50;
           const deltaThreshold = 5;
           const isOverOffsetThreshold =
             Math.abs(info.offset.y) > offsetThreshold;
           const isOverDeltaThreshold = Math.abs(info.delta.y) > deltaThreshold;
           const isOverThreshold = isOverOffsetThreshold || isOverDeltaThreshold;
           if (!isOverThreshold) return;
-          const newIsOpened = info.offset.y < 0;
-          props.setBarExpand(newIsOpened);
+
+          const isControlDown = info.offset.y > 0;
+          if (props.barIsExpanded && isControlDown) props.setBarExpand(false);
+          else if (!props.barIsExpanded && isControlDown)
+            props.setSelectedIndex(null);
+          else if (!props.barIsExpanded && !isControlDown)
+            props.setBarExpand(true);
         }}
       >
         <div
@@ -44,11 +48,12 @@ function KakaoMapSnackBar(props: Props) {
           onClick={() => props.setBarExpand(!props.barIsExpanded)}
         >
           <img
-            src="img/line.png"
+            alt="line"
+            src="/img/snack_bar_holder.png"
             style={{ padding: "10px", pointerEvents: "none" }}
           />
         </div>
-        <div className="m-5 pl-2">
+        <div className="ml-6 mr-6">
           <div className="text-xl text-blue font-roboto font-bold">
             N{" "}
             {props.markers[
@@ -63,15 +68,14 @@ function KakaoMapSnackBar(props: Props) {
           <div className="text-base">태양광 패널 ID: {props.selectedIndex}</div>
           <div className="text-base">면적: 100㎡</div>
           <div className="text-base">예상 발전량: 123,456W</div>
-          {/*<div>면적: {shape_area_m2}</div>*/}
         </div>
         <div>
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center m-6">
             <img
               alt="테스트"
               src="img/test_image.png"
               /*src=markers[i-1]["image_url"]*/
-              className="md:size-full size-auto rounded-t-l"
+              className="size-full rounded-l"
               onClick={() => props.setSelectedIndex(null)}
             />
           </div>
