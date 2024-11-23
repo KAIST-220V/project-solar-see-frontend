@@ -33,7 +33,7 @@ function GameScore(props: scoreProps) {
     (value: Position) => value.pIndex === -1
   ).length;
   const logos = [
-    ...Array(Math.min(0, props.lifeCount - wrongClicks))
+    ...Array(Math.max(0, props.lifeCount - wrongClicks))
       .fill(null)
       .map((_, index) => (
         <Logo
@@ -41,7 +41,7 @@ function GameScore(props: scoreProps) {
           className="w-[10vw] h-[10vw]"
         />
       )),
-    ...Array(5 - Math.min(0, props.lifeCount - wrongClicks))
+    ...Array(Math.max(0, 5 - props.lifeCount + wrongClicks))
       .fill(null)
       .map((_, index) => (
         <EmptyLogo
