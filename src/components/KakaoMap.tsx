@@ -118,7 +118,7 @@ function KakaoMap(props: Props) {
               },
             }}
           >
-            {props.selectedIndex === index && (
+            {/* {props.selectedIndex === index && (
               <div style={{ minWidth: "150px" }}>
                 <img
                   alt="close"
@@ -135,7 +135,7 @@ function KakaoMap(props: Props) {
                 />
                 <div style={{ padding: "5px", color: "#000" }}>태양광 패널</div>
               </div>
-            )}
+            )} */}
           </MapMarker>
         ))}
       </MarkerClusterer>

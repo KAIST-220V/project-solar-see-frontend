@@ -3,9 +3,9 @@ import GameButton from "../components/GameButton";
 import { PanelInImages } from "../types/interface";
 import GamePlay from "../components/GamePlay";
 import GameScore from "../components/GameScore";
-import GameStory from "../components/GameStory";
 import Cookies from "js-cookie";
 import GameClaim from "../components/GameClaim";
+import GameStory from "../components/GameStory"
 
 type Position = {
   x: number;

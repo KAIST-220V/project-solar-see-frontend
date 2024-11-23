@@ -14,7 +14,7 @@ function KakaoMapSnackBar(props: Props) {
   return (
     <div className="absolute bottom-0 w-full h-full overflow-hidden">
       <motion.div
-        className="h-full w-full md:w-[400px] absolute top-[60dvh] rounded-t-2xl min-h-40 z-10 bg-white will-change-transforms"
+        className="h-full w-full md:w-[400px] absolute top-[60dvh] rounded-2xl min-h-40 z-10 bg-white will-change-transforms"
         drag="y"
         dragConstraints={{ top: 0, bottom: 0 }}
         animate={props.barIsExpanded ? "opened" : "closed"}
@@ -23,9 +23,7 @@ function KakaoMapSnackBar(props: Props) {
           closed: { top: "60dvh" },
         }}
         transition={{
-          type: "tween",
-          ease: [0.12, 0, 0.39, 0],
-          duration: 0.3,
+          duration: 0.5,
         }}
         onDragEnd={(event, info) => {
           const offsetThreshold = 50;
@@ -36,7 +34,7 @@ function KakaoMapSnackBar(props: Props) {
           const isOverThreshold = isOverOffsetThreshold || isOverDeltaThreshold;
           if (!isOverThreshold) return;
 
-          const isControlDown = info.offset.y > 0;
+          const isControlDown = info.offset.y > offsetThreshold || info.delta.y > deltaThreshold;
           if (props.barIsExpanded && isControlDown) props.setBarExpand(false);
           else if (!props.barIsExpanded && isControlDown)
             props.setSelectedIndex(null);
@@ -76,7 +74,7 @@ function KakaoMapSnackBar(props: Props) {
               alt="테스트"
               src="img/test_image.png"
               /*src=markers[i-1]["image_url"]*/
-              className="size-full rounded-l"
+              className="size-full"
               onClick={() => props.setSelectedIndex(null)}
             />
           </div>
