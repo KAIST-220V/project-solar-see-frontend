@@ -1,6 +1,8 @@
 import { ReactComponent as Wrong } from "../assets/check2.svg";
 import { ReactComponent as DefaultO } from "../assets/default_O.svg";
+import { ReactComponent as SelectedO } from "../assets/selected_O.svg";
 import { ReactComponent as DefaultX } from "../assets/default_X.svg";
+import { ReactComponent as SelectedX } from "../assets/selected_X.svg";
 import { useState, useEffect, useRef } from "react";
 
 type Position = {
@@ -10,12 +12,14 @@ type Position = {
 };
 
 type scoreProps = {
+  round: number;
   checks: number[];
   marks: Position[];
   panel: { all_points_x: number[]; all_points_y: number[] }[];
   setMode: React.Dispatch<React.SetStateAction<string>>;
   setIsClaimed: React.Dispatch<React.SetStateAction<boolean>>;
   img: string;
+  imgId: number;
 };
 
 function GameClaim(props: scoreProps) {
@@ -49,7 +53,7 @@ function GameClaim(props: scoreProps) {
   const [positive, setPositive] = useState(Array(props.checks.length + marks.length).fill(0));
 
   const handleClaim = () => {
-    props.setMode('score')
+    props.setMode('play')
     props.setIsClaimed(true)
   }
   return (
@@ -68,14 +72,14 @@ function GameClaim(props: scoreProps) {
       </div>
       <div
         ref={containerRef}
-        className="relative flex flex-row aspect-square mt-3 bg-slate-30 snap-x overflow-x-auto overflow-y-hidden">
+        className="relative flex flex-row aspect-square mt-3 bg-slate-30 snap-x snap-mandatory overflow-x-auto overflow-y-hidden">
         {Array.from({ length: props.checks.length + marks.length }).map(
           (_, i) => 
             (i < props.checks.length ? 
               (<div
-                className="snap-center w-full aspect-square relative"
+                className="snap-center w-full h-full aspect-square relative"
                 key={`div-${i}`}>
-                  <img src={props.img} className="w-full aspect-square" alt="" />
+                  <img src={props.img} className="w-full h-full aspect-square" alt="" />
                   <svg
                     className="absolute left-0 top-0 z-10"
                     width="100%"
@@ -117,8 +121,8 @@ function GameClaim(props: scoreProps) {
                     >
                     </div>
                   </div>
-                </div>) : (<div className="relative snap-center w-full aspect-square" key={`div-${i}`}>
-                  <img src={props.img} className="w-screen aspect-square" alt="" />
+                </div>) : (<div className="relative snap-center w-full h-full aspect-square" key={`div-${i}`}>
+                  <img src={props.img} className="w-full h-full aspect-square" alt="" />
                   <Wrong
                     style={{
                       position: "absolute",
@@ -159,14 +163,48 @@ function GameClaim(props: scoreProps) {
           <div className={`w-[2vw] aspect-square rounded-full ${i === currentIndex ? "bg-[#444444]" : "bg-[#B3B3B3]"}`} key={i}></div>
         ))}
       </div>
-      <div className="flex flex-row my-5 justify-evenly mx-5">
-        <DefaultO />
-        <DefaultX />
+      <div className="flex flex-row my-3 justify-evenly mx-7">
+        {positive[currentIndex] === 1 ?
+          <SelectedO
+            className="w-[20vw]"
+            onClick={() =>
+              setPositive((prev) =>
+                prev.map((value, idx) => (idx === currentIndex ? 0 : value))
+              )
+            }
+          /> :
+          <DefaultO
+            className="w-[20vw]"
+            onClick={() =>
+              setPositive((prev) =>
+                prev.map((value, idx) => (idx === currentIndex ? 1 : value))
+              )
+            }
+          />
+        }
+        {positive[currentIndex] === -1 ?
+          <SelectedX
+            className="w-[20vw]"
+            onClick={() =>
+              setPositive((prev) =>
+                prev.map((value, idx) => (idx === currentIndex ? 0 : value))
+              )
+            }
+          /> :
+          <DefaultX
+            className="w-[20vw]"
+            onClick={() =>
+              setPositive((prev) =>
+                prev.map((value, idx) => (idx === currentIndex ? -1 : value))
+              )
+            }
+          />
+        }
       </div>
       <div className="flex w-full px-3">
         <button className="rounded-lg bg-[#FFA629] w-full h-[6.45533991vh]"
           onClick={handleClaim}>
-          제보하기
+          제보 완료하기
         </button>
       </div>
     </div>
