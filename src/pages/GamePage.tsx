@@ -3,10 +3,11 @@ import GameButton from "../components/GameButton";
 import { PanelInImages } from "../types/interface";
 import GamePlay from "../components/GamePlay";
 import GameScore from "../components/GameScore";
-import GameStory from "../components/GameStory";
 import Cookies from "js-cookie";
 import GameClaim from "../components/GameClaim";
 import { useNavigate } from "react-router-dom";
+import GameStory from "../components/GameStory"
+
 
 type Position = {
   x: number;
@@ -25,6 +26,7 @@ function GamePage() {
   const [isFirstVisit, setIsFirstVisit] = useState(true);
   const [isClaimed, setIsClaimed] = useState(false);
   const [img, setImg] = useState('');
+  const [imgId, setImgId] = useState(0);
 
   useEffect(() => {
     fetch("https://solar-see.site/api/v1/game/image", {
@@ -34,8 +36,9 @@ function GamePage() {
       .then((data) => {
         setPanel(data.polygon);
         setCheck(Array(data.polygon.length).fill(0));
-        setImg(data.image_url)
+        setImg(data.image_url);
         console.log(data.polygon)
+        setImgId(data.id);
       });
   }, [round]);
 
@@ -98,17 +101,16 @@ function GamePage() {
           {mode === 'claim' && (
             <GameClaim
               round={round}
-              setRound={setRound}
-              score={score}
-              setScore={setScore}
               panel={panel}
-              checks={check}
+              checks={check.reduce((acc: number[], check, i) => {
+                if (check === 0) acc.push(i);
+                return acc;
+              }, [])}
               marks={marks}
-              lifeCount={lifeCount}
-              setLifeCount={setLifeCount}
               setMode={setMode}
               setIsClaimed={setIsClaimed}
               img={img}
+              imgId={imgId}
             />
           )}
         </div>

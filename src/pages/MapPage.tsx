@@ -16,7 +16,6 @@ function MapPage() {
   const [mapCenter, setMapCenter] = useState<Loc>(INITIAL_CENTER);
   const [selectedDistrict, setSelectedDistrict] = useState<string>("구 선택");
   const [barIsExpanded, setBarExpand] = useState(false);
-  const [barIsOpen, setBarOpen] = useState(false);
   const mapRef = useRef<kakao.maps.Map | null>(null);
 
   useEffect(() => {
@@ -38,17 +37,15 @@ function MapPage() {
         mapCenter={mapCenter}
         mapRef={mapRef}
         markers={markers}
-        setBarOpen={setBarOpen}
         selectedIndex={selectedIndex}
         setSelectedIndex={setSelectedIndex}
       />
 
-      {barIsOpen && selectedIndex != null && (
+      {selectedIndex !== null && (
         <KakaoMapSnackBar
           markers={markers}
           selectedIndex={selectedIndex}
           setSelectedIndex={setSelectedIndex}
-          setBarOpen={setBarOpen}
           barIsExpanded={barIsExpanded}
           setBarExpand={setBarExpand}
         />
