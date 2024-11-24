@@ -6,6 +6,7 @@ import GameScore from "../components/GameScore";
 import GameStory from "../components/GameStory";
 import Cookies from "js-cookie";
 import GameClaim from "../components/GameClaim";
+import { useNavigate } from "react-router-dom";
 
 type Position = {
   x: number;
@@ -44,6 +45,9 @@ function GamePage() {
       setIsFirstVisit(false);
     }
   }, [])
+
+  const navigate = useNavigate();
+  navigate('/game/ranking', { state: { score } })
 
   return (
     <div className="static">
