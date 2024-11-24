@@ -76,9 +76,9 @@ function GameClaim(props: scoreProps) {
           (_, i) => 
             (i < props.checks.length ? 
               (<div
-                className="snap-start w-full aspect-square relative"
+                className="snap-start w-screen aspect-square relative"
                 key={`div-${i}`}>
-                  <img src={props.img} className="w-full aspect-square" alt="" />
+                  <img src={props.img} className="w-screen aspect-square" alt="" />
                   <svg
                     className="absolute left-0 top-0 z-10"
                     width="100%"
@@ -120,8 +120,8 @@ function GameClaim(props: scoreProps) {
                     >
                     </div>
                   </div>
-                </div>) : (<div className="relative snap-start w-full aspect-square" key={`div-${i}`}>
-                  <img src={props.img} className="w-full aspect-square" alt="" />
+                </div>) : (<div className="relative snap-start w-screen aspect-square" key={`div-${i}`}>
+                  <img src={props.img} className="w-screen aspect-square" alt="" />
                   <Wrong
                     style={{
                       position: "absolute",
