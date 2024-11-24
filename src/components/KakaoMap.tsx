@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import { Loc, MarkerType } from "../types/interface";
+import clusterer_1 from "../assets/clusterer_1.svg";
 import clusterer_below10 from "../assets/clusterer_below10.svg";
 import clusterer_11_30 from "../assets/clusterer_11_30.svg";
 import clusterer_31_70 from "../assets/clusterer_31_70.svg";
@@ -109,8 +110,15 @@ function KakaoMap(props: Props) {
             onClick={() => {
               props.setSelectedIndex(index);
             }}
+            image={{
+              src: clusterer_1,
+              size: {
+                width: 50,
+                height: 50,
+              },
+            }}
           >
-            {props.selectedIndex === index && (
+            {/* {props.selectedIndex === index && (
               <div style={{ minWidth: "150px" }}>
                 <img
                   alt="close"
@@ -127,7 +135,7 @@ function KakaoMap(props: Props) {
                 />
                 <div style={{ padding: "5px", color: "#000" }}>태양광 패널</div>
               </div>
-            )}
+            )} */}
           </MapMarker>
         ))}
       </MarkerClusterer>
