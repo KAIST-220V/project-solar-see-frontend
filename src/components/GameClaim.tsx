@@ -1,9 +1,6 @@
 import { ReactComponent as Wrong } from "../assets/check2.svg";
 import { ReactComponent as DefaultO } from "../assets/default_O.svg";
 import { ReactComponent as DefaultX } from "../assets/default_X.svg";
-import { ReactComponent as SelectedO } from "../assets/selected_O.svg";
-import { ReactComponent as SelectedX } from "../assets/selected_X.svg";
-import { ReactComponent as ClaimMark } from "../assets/claim_mark.svg";
 import { useState, useEffect, useRef } from "react";
 
 type Position = {
@@ -76,9 +73,9 @@ function GameClaim(props: scoreProps) {
           (_, i) => 
             (i < props.checks.length ? 
               (<div
-                className="snap-start w-screen aspect-square relative"
+                className="snap-center w-full aspect-square relative"
                 key={`div-${i}`}>
-                  <img src={props.img} className="w-screen aspect-square" alt="" />
+                  <img src={props.img} className="w-full aspect-square" alt="" />
                   <svg
                     className="absolute left-0 top-0 z-10"
                     width="100%"
@@ -120,7 +117,7 @@ function GameClaim(props: scoreProps) {
                     >
                     </div>
                   </div>
-                </div>) : (<div className="relative snap-start w-screen aspect-square" key={`div-${i}`}>
+                </div>) : (<div className="relative snap-center w-full aspect-square" key={`div-${i}`}>
                   <img src={props.img} className="w-screen aspect-square" alt="" />
                   <Wrong
                     style={{
