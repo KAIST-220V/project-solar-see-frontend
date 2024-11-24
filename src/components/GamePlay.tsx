@@ -120,6 +120,9 @@ function GamePlay(props: Props) {
               <span>Round </span>
               <span>{props.round}</span>
             </p>
+            <p className="font-nanum font-semibold text-2xl tracking-widest text-yellow">
+              <span>패널 찾기 시작!</span>
+            </p>
           </div>
         </div>}
       <div className="absolute relative top-[10vh] h-[90vh]">
@@ -168,8 +171,8 @@ function GamePlay(props: Props) {
                 onClick={(event) => handleMarkClick(index, event)}
                 style={{
                   position: "absolute",
-                  left: `${mark.x - 12}px`,
-                  top: `${mark.y - 26}px`,
+                  left: `${mark.x - 9}px`,
+                  top: `${mark.y - 23}px`,
                   width: "27.9px",
                   height: "29px",
                   zIndex: 20,

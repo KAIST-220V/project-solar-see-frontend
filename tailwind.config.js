@@ -16,7 +16,8 @@ module.exports = {
     },
     fontFamily: {
       'roboto': ['Roboto', 'sans-serif'],
-      'handwriting': ['Comic Sans MS', 'cursive']
+      'handwriting': ['Comic Sans MS', 'cursive'],
+      'nanum': ['Nanum Barun Gothic', 'sans-serif']
     },
   },
   plugins: [],
