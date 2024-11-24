@@ -109,7 +109,7 @@ function GamePlay(props: Props) {
       {loading && (
         <div>
           <div className="absolute top-0 left-0 w-screen h-screen z-30 bg-blue opacity-75 justify-center items-center"></div>
-          <div className="absolute top-[20vh] flex flex-col w-full h-[50vh] z-40 flex opacity-100 justify-center items-center">
+          <div className="absolute top-[20vh] flex flex-col w-full h-[50vh] z-40 opacity-100 justify-center items-center">
             <Logo className="w-[15vh] h-[15vh] z-40 opacity-100" />
             <p className="font-handwriting text-4xl tracking-widest text-yellow">
               <span>Round </span>
@@ -121,7 +121,7 @@ function GamePlay(props: Props) {
           </div>
         </div>
       )}
-      <div className="absolute flex flex-col top-[10vh] h-[90vh]">
+      <div className="absolute flex flex-col top-[10vh] h-[90vh] w-full">
         <div className="px-3">
           <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
             <p>ROUND {props.round}</p>
