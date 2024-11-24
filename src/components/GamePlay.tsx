@@ -125,7 +125,7 @@ function GamePlay(props: Props) {
         <div className="px-3">
           <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
             <p>ROUND {props.round}</p>
-            <p>{props.score.toString().padStart(3, "0")}</p>
+            <p>SCORE {props.score.toString().padStart(3, "0")}</p>
           </div>
           <p>
             <span>SolarSee AI는 패널 </span>

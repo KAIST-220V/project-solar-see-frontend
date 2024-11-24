@@ -65,17 +65,17 @@ function GameClaim(props: scoreProps) {
   };
   return (
     <div className="relative flex flex-col top-[10dvh] h-[90dvh]">
-      <div className="px-3">
+      <div className="px-3 flex flex-col">
         <p className="text-[#FFA629] font-bold tracking-widest">
           <span className="font-handwriting">AI</span>
           <span>의 실수 잡아내기</span>
         </p>
-        <p className="mt-3">패널이 맞는데 빠뜨리거나, 패널이 아닌데</p>
-        <p>
-          <span>맞다고 판단한 </span>
-          <span className="font-handwriting">AI</span>
-          <span>의 실수를 잡아내 주세요!</span>
-        </p>
+        <div className="flex flex-row items-center">
+          <span className="bg-[#FF7729] w-[4vw] h-[4vw] rounded-full flex items-center justify-center">
+            <p className="text-white text-center ">{currentIndex + 1}</p>
+          </span>
+          <span className="ml-1">은 태양광 패널이 맞나요?</span>
+        </div>
       </div>
       <div
         ref={containerRef}
