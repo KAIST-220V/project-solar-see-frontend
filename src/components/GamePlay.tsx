@@ -34,17 +34,12 @@ function GamePlay(props: Props) {
     }, 1000);
 
     return () => clearTimeout(timer);
-  })
+  });
 
   const newLogos = [
     ...Array(props.lifeCount)
       .fill(null)
-      .map((_, index) => (
-        <Logo
-          key={index}
-          className="w-[10vw] h-[10vw]"
-        />
-      )),
+      .map((_, index) => <Logo key={index} className="w-[10vw] h-[10vw]" />),
     ...Array(5 - props.lifeCount)
       .fill(null)
       .map((_, index) => (
@@ -111,7 +106,7 @@ function GamePlay(props: Props) {
 
   return (
     <div>
-      {loading &&
+      {loading && (
         <div>
           <div className="absolute top-0 left-0 w-screen h-screen z-30 bg-blue opacity-75 justify-center items-center"></div>
           <div className="absolute top-[20vh] flex flex-col w-full h-[50vh] z-40 flex opacity-100 justify-center items-center">
@@ -124,26 +119,35 @@ function GamePlay(props: Props) {
               <span>패널 찾기 시작!</span>
             </p>
           </div>
-        </div>}
+        </div>
+      )}
       <div className="absolute relative top-[10vh] h-[90vh]">
         <div className="px-3">
           <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
             <p>ROUND {props.round}</p>
-            <p>{props.score.toString().padStart(3, '0')}</p>
+            <p>{props.score.toString().padStart(3, "0")}</p>
           </div>
           <p>
             <span>SolarSee AI는 패널 </span>
-            <span className="font-handwriting">{props.panelsInImage.length}</span>
+            <span className="font-handwriting">
+              {props.panelsInImage.length}
+            </span>
             <span>개를 찾았어요.</span>
           </p>
           <p>
             <span>최대 </span>
-            <span className="font-handwriting">{props.panelsInImage.length}</span>
+            <span className="font-handwriting">
+              {props.panelsInImage.length}
+            </span>
             <span>개의 패널을 선택해 주세요.</span>
           </p>
         </div>
         <div className="relative flex aspect-square mt-3">
-          <img src={props.img} className="w-full select-none aspect-square" alt="" />
+          <img
+            src={props.img}
+            className="w-full select-none aspect-square"
+            alt=""
+          />
           <svg
             className="absolute left-0 top-0 z-10 w-full h-full"
             viewBox="0 0 100 100"
@@ -154,7 +158,8 @@ function GamePlay(props: Props) {
                 points={pan.all_points_x
                   .map(
                     (point: number, i: number) =>
-                      `${(point * 100) / 1024},${(pan.all_points_y[i] * 100) / 1024
+                      `${(point * 100) / 1024},${
+                        (pan.all_points_y[i] * 100) / 1024
                       }`
                   )
                   .join(" ")}
@@ -187,8 +192,10 @@ function GamePlay(props: Props) {
           ))}
         </div>
         <div className="absolute top-[80vh] w-full px-3">
-          <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
-            onClick={() => props.setMode('score')}>
+          <button
+            className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
+            onClick={() => props.setMode("score")}
+          >
             결과보기 ({count}/{props.panelsInImage.length})
           </button>
         </div>
