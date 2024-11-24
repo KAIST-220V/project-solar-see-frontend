@@ -40,7 +40,7 @@ function GamePage() {
         console.log(data.polygon)
         setImgId(data.id);
       });
-  }, [round]);
+  }, []);
 
   useEffect(() => {
     const visited = Cookies.get('visited');
@@ -48,9 +48,6 @@ function GamePage() {
       setIsFirstVisit(false);
     }
   }, [])
-
-  const navigate = useNavigate();
-  navigate('/game/ranking', { state: { score } })
 
   return (
     <div className="static">
@@ -96,11 +93,15 @@ function GamePage() {
               isClaimed={isClaimed}
               setIsClaimed={setIsClaimed}
               img={img}
+              setImg={setImg}
+              setPanel={setPanel}
+              setImgId={setImgId}
             />
           )}
           {mode === 'claim' && (
             <GameClaim
               round={round}
+              setRound={setRound}
               panel={panel}
               checks={check.reduce((acc: number[], check, i) => {
                 if (check === 0) acc.push(i);
