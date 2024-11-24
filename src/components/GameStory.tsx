@@ -25,7 +25,7 @@ function GameStory(props: Props) {
       </div>
       <div className="flex overflow-auto snap-x snap-mandatory w-full h-[90vh]">
         <div className="flex-none w-full h-full items-center justify-center snap-start">
-          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[60vh] md: aspect-none">
+          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
             <img src={img1} className="w-full h-full object-cover"></img>
           </div>
           <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
@@ -36,7 +36,7 @@ function GameStory(props: Props) {
           </div>
         </div>
         <div className="flex-none w-full h-full items-center justify-center snap-start">
-          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[60vh] md: aspect-none">
+          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
             <img src={img2} className="w-full h-full object-cover"></img>
           </div>
           <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
@@ -44,22 +44,22 @@ function GameStory(props: Props) {
             <p className="text-xl text-black font-extrabold">SolarSee 프로젝트를 시작했어요</p>
             <p className="text-sm text-gray-500 mt-3">SolarSee 프로젝트는</p>
             <p className="text-sm text-gray-500">항공사진과 최신 AI기술을 활용하여</p>
-            <p className="text-sm text-gray-500">비계량 태양광 패널을 탐색하는 프로젝이에요</p>
+            <p className="text-sm text-gray-500">비계량 태양광 패널을 탐색하는 프로젝트이에요</p>
           </div>
         </div>
         <div className="flex-none w-full h-full items-center justify-center snap-start">
-          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[60vh] md: aspect-none">
+          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
             <img src={img3} className="w-full h-full object-cover"></img>
           </div>
           <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
             <p className="text-xl text-black font-extrabold">여러분도 게임을 플레이하면서</p>
-            <p className="text-xl text-black font-extrabold">큰 도움을 주실 수 있어요</p>
+            <p className="text-xl text-black font-extrabold">프로젝트에 참여할 수 있어요</p>
             <p className="text-sm text-gray-500 mt-5">게임을 플레이하면서 모인 데이터는</p>
             <p className="text-sm text-gray-500">AI 정확도 향상에 사용될 거예요</p>
           </div>
         </div>
         <div className="flex-none w-full h-full items-center justify-center snap-start">
-          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[60vh] md: aspect-none">
+          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
             <img src={img4} className="w-full h-full object-cover"></img>
           </div>
           <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
