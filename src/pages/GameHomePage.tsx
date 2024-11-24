@@ -17,7 +17,7 @@ function GameHomePage() {
                 <p>패널이 맞는데 빠뜨리거나, 패널이 아닌데 맞다고 판단한</p>
                 <p>AI의 실수를 잡아내 주세요!</p>
             </div>
-            <Image className="absolute top-[29.563vh] mx-2"/>
+            <Image className="absolute top-[29.563vh] w-[98vw] ml-[1vw] self-center"/>
             <div className="flex w-full px-3 absolute top-[91.079vh]">
                 <button
                     className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
