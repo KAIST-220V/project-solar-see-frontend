@@ -197,12 +197,17 @@ function GameScore(props: scoreProps) {
           <p className="text-3xl font-bold text-yellow">{correctClicks}점</p>
         </div>
 
-        {props.isClaimed ? <div className="absolute top-[80vh] w-full px-3">
+        {props.isClaimed ? (gameOver ? <div className="absolute top-[80vh] w-full px-3">
           <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
             onClick={() => { props.setIsClaimed(false); handleNextGame() }}>
             다음 게임 시작하기
           </button>
-        </div> : <div className="absolute top-[80vh] justify-evenly flex w-full">
+        </div> : <div className="absolute top-[80vh] w-full px-3">
+        <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
+          onClick={() => { props.setIsClaimed(false); handleNextGame() }}>
+          랭킹 등록하기
+        </button>
+      </div>) : <div className="absolute top-[80vh] justify-evenly flex w-full">
           <button
             className="rounded-lg bg-[#FFA629] w-[44.2744809vw] h-[6.45533991vh]"
             onClick={() => props.setMode('claim')}
