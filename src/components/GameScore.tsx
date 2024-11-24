@@ -103,7 +103,7 @@ function GameScore(props: scoreProps) {
 
   return (
     <div>
-      {gameOverLoading &&
+      {gameOverLoading && !props.isClaimed && 
         <div>
           <div className="absolute top-0 left-0 w-screen h-screen z-30 bg-blue opacity-75 justify-center items-center"></div>
           <div className="absolute top-[20vh] flex flex-col w-full h-[50vh] z-40 flex opacity-100 justify-center items-center">
@@ -199,13 +199,13 @@ function GameScore(props: scoreProps) {
 
         {props.isClaimed ? (gameOver ? <div className="absolute top-[80vh] w-full px-3">
           <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
-            onClick={() => { props.setIsClaimed(false); handleNextGame() }}>
-            다음 게임 시작하기
+            onClick={() => { props.setIsClaimed(false); handleRanking() }}>
+            랭킹 등록하기
           </button>
         </div> : <div className="absolute top-[80vh] w-full px-3">
         <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
           onClick={() => { props.setIsClaimed(false); handleNextGame() }}>
-          랭킹 등록하기
+          다음 게임 시작하기
         </button>
       </div>) : <div className="absolute top-[80vh] justify-evenly flex w-full">
           <button
