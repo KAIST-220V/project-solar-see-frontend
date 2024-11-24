@@ -41,7 +41,7 @@ function GameScore(props: scoreProps) {
           className="w-[10vw] h-[10vw]"
         />
       )),
-    ...Array(Math.max(0, 5 - props.lifeCount + wrongClicks))
+    ...Array(Math.min(5, Math.max(0, 5 - props.lifeCount + wrongClicks)))
       .fill(null)
       .map((_, index) => (
         <EmptyLogo
