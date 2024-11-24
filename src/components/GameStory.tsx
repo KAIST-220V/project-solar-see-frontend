@@ -27,7 +27,8 @@ function GameStory(props: Props) {
           </p>
         </div>
       </div>
-      <p className="animate-slide font-handwriting text-lg text-end -mb-3 text-gray-500">
+
+      <p className="animate-slide font-handwriting text-lg text-end mb-[-5dvh] text-gray-500 h-[5dvh]">
         오른쪽으로 넘겨주세요 {">>"}
       </p>
       <div className="flex overflow-auto snap-x snap-mandatory w-full h-[90dvh]">
