@@ -64,7 +64,7 @@ function GameClaim(props: scoreProps) {
     props.setIsClaimed(true);
   };
   return (
-    <div className="relative flex flex-col top-[10vh] h-[90vh]">
+    <div className="relative flex flex-col top-[10dvh] h-[90dvh]">
       <div className="px-3">
         <p className="text-[#FFA629] font-bold tracking-widest">
           <span className="font-handwriting">AI</span>

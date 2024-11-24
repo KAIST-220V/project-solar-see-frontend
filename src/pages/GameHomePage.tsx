@@ -20,9 +20,9 @@ function GameHomePage() {
   };
 
   return (
-    <div className="static flex flex-col h-[100vh]">
+    <div className="static flex flex-col h-[100dvh]">
       <GameButton />
-      <div className="flex flex-row w-full justify-center items-center mt-[11.286vh] space-x-1">
+      <div className="flex flex-row w-full justify-center items-center pt-[11.286vh] space-x-1">
         <p className="font-bold text-3xl">태양광 패널 찾기</p>
         <Logo />
       </div>
