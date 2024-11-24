@@ -1,8 +1,4 @@
 import { ReactComponent as Wrong } from "../assets/check2.svg";
-import { ReactComponent as FalsePositive } from "../assets/FalsePositive.svg";
-import { ReactComponent as SelectedFalsePositive } from "../assets/SelectedFalsePositive.svg";
-import { ReactComponent as FalseNegative } from "../assets/FalseNegative.svg";
-import { ReactComponent as SelectedFalseNegative } from "../assets/SelectedFalseNegative.svg";
 import { ReactComponent as DefaultO } from "../assets/default_O.svg";
 import { ReactComponent as DefaultX } from "../assets/default_X.svg";
 import { ReactComponent as SelectedO } from "../assets/selected_O.svg";
@@ -80,9 +76,9 @@ function GameClaim(props: scoreProps) {
           (_, i) => 
             (i < props.checks.length ? 
               (<div
-                className="snap-center w-full h-[100vw] relative"
+                className="snap-start w-full aspect-square relative"
                 key={`div-${i}`}>
-                  <img src={props.img} className="w-full h-[100vw]" alt="" />
+                  <img src={props.img} className="w-full aspect-square" alt="" />
                   <svg
                     className="absolute left-0 top-0 z-10"
                     width="100%"
@@ -124,8 +120,8 @@ function GameClaim(props: scoreProps) {
                     >
                     </div>
                   </div>
-                </div>) : (<div className="relative snap-center w-full h-[100vw]" key={`div-${i}`}>
-                  <img src={props.img} className="w-full h-[100vw]" alt="" />
+                </div>) : (<div className="relative snap-start w-full aspect-square" key={`div-${i}`}>
+                  <img src={props.img} className="w-full aspect-square" alt="" />
                   <Wrong
                     style={{
                       position: "absolute",
