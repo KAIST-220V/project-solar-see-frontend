@@ -121,7 +121,7 @@ function GamePlay(props: Props) {
           </div>
         </div>
       )}
-      <div className="absolute flex flex-col top-[10vh] h-[90vh] w-full">
+      <div className="absolute flex flex-col top-[10dvh] h-[90dvh] w-full">
         <div className="px-3">
           <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
             <p>ROUND {props.round}</p>

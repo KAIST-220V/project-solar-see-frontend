@@ -115,7 +115,7 @@ function GameScore(props: scoreProps) {
           </div>
         </div>
       )}
-      <div className="flex flex-col relative top-[10vh] h-[90vh]">
+      <div className="flex flex-col relative top-[10dvh] h-[90dvh]">
         <div className="px-3">
           <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
             <p>ROUND {props.round}</p>
