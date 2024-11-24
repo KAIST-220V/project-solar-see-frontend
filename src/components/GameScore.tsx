@@ -5,6 +5,7 @@ import { ReactComponent as EmptyLogo } from "../assets/logo_outline.svg";
 import { ReactComponent as Correct } from "../assets/check1.svg";
 import { ReactComponent as Wrong } from "../assets/check2.svg";
 import { ReactComponent as OverLogo } from "../assets/gameover_100px.svg";
+import { PanelInImages } from "../types/interface";
 
 type Position = {
   x: number;
@@ -27,6 +28,9 @@ type scoreProps = {
   isClaimed: boolean;
   setIsClaimed: React.Dispatch<React.SetStateAction<boolean>>;
   img: string;
+  setPanel: React.Dispatch<React.SetStateAction<PanelInImages[]>>;
+  setImg: React.Dispatch<React.SetStateAction<string>>;
+  setImgId: React.Dispatch<React.SetStateAction<number>>;
 };
 
 function GameScore(props: scoreProps) {
@@ -73,6 +77,18 @@ function GameScore(props: scoreProps) {
   ];
 
   const handleNextGame = () => {
+    props.setImg('');
+    fetch("https://solar-see.site/api/v1/game/image", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        props.setPanel(data.polygon);
+        props.setChecks(Array(data.polygon.length).fill(0));
+        props.setImg(data.image_url);
+        console.log(data.polygon)
+        props.setImgId(data.id);
+      });
     props.setScore(props.score + correctClicks)
     props.setLifeCount(Math.max(0, props.lifeCount - wrongClicks))
     props.setMode('game');
@@ -173,35 +189,42 @@ function GameScore(props: scoreProps) {
           ))}
         </div>
 
-        {props.isClaimed ? <div className="absolute bottom-[13vh] w-full">
-          <p className="text-center w-full">1건의 실수 제보가 접수 되었습니다!</p>
-        </div> : <div className="flex flex-col items-center mt-3">
+        <div className="flex flex-col items-center mt-3">
           <p>
             {props.panel.length}개 중 {correctClicks}개 맞힘, {wrongClicks}개
             틀림, {props.panel.length - correctClicks}개 놓침
           </p>
           <p className="text-3xl font-bold text-yellow">{correctClicks}점</p>
-        </div>}
+        </div>
 
-      {props.isClaimed ? <div className="absolute top-[80vh] w-full px-3">
-        <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
-          onClick={() => {props.setIsClaimed(false); handleNextGame()}}>
-          다음 게임 시작하기
-        </button>
-      </div> : <div className="flex bottom-[5vh] justify-evenly flex w-full">
-        <button
-          className="rounded-lg bg-[#FFA629] w-[44.2744809vw] h-[6.45533991vh]"
-          onClick={() => props.setMode('claim')}
-        >
-          AI의 실수 잡아내기
-        </button>
-        <button
-          className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh]"
-          onClick={handleNextGame}
-        >
-          다음 게임 시작하기
-        </button>
-      </div>}
+        {props.isClaimed ? <div className="absolute top-[80vh] w-full px-3">
+          <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
+            onClick={() => { props.setIsClaimed(false); handleNextGame() }}>
+            다음 게임 시작하기
+          </button>
+        </div> : <div className="absolute top-[80vh] justify-evenly flex w-full">
+          <button
+            className="rounded-lg bg-[#FFA629] w-[44.2744809vw] h-[6.45533991vh]"
+            onClick={() => props.setMode('claim')}
+          >
+            AI의 실수 잡아내기
+          </button>
+          {gameOver ?
+            <button
+              className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh]"
+              onClick={handleRanking}
+            >
+              랭킹 등록하기
+            </button>
+            :
+            <button
+              className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh]"
+              onClick={handleNextGame}
+            >
+              다음 게임 시작하기
+            </button>
+          }
+        </div>}
     </div>
     </div>
   );

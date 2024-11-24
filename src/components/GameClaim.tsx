@@ -17,6 +17,7 @@ type Position = {
 
 type scoreProps = {
   round: number;
+  setRound: React.Dispatch<React.SetStateAction<number>>;
   checks: number[];
   marks: Position[];
   panel: { all_points_x: number[]; all_points_y: number[] }[];
@@ -57,8 +58,8 @@ function GameClaim(props: scoreProps) {
   const [positive, setPositive] = useState(Array(props.checks.length + marks.length).fill(0));
 
   const handleClaim = () => {
-    props.setMode('game')
-    props.setIsClaimed(true)
+    props.setMode('score');
+    props.setIsClaimed(true);
   }
   return (
     <div className="absolute relative top-[10vh] h-[90vh]">
@@ -74,14 +75,14 @@ function GameClaim(props: scoreProps) {
           <span>의 실수를 잡아내 주세요!</span>
         </p>
       </div>
-      {/* <div
+      <div
         ref={containerRef}
         className="relative flex flex-row aspect-square mt-3 snap-x snap-mandatory overflow-x-auto overflow-y-hidden">
         {Array.from({ length: props.checks.length + marks.length }).map(
           (_, i) => 
             (i < props.checks.length ? 
               (<div
-                className="snap-center w-full h-full aspect-square relative"
+                className="flex-none w-full h-full snap-start aspect-square relative"
                 key={`div-${i}`}>
                   <img src={props.img} className="w-full h-full aspect-square" alt="" />
                   <svg
@@ -125,7 +126,7 @@ function GameClaim(props: scoreProps) {
                     >
                     </div>
                   </div>
-                </div>) : (<div className="relative snap-center w-full h-full aspect-square" key={`div-${i}`}>
+                </div>) : (<div className="flex-none w-full h-full snap-start relative aspect-square" key={`div-${i}`}>
                   <img src={props.img} className="w-full h-full aspect-square" alt="" />
                   <Wrong
                     style={{
@@ -161,8 +162,8 @@ function GameClaim(props: scoreProps) {
                 </div>)
             )
         )}
-      </div> */}
-      <div className="flex overflow-auto snap-x snap-mandatory w-full h-[90vh]">
+      </div>
+      {/* <div className="flex overflow-auto snap-x snap-mandatory w-full h-[90vh]">
         <div className="flex-none w-full h-full items-center justify-center snap-start">
           <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
             <img src={img1} className="w-full h-full object-cover"></img>
@@ -209,7 +210,7 @@ function GameClaim(props: scoreProps) {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="flex flex-row space-x-1 justify-center mt-3">
         {Array.from({ length : marks.length + props.checks.length }).map((_, i) => (
           <div className={`w-[2vw] aspect-square rounded-full ${i === currentIndex ? "bg-[#444444]" : "bg-[#B3B3B3]"}`} key={i}></div>
