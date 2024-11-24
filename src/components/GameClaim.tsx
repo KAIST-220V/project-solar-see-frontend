@@ -4,6 +4,10 @@ import { ReactComponent as SelectedO } from "../assets/selected_O.svg";
 import { ReactComponent as DefaultX } from "../assets/default_X.svg";
 import { ReactComponent as SelectedX } from "../assets/selected_X.svg";
 import { useState, useEffect, useRef } from "react";
+import img1 from "../assets/page1.jpg";
+import img2 from "../assets/page2.jpg";
+import img3 from "../assets/page3.jpg";
+import img4 from "../assets/page4.jpg";
 
 type Position = {
   x: number;
@@ -53,7 +57,7 @@ function GameClaim(props: scoreProps) {
   const [positive, setPositive] = useState(Array(props.checks.length + marks.length).fill(0));
 
   const handleClaim = () => {
-    props.setMode('play')
+    props.setMode('game')
     props.setIsClaimed(true)
   }
   return (
@@ -70,9 +74,9 @@ function GameClaim(props: scoreProps) {
           <span>의 실수를 잡아내 주세요!</span>
         </p>
       </div>
-      <div
+      {/* <div
         ref={containerRef}
-        className="relative flex flex-row aspect-square mt-3 bg-slate-30 snap-x snap-mandatory overflow-x-auto overflow-y-hidden">
+        className="relative flex flex-row aspect-square mt-3 snap-x snap-mandatory overflow-x-auto overflow-y-hidden">
         {Array.from({ length: props.checks.length + marks.length }).map(
           (_, i) => 
             (i < props.checks.length ? 
@@ -157,6 +161,54 @@ function GameClaim(props: scoreProps) {
                 </div>)
             )
         )}
+      </div> */}
+      <div className="flex overflow-auto snap-x snap-mandatory w-full h-[90vh]">
+        <div className="flex-none w-full h-full items-center justify-center snap-start">
+          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
+            <img src={img1} className="w-full h-full object-cover"></img>
+          </div>
+          <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
+            <p className="text-xl text-black font-extrabold">전력 수요 예측을 어렵게 하는 범인,</p>
+            <p className="text-xl text-black font-extrabold">바로 비계량 태양광이에요</p>
+            <p className="text-sm text-gray-500 mt-5">비계량 태양광은 발전량이 측정되지 않는</p>
+            <p className="text-sm text-gray-500">태양광으로, 피크 전력 수요의 11%나 차지해요</p>
+          </div>
+        </div>
+        <div className="flex-none w-full h-full items-center justify-center snap-start">
+          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
+            <img src={img2} className="w-full h-full object-cover"></img>
+          </div>
+          <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
+            <p className="text-xl text-black font-extrabold">그래서 Team 220V는</p>
+            <p className="text-xl text-black font-extrabold">SolarSee 프로젝트를 시작했어요</p>
+            <p className="text-sm text-gray-500 mt-3">SolarSee 프로젝트는</p>
+            <p className="text-sm text-gray-500">항공사진과 최신 AI기술을 활용하여</p>
+            <p className="text-sm text-gray-500">비계량 태양광 패널을 탐색하는 프로젝트이에요</p>
+          </div>
+        </div>
+        <div className="flex-none w-full h-full items-center justify-center snap-start">
+          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
+            <img src={img3} className="w-full h-full object-cover"></img>
+          </div>
+          <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
+            <p className="text-xl text-black font-extrabold">여러분도 게임을 플레이하면서</p>
+            <p className="text-xl text-black font-extrabold">프로젝트에 참여할 수 있어요</p>
+            <p className="text-sm text-gray-500 mt-5">게임을 플레이하면서 모인 데이터는</p>
+            <p className="text-sm text-gray-500">AI 정확도 향상에 사용될 거예요</p>
+          </div>
+        </div>
+        <div className="flex-none w-full h-full items-center justify-center snap-start">
+          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
+            <img src={img4} className="w-full h-full object-cover"></img>
+          </div>
+          <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
+            <p className="text-xl text-black font-extrabold">그럼 지구의 미래를 위해서,</p>
+            <p className="text-xl text-black font-extrabold">게임을 시작해 볼까요?</p>
+            <button className="rounded-lg bg-yellow w-full h-[6.45533991vh] mt-5">
+              게임하기
+            </button>
+          </div>
+        </div>
       </div>
       <div className="flex flex-row space-x-1 justify-center mt-3">
         {Array.from({ length : marks.length + props.checks.length }).map((_, i) => (
@@ -201,7 +253,7 @@ function GameClaim(props: scoreProps) {
           />
         }
       </div>
-      <div className="flex w-full px-3">
+      <div className="absolute top-[80vh] w-full px-3">
         <button className="rounded-lg bg-[#FFA629] w-full h-[6.45533991vh]"
           onClick={handleClaim}>
           제보 완료하기
