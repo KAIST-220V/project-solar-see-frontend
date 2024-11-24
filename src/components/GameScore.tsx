@@ -98,7 +98,7 @@ function GameScore(props: scoreProps) {
   };
 
   const handleRanking = () => {
-    navigate('/game/ranking', { state: props.score })
+    navigate('/game/ranking', { state: {score: props.score + correctClicks} })
   }
 
   return (
