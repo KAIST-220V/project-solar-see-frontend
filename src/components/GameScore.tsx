@@ -203,6 +203,7 @@ function GameScore(props: scoreProps) {
         </button>
       </div>}
     </div>
+    </div>
   );
 }
 
