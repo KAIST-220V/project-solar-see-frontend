@@ -55,14 +55,16 @@ function GameClaim(props: scoreProps) {
     if (mark.pIndex === -1) acc.push(i);
     return acc;
   }, []);
-  const [positive, setPositive] = useState(Array(props.checks.length + marks.length).fill(0));
+  const [positive, setPositive] = useState(
+    Array(props.checks.length + marks.length).fill(0)
+  );
 
   const handleClaim = () => {
-    props.setMode('score');
+    props.setMode("score");
     props.setIsClaimed(true);
-  }
+  };
   return (
-    <div className="absolute relative top-[10vh] h-[90vh]">
+    <div className="relative flex flex-col top-[10vh] h-[90vh]">
       <div className="px-3">
         <p className="text-[#FFA629] font-bold tracking-widest">
           <span className="font-handwriting">AI</span>
@@ -77,89 +79,145 @@ function GameClaim(props: scoreProps) {
       </div>
       <div
         ref={containerRef}
-        className="relative flex flex-row aspect-square mt-3 snap-x snap-mandatory overflow-x-auto overflow-y-hidden">
+        className="relative flex flex-shrink-0 flex-row aspect-square mt-3 snap-x snap-mandatory overflow-x-auto w-full"
+      >
         {Array.from({ length: props.checks.length + marks.length }).map(
-          (_, i) => 
-            (i < props.checks.length ? 
-              (<div
-                className="flex-none w-full h-full snap-start aspect-square relative"
-                key={`div-${i}`}>
-                  <img src={props.img} className="w-full h-full aspect-square" alt="" />
-                  <svg
-                    className="absolute left-0 top-0 z-10"
-                    width="100%"
-                    height="100%"
-                    viewBox="0 0 100 100"
-                  >
-                    <polygon
-                      points={
-                        props.panel[props.checks[i]].all_points_x
-                        .map((point: number, j: number) => {
-                          const yPoint = props.panel[props.checks[i]].all_points_y[j] ?? 0; // 기본값 0
-                          return `${(point * 100) / 1024},${(yPoint * 100) / 1024}`;
-                        })
-                        .join(' ')
-                      }
-                      fill="rgba(0, 0, 0, 0)"
-                      stroke="#FF7729"
-                      strokeWidth="1"
-                    />
-                  </svg>
-                  <div>
-                    <div
-                      className="bg-white absolute w-[9vw] aspect-square rounded-md z-30 flex items-center justify-center"
-                      style={{
-                        left: `min(calc(${(props.panel[props.checks[i]].all_points_x.reduce((acc, cur) => acc + cur, 0)/props.panel[props.checks[i]].all_points_x.length*100/1024)-4.5}vw), 91vw)`,
-                        top: `max(${(props.panel[props.checks[i]].all_points_y.reduce((acc, cur) => (cur < acc ? cur : acc), Infinity)*100/1024)-14}vw, 0vw)`,
-                      }}
-                    >
-                      <div className="bg-[#FF7729] w-[6vw] h-[6vw] rounded-full flex items-center justify-center">
-                        <p className="text-white text-center ">{i+1}</p>
-                      </div>
-                    </div>
-                    <div
-                      className="absolute w-0 h-0 border-l-[2.5vw] border-r-[2.5vw] border-t-[4vw] border-transparent border-t-white z-20"
-                      style={{
-                        left: `min(calc(${(props.panel[props.checks[i]].all_points_x.reduce((acc, cur) => acc + cur, 0)/props.panel[props.checks[i]].all_points_x.length*100/1024)-2.5}vw), 94vw)`,
-                        top: `max(${(props.panel[props.checks[i]].all_points_y.reduce((acc, cur) => (cur < acc ? cur : acc), Infinity)*100/1024)-7}vw, 0vw)`,
-                      }}
-                    >
-                    </div>
-                  </div>
-                </div>) : (<div className="flex-none w-full h-full snap-start relative aspect-square" key={`div-${i}`}>
-                  <img src={props.img} className="w-full h-full aspect-square" alt="" />
-                  <Wrong
-                    style={{
-                      position: "absolute",
-                      left: `${props.marks[marks[i-props.checks.length]].x-12}px`,
-                      top: `${props.marks[marks[i-props.checks.length]].y-26}px`,
-                      width: "27.9px",
-                      height: "29px",
-                      zIndex: 20,
-                    }}
+          (_, i) =>
+            i < props.checks.length ? (
+              <div
+                className="flex-none w-full snap-start aspect-square relative"
+                key={`div-${i}`}
+              >
+                <img src={props.img} className="w-full aspect-square" alt="" />
+                <svg
+                  className="absolute left-0 top-0 z-10"
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 100 100"
+                >
+                  <polygon
+                    points={props.panel[props.checks[i]].all_points_x
+                      .map((point: number, j: number) => {
+                        const yPoint =
+                          props.panel[props.checks[i]].all_points_y[j] ?? 0; // 기본값 0
+                        return `${(point * 100) / 1024},${
+                          (yPoint * 100) / 1024
+                        }`;
+                      })
+                      .join(" ")}
+                    fill="rgba(0, 0, 0, 0)"
+                    stroke="#FF7729"
+                    strokeWidth="1"
                   />
-                  <div>
-                    <div
-                      className="bg-white absolute w-[9vw] aspect-square rounded-md z-30 flex items-center justify-center"
-                      style={{
-                        left: `min(calc(${props.marks[marks[i-props.checks.length]].x}px - 4.5vw), 91vw)`,
-                        top: `max(0vw, calc(${props.marks[marks[i-props.checks.length]].y}px - 19vw))`,
-                      }}
-                    >
-                      <div className="bg-[#FF7729] w-[6vw] h-[6vw] rounded-full flex items-center justify-center">
-                        <p className="text-white text-center ">{i+1}</p>
-                      </div>
-                    </div>
-                    <div
-                      className="absolute w-0 h-0 border-l-[2.5vw] border-r-[2.5vw] border-t-[4vw] border-transparent border-t-white z-20"
-                      style={{
-                        left: `min(calc(${props.marks[marks[i-props.checks.length]].x}px - 2.5vw), 94vw)`,
-                        top: `max(0vw, calc(${props.marks[marks[i-props.checks.length]].y}px - 12vw))`,
-                      }}
-                    >
+                </svg>
+                <div>
+                  <div
+                    className="bg-white absolute w-[9vw] aspect-square rounded-md z-30 flex items-center justify-center"
+                    style={{
+                      left: `min(calc(${
+                        ((props.panel[props.checks[i]].all_points_x.reduce(
+                          (acc, cur) => acc + cur,
+                          0
+                        ) /
+                          props.panel[props.checks[i]].all_points_x.length) *
+                          100) /
+                          1024 -
+                        4.5
+                      }vw), 91vw)`,
+                      top: `max(${
+                        (props.panel[props.checks[i]].all_points_y.reduce(
+                          (acc, cur) => (cur < acc ? cur : acc),
+                          Infinity
+                        ) *
+                          100) /
+                          1024 -
+                        14
+                      }vw, 0vw)`,
+                    }}
+                  >
+                    <div className="bg-[#FF7729] w-[6vw] h-[6vw] rounded-full flex items-center justify-center">
+                      <p className="text-white text-center ">{i + 1}</p>
                     </div>
                   </div>
-                </div>)
+                  <div
+                    className="absolute w-0 h-0 border-l-[2.5vw] border-r-[2.5vw] border-t-[4vw] border-transparent border-t-white z-20"
+                    style={{
+                      left: `min(calc(${
+                        ((props.panel[props.checks[i]].all_points_x.reduce(
+                          (acc, cur) => acc + cur,
+                          0
+                        ) /
+                          props.panel[props.checks[i]].all_points_x.length) *
+                          100) /
+                          1024 -
+                        2.5
+                      }vw), 94vw)`,
+                      top: `max(${
+                        (props.panel[props.checks[i]].all_points_y.reduce(
+                          (acc, cur) => (cur < acc ? cur : acc),
+                          Infinity
+                        ) *
+                          100) /
+                          1024 -
+                        7
+                      }vw, 0vw)`,
+                    }}
+                  ></div>
+                </div>
+              </div>
+            ) : (
+              <div
+                className="flex-none w-full h-full snap-start relative aspect-square"
+                key={`div-${i}`}
+              >
+                <img
+                  src={props.img}
+                  className="w-full h-full aspect-square"
+                  alt=""
+                />
+                <Wrong
+                  style={{
+                    position: "absolute",
+                    left: `${
+                      props.marks[marks[i - props.checks.length]].x - 12
+                    }px`,
+                    top: `${
+                      props.marks[marks[i - props.checks.length]].y - 26
+                    }px`,
+                    width: "27.9px",
+                    height: "29px",
+                    zIndex: 20,
+                  }}
+                />
+                <div>
+                  <div
+                    className="bg-white absolute w-[9vw] aspect-square rounded-md z-30 flex items-center justify-center"
+                    style={{
+                      left: `min(calc(${
+                        props.marks[marks[i - props.checks.length]].x
+                      }px - 4.5vw), 91vw)`,
+                      top: `max(0vw, calc(${
+                        props.marks[marks[i - props.checks.length]].y
+                      }px - 19vw))`,
+                    }}
+                  >
+                    <div className="bg-[#FF7729] w-[6vw] h-[6vw] rounded-full flex items-center justify-center">
+                      <p className="text-white text-center ">{i + 1}</p>
+                    </div>
+                  </div>
+                  <div
+                    className="absolute w-0 h-0 border-l-[2.5vw] border-r-[2.5vw] border-t-[4vw] border-transparent border-t-white z-20"
+                    style={{
+                      left: `min(calc(${
+                        props.marks[marks[i - props.checks.length]].x
+                      }px - 2.5vw), 94vw)`,
+                      top: `max(0vw, calc(${
+                        props.marks[marks[i - props.checks.length]].y
+                      }px - 12vw))`,
+                    }}
+                  ></div>
+                </div>
+              </div>
             )
         )}
       </div>
@@ -212,12 +270,19 @@ function GameClaim(props: scoreProps) {
         </div>
       </div> */}
       <div className="flex flex-row space-x-1 justify-center mt-3">
-        {Array.from({ length : marks.length + props.checks.length }).map((_, i) => (
-          <div className={`w-[2vw] aspect-square rounded-full ${i === currentIndex ? "bg-[#444444]" : "bg-[#B3B3B3]"}`} key={i}></div>
-        ))}
+        {Array.from({ length: marks.length + props.checks.length }).map(
+          (_, i) => (
+            <div
+              className={`w-[2vw] aspect-square rounded-full ${
+                i === currentIndex ? "bg-[#444444]" : "bg-[#B3B3B3]"
+              }`}
+              key={i}
+            ></div>
+          )
+        )}
       </div>
       <div className="flex flex-row my-3 justify-evenly mx-7">
-        {positive[currentIndex] === 1 ?
+        {positive[currentIndex] === 1 ? (
           <SelectedO
             className="w-[20vw]"
             onClick={() =>
@@ -225,7 +290,8 @@ function GameClaim(props: scoreProps) {
                 prev.map((value, idx) => (idx === currentIndex ? 0 : value))
               )
             }
-          /> :
+          />
+        ) : (
           <DefaultO
             className="w-[20vw]"
             onClick={() =>
@@ -234,8 +300,8 @@ function GameClaim(props: scoreProps) {
               )
             }
           />
-        }
-        {positive[currentIndex] === -1 ?
+        )}
+        {positive[currentIndex] === -1 ? (
           <SelectedX
             className="w-[20vw]"
             onClick={() =>
@@ -243,7 +309,8 @@ function GameClaim(props: scoreProps) {
                 prev.map((value, idx) => (idx === currentIndex ? 0 : value))
               )
             }
-          /> :
+          />
+        ) : (
           <DefaultX
             className="w-[20vw]"
             onClick={() =>
@@ -252,11 +319,13 @@ function GameClaim(props: scoreProps) {
               )
             }
           />
-        }
+        )}
       </div>
-      <div className="absolute top-[80vh] w-full px-3">
-        <button className="rounded-lg bg-[#FFA629] w-full h-[6.45533991vh]"
-          onClick={handleClaim}>
+      <div className="flex flex-grow flex-col-reverse w-full p-3">
+        <button
+          className="rounded-lg bg-[#FFA629] w-full h-[6.45533991vh]"
+          onClick={handleClaim}
+        >
           제보 완료하기
         </button>
       </div>

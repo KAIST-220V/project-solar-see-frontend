@@ -60,12 +60,7 @@ function GameScore(props: scoreProps) {
   const logos = [
     ...Array(Math.max(0, props.lifeCount - wrongClicks))
       .fill(null)
-      .map((_, index) => (
-        <Logo
-          key={index}
-          className="w-[10vw] h-[10vw]"
-        />
-      )),
+      .map((_, index) => <Logo key={index} className="w-[10vw] h-[10vw]" />),
     ...Array(Math.min(5, Math.max(0, 5 - props.lifeCount + wrongClicks)))
       .fill(null)
       .map((_, index) => (
@@ -77,7 +72,7 @@ function GameScore(props: scoreProps) {
   ];
 
   const handleNextGame = () => {
-    props.setImg('');
+    props.setImg("");
     fetch("https://solar-see.site/api/v1/game/image", {
       method: "GET",
     })
@@ -86,27 +81,29 @@ function GameScore(props: scoreProps) {
         props.setPanel(data.polygon);
         props.setChecks(Array(data.polygon.length).fill(0));
         props.setImg(data.image_url);
-        console.log(data.polygon)
+        console.log(data.polygon);
         props.setImgId(data.id);
       });
-    props.setScore(props.score + correctClicks)
-    props.setLifeCount(Math.max(0, props.lifeCount - wrongClicks))
-    props.setMode('game');
+    props.setScore(props.score + correctClicks);
+    props.setLifeCount(Math.max(0, props.lifeCount - wrongClicks));
+    props.setMode("game");
     props.setRound(props.round + 1);
     props.setChecks([]);
     props.setMarks([]);
   };
 
   const handleRanking = () => {
-    navigate('/game/ranking', { state: {score: props.score + correctClicks} })
-  }
+    navigate("/game/ranking", {
+      state: { score: props.score + correctClicks },
+    });
+  };
 
   return (
     <div>
-      {gameOverLoading && !props.isClaimed && 
+      {gameOverLoading && !props.isClaimed && (
         <div>
           <div className="absolute top-0 left-0 w-screen h-screen z-30 bg-blue opacity-75 justify-center items-center"></div>
-          <div className="absolute top-[20vh] flex flex-col w-full h-[50vh] z-40 flex opacity-100 justify-center items-center">
+          <div className="absolute top-[20vh] flex-col w-full h-[50vh] z-40 flex opacity-100 justify-center items-center">
             <OverLogo className="w-[15vh] h-[15vh] z-40 opacity-100" />
             <p className="font-handwriting text-4xl tracking-widest text-orange">
               <span>Round </span>
@@ -116,12 +113,13 @@ function GameScore(props: scoreProps) {
               <span>게임 오버</span>
             </p>
           </div>
-        </div>}
-      <div className="absolute relative top-[10vh] h-[90vh]">
+        </div>
+      )}
+      <div className="flex flex-col relative top-[10vh] h-[90vh]">
         <div className="px-3">
           <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
             <p>ROUND {props.round}</p>
-            <p>{(props.score + correctClicks).toString().padStart(3, '0')}</p>
+            <p>{(props.score + correctClicks).toString().padStart(3, "0")}</p>
           </div>
         </div>
         <div className="relative flex aspect-square mt-3">
@@ -140,7 +138,8 @@ function GameScore(props: scoreProps) {
                     points={props.panel[i].all_points_x
                       .map(
                         (point: number, j: number) =>
-                          `${(point * 100) / 1024},${(props.panel[i].all_points_y[j] * 100) / 1024
+                          `${(point * 100) / 1024},${
+                            (props.panel[i].all_points_y[j] * 100) / 1024
                           }`
                       )
                       .join(" ")}
@@ -197,40 +196,60 @@ function GameScore(props: scoreProps) {
           <p className="text-3xl font-bold text-yellow">{correctClicks}점</p>
         </div>
 
-        {props.isClaimed ? (gameOver ? <div className="absolute top-[80vh] w-full px-3">
-          <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
-            onClick={() => { props.setIsClaimed(false); handleRanking() }}>
-            랭킹 등록하기
-          </button>
-        </div> : <div className="absolute top-[80vh] w-full px-3">
-        <button className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
-          onClick={() => { props.setIsClaimed(false); handleNextGame() }}>
-          다음 게임 시작하기
-        </button>
-      </div>) : <div className="absolute top-[80vh] justify-evenly flex w-full">
-          <button
-            className="rounded-lg bg-[#FFA629] w-[44.2744809vw] h-[6.45533991vh]"
-            onClick={() => props.setMode('claim')}
-          >
-            AI의 실수 잡아내기
-          </button>
-          {gameOver ?
-            <button
-              className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh]"
-              onClick={handleRanking}
-            >
-              랭킹 등록하기
-            </button>
-            :
-            <button
-              className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh]"
-              onClick={handleNextGame}
-            >
-              다음 게임 시작하기
-            </button>
-          }
-        </div>}
-    </div>
+        {props.isClaimed ? (
+          gameOver ? (
+            <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
+              <button
+                className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
+                onClick={() => {
+                  props.setIsClaimed(false);
+                  handleRanking();
+                }}
+              >
+                랭킹 등록하기
+              </button>
+            </div>
+          ) : (
+            <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
+              <button
+                className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
+                onClick={() => {
+                  props.setIsClaimed(false);
+                  handleNextGame();
+                }}
+              >
+                다음 게임 시작하기
+              </button>
+            </div>
+          )
+        ) : (
+          <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
+            <div className="justify-evenly flex">
+              <button
+                className="rounded-lg bg-[#FFA629] w-[44.2744809vw] h-[6.45533991vh]"
+                onClick={() => props.setMode("claim")}
+              >
+                AI의 실수 잡아내기
+              </button>
+              {gameOver ? (
+                <button
+                  className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh]"
+                  onClick={handleRanking}
+                >
+                  랭킹 등록하기
+                </button>
+              ) : (
+                <button
+                  className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh]"
+                  onClick={handleNextGame}
+                >
+                  다음 게임 시작하기
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

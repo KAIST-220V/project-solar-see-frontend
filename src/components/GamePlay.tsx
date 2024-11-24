@@ -121,7 +121,7 @@ function GamePlay(props: Props) {
           </div>
         </div>
       )}
-      <div className="absolute relative top-[10vh] h-[90vh]">
+      <div className="absolute flex flex-col top-[10vh] h-[90vh]">
         <div className="px-3">
           <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
             <p>ROUND {props.round}</p>
@@ -191,7 +191,7 @@ function GamePlay(props: Props) {
             <div key={index}>{logo}</div>
           ))}
         </div>
-        <div className="absolute top-[80vh] w-full px-3">
+        <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
           <button
             className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
             onClick={() => props.setMode("score")}
