@@ -30,7 +30,7 @@ function GamePlay(props: Props) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setTimeout(() => setLoading(false), 750);
+      setLoading(false);
     }, 1000);
 
     return () => clearTimeout(timer);
@@ -113,7 +113,7 @@ function GamePlay(props: Props) {
     <div>
       {loading &&
         <div>
-          <div className="absolute top-0 left-0 w-full h-full z-30 bg-blue opacity-75 justify-center items-center"></div>
+          <div className="absolute top-0 left-0 w-screen h-screen z-30 bg-blue opacity-75 justify-center items-center"></div>
           <div className="absolute top-[20vh] flex flex-col w-full h-[50vh] z-40 flex opacity-100 justify-center items-center">
             <Logo className="w-[15vh] h-[15vh] z-40 opacity-100" />
             <p className="font-handwriting text-4xl tracking-widest text-yellow">
