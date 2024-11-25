@@ -23,7 +23,6 @@ function GameRanking() {
 
   return (
     <div className="absolute flex flex-col items-center justify-center w-full h-full bg-white">
-        {/* <RankingAdd score={state.score}/> */}
         {mode === 'addrank' && uniqueId && <RankingAdd score={location.state.score} currentUuid={uniqueId} setMode={setMode}/>}
         {mode === 'showranks' && uniqueId && <ShowRanking currentUuid={uniqueId} setMode={setMode}/>}
     </div>

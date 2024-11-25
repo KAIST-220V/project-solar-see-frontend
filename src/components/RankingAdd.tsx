@@ -52,7 +52,7 @@ function RankingAdd(props: userProps) {
               </div>
           </div>
         </div>
-      }
+        }
         {selectedProfile && (
             <div className="flex flex-col items-center mt-10">
                 <p className="text-2xl font-semibold">게임 랭킹에서 사용할</p>
