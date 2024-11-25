@@ -20,7 +20,7 @@ function KakaoMap(props: Props) {
     <Map
       center={props.mapCenter}
       level={8}
-      className="w-full h-[100dvh]"
+      className="w-full h-dvh"
       onCreate={(mapInstance) => (props.mapRef.current = mapInstance)}
     >
       <MarkerClusterer
