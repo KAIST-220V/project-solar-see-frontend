@@ -12,7 +12,7 @@ type Props = {
 
 function GameStory(props: Props) {
   return (
-    <div className="w-screen h-screen font-roboto flex flex-col">
+    <div className="w-screen h-[100dvh] font-roboto flex flex-col">
       <div className="flex justify-between items-center w-full h-[10dvh] p-5">
         <Logo className="w-[7vh] h-[7vh] max-h-xs max-w-xs"></Logo>
         <div className="items-end flex flex-col">
@@ -28,15 +28,15 @@ function GameStory(props: Props) {
         </div>
       </div>
 
-      <p className="animate-slide font-handwriting text-lg text-end mb-[-5dvh] text-gray-500 h-[5dvh]">
+      <p className="animate-slide font-handwriting text-lg text-end text-gray-500 h-[5dvh] flex-none">
         오른쪽으로 넘겨주세요 {">>"}
       </p>
-      <div className="flex overflow-auto snap-x snap-mandatory w-full h-[90dvh]">
+      <div className="flex overflow-auto snap-x snap-mandatory w-full h-[85dvh]">
         <div className="flex-none w-full h-full items-center justify-center snap-start">
-          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
+          <div className="relative bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
             <img src={img1} className="w-full h-full object-cover"></img>
           </div>
-          <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
+          <div className="relative pt-8 pl-8 pr-8 w-full text-center">
             <p className="text-xl text-black font-extrabold">
               전력 수요 예측을 어렵게 하는 범인,
             </p>
@@ -52,10 +52,10 @@ function GameStory(props: Props) {
           </div>
         </div>
         <div className="flex-none w-full h-full items-center justify-center snap-start">
-          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
+          <div className="relative bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
             <img src={img2} className="w-full h-full object-cover"></img>
           </div>
-          <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
+          <div className="relative pt-8 pl-8 pr-8 w-full text-center">
             <p className="text-xl text-black font-extrabold">
               그래서 Team 220V는
             </p>
@@ -72,10 +72,10 @@ function GameStory(props: Props) {
           </div>
         </div>
         <div className="flex-none w-full h-full items-center justify-center snap-start">
-          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
+          <div className="relative bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
             <img src={img3} className="w-full h-full object-cover"></img>
           </div>
-          <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
+          <div className="relative pt-8 pl-8 pr-8 w-full text-center">
             <p className="text-xl text-black font-extrabold">
               여러분도 게임을 플레이하면서
             </p>
@@ -91,10 +91,10 @@ function GameStory(props: Props) {
           </div>
         </div>
         <div className="flex-none w-full h-full items-center justify-center snap-start">
-          <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
+          <div className="relative bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
             <img src={img4} className="w-full h-full object-cover"></img>
           </div>
-          <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
+          <div className="relative pt-8 pl-8 pr-8 w-full text-center">
             <p className="text-xl text-black font-extrabold">
               그럼 지구의 미래를 위해서,
             </p>
