@@ -2,29 +2,36 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import RankingAdd from "../components/RankingAdd";
 import ShowRanking from "../components/ShowRanking";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
-let uniqueId = localStorage.getItem('uniqueClientId');
+let uniqueId = localStorage.getItem("uniqueClientId");
 if (!uniqueId) {
   uniqueId = uuidv4();
-  localStorage.setItem('uniqueClientId', uniqueId);
-}
-
-type Rank = {
-    image_url: string;
-    nickname: string;
-    score: number;
-    is_mine: boolean;
+  localStorage.setItem("uniqueClientId", uniqueId);
 }
 
 function GameRanking() {
-    const [mode, setMode] = useState('addrank');
-    const location = useLocation();
-
+  const location = useLocation();
+  const defaultMode =
+    location.state == null ||
+    sessionStorage.getItem("lastGameId") === location.state.game_id
+      ? "showranks"
+      : "addrank";
+  const [mode, setMode] = useState(defaultMode);
+  console.log(mode);
   return (
     <div className="absolute flex flex-col items-center justify-center w-full h-full bg-white">
-        {mode === 'addrank' && uniqueId && <RankingAdd score={location.state.score} currentUuid={uniqueId} setMode={setMode}/>}
-        {mode === 'showranks' && uniqueId && <ShowRanking currentUuid={uniqueId} setMode={setMode}/>}
+      {mode === "addrank" &&
+        location.state &&
+        location.state.score !== null && (
+          <RankingAdd
+            score={location.state.score}
+            currentUuid={uniqueId!}
+            gameId={location.state.game_id}
+            setMode={setMode}
+          />
+        )}
+      {mode === "showranks" && <ShowRanking currentUuid={uniqueId!} />}
     </div>
   );
 }

@@ -1,20 +1,19 @@
-import { useState, useEffect } from 'react';
-import {ReactComponent as FirstPlace} from '../assets/1st_place.svg';
-import {ReactComponent as SecondPlace} from '../assets/2nd_place.svg';
-import {ReactComponent as ThirdPlace} from '../assets/3rd_place.svg';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { ReactComponent as FirstPlace } from "../assets/1st_place.svg";
+import { ReactComponent as SecondPlace } from "../assets/2nd_place.svg";
+import { ReactComponent as ThirdPlace } from "../assets/3rd_place.svg";
+import { useNavigate } from "react-router-dom";
 
 type Rank = {
-    image_url: string;
-    nickname: string;
-    score: number;
-    is_mine: boolean;
-}
+  image_url: string;
+  nickname: string;
+  score: number;
+  is_mine: boolean;
+};
 
 type rankProps = {
-    currentUuid: string;
-    setMode: React.Dispatch<React.SetStateAction<string>>;
-}
+  currentUuid: string;
+};
 
 function ShowRanking(props: rankProps) {
   const [ranks, setRanks] = useState<Rank[]>([]);
@@ -22,6 +21,7 @@ function ShowRanking(props: rankProps) {
 
   useEffect(() => {
     fetch("https://solar-see.site/api/v1/game/ranking", {
+
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -49,10 +49,12 @@ function ShowRanking(props: rankProps) {
           });
     }, []);
 
-    const currentUserRank = ranks.findIndex((user) => user.is_mine);
-    const isOutside10 = currentUserRank === -1;
-    const currentUserInfo = isOutside10? ranks.find((user) => user.is_mine) : null;
-    const navigate = useNavigate();
+  const currentUserRank = ranks.findIndex((user) => user.is_mine);
+  const isOutside10 = currentUserRank === -1;
+  const currentUserInfo = isOutside10
+    ? ranks.find((user) => user.is_mine)
+    : null;
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col h-full">
@@ -132,13 +134,15 @@ function ShowRanking(props: rankProps) {
       </main>
 
       <footer className="p-4">
-        <button className="w-full py-3 bg-yellow text-white font-bold rounded shadow"
-            onClick={() => navigate('/game/play')}>
+        <button
+          className="w-full py-3 bg-yellow text-white font-bold rounded shadow"
+          onClick={() => navigate("/game/play")}
+        >
           게임 다시하기
         </button>
       </footer>
     </div>
   );
-};
+}
 
 export default ShowRanking;

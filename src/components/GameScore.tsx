@@ -6,6 +6,7 @@ import { ReactComponent as Correct } from "../assets/check1.svg";
 import { ReactComponent as Wrong } from "../assets/check2.svg";
 import { ReactComponent as OverLogo } from "../assets/gameover_100px.svg";
 import { PanelInImages } from "../types/interface";
+import { v4 as uuidv4 } from "uuid";
 
 type Position = {
   x: number;
@@ -94,7 +95,7 @@ function GameScore(props: scoreProps) {
 
   const handleRanking = () => {
     navigate("/game/ranking", {
-      state: { score: props.score + correctClicks },
+      state: { score: props.score + correctClicks, game_id: uuidv4() },
     });
   };
 
@@ -102,8 +103,8 @@ function GameScore(props: scoreProps) {
     <div>
       {gameOverLoading && !props.isClaimed && (
         <div>
-          <div className="absolute top-0 left-0 w-screen h-[100dvh] z-30 bg-blue opacity-75 justify-center items-center"></div>
-          <div className="absolute top-[20vh] flex-col w-full h-[50vh] z-40 flex opacity-100 justify-center items-center">
+          <div className="fixed top-0 left-0 w-screen h-[100dvh] z-30 bg-blue opacity-75 justify-center items-center"></div>
+          <div className="fixed top-[20vh] flex-col w-full h-[50vh] z-40 flex opacity-100 justify-center items-center">
             <OverLogo className="w-[15vh] h-[15vh] z-40 opacity-100" />
             <p className="font-handwriting text-4xl tracking-widest text-orange">
               <span>Round </span>
