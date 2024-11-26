@@ -84,7 +84,7 @@ function ShowRanking(props: rankProps) {
   }
 
   return (
-    <div className="flex flex-col h-dvh w-screen">
+    <div className="flex flex-col h-dvh w-screen static">
       <Home
         className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
         onClick={() => navigate("/game")}
