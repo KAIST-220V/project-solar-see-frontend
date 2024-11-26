@@ -82,7 +82,6 @@ function GameScore(props: scoreProps) {
         props.setPanel(data.polygon);
         props.setChecks(Array(data.polygon.length).fill(0));
         props.setImg(data.image_url);
-        console.log(data.polygon);
         props.setImgId(data.id);
       });
     props.setScore(props.score + correctClicks);

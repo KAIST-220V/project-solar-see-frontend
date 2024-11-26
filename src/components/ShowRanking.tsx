@@ -9,6 +9,7 @@ type Rank = {
   nickname: string;
   score: number;
   is_mine: boolean;
+  created_at: string;
 };
 
 type rankProps = {
@@ -18,11 +19,11 @@ type rankProps = {
 function ShowRanking(props: rankProps) {
   const [ranks, setRanks] = useState<Rank[]>([]);
   const [topTen, setTopTen] = useState<Rank[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setIsLoading(true); // 로딩 상태 시작
+    setIsLoading(true);
     fetch("https://solar-see.site/api/v1/game/ranking", {
       method: "POST",
       headers: {
@@ -48,19 +49,28 @@ function ShowRanking(props: rankProps) {
         setRanks([]);
       })
       .finally(() => {
-        setIsLoading(false); // 로딩 완료
+        setIsLoading(false);
       });
-  }, [props.currentUuid]);
+  }, []);
 
-  const currentUserRank = ranks.findIndex((user) => user.is_mine);
-  const isOutside10 = currentUserRank > 9;
-  console.log(JSON.stringify(ranks), currentUserRank);
-  const currentUserInfo = isOutside10
-    ? ranks.find((user) => user.is_mine)
-    : null;
+  const latestMyRank = (() => {
+    let latestRank = Infinity;
+    for (let i = 0; i < ranks.length; i++) {
+      if (
+        ranks[i].is_mine &&
+        (latestRank === Infinity ||
+          ranks[i].created_at > ranks[latestRank].created_at)
+      ) {
+        latestRank = i;
+      }
+    }
+    return latestRank;
+  })();
+
+  const isOutside10 = latestMyRank > 9;
+  const latestMyInfo = isOutside10 ? ranks[latestMyRank] : null;
 
   if (isLoading) {
-    // 로딩 화면 렌더링
     return (
       <div className="flex items-center justify-center h-full w-full bg-white">
         <div className="text-center">
@@ -85,9 +95,7 @@ function ShowRanking(props: rankProps) {
               <img
                 src={ranks[1].image_url}
                 className={`w-full h-full rounded-lg ${
-                  currentUserRank === 1
-                    ? "border-4 border-solid border-gray"
-                    : ""
+                  ranks[1].is_mine ? "border-4 border-solid border-gray" : ""
                 }`}
                 alt="Second place profile"
               />
@@ -99,8 +107,8 @@ function ShowRanking(props: rankProps) {
               <img
                 src={ranks[0].image_url}
                 className={`w-full h-full rounded-lg ${
-                  currentUserRank === 0
-                    ? "border-4 border-solid border-yellow"
+                  ranks[0].is_mine
+                    ? "border-4 border-solid border-yellow/50"
                     : ""
                 }`}
                 alt="First place profile"
@@ -113,8 +121,8 @@ function ShowRanking(props: rankProps) {
               <img
                 src={ranks[2].image_url}
                 className={`w-full h-full rounded-lg ${
-                  currentUserRank === 2
-                    ? "border-4 border-solid border-orange"
+                  ranks[2].is_mine
+                    ? "border-4 border-solid border-orange/50"
                     : ""
                 }`}
                 alt="Third place profile"
@@ -124,19 +132,19 @@ function ShowRanking(props: rankProps) {
           </div>
         </div>
 
-        <div className="flex justify-center space-x-12 mt-4">
+        <div className="flex justify-center space-x-12 mt-4 font-bold">
           <div className="text-center">
-            <span className="font-medium text-base">{ranks[1]?.nickname}</span>
+            <span className=" text-base">{ranks[1]?.nickname}</span>
             <br />
             <span className="text-gray-500 text-sm">{ranks[1]?.score}</span>
           </div>
           <div className="text-center">
-            <span className="font-medium text-base">{ranks[0]?.nickname}</span>
+            <span className="text-base">{ranks[0]?.nickname}</span>
             <br />
             <span className="text-gray-500 text-sm">{ranks[0]?.score}</span>
           </div>
           <div className="text-center">
-            <span className="font-medium text-base">{ranks[2]?.nickname}</span>
+            <span className="text-base ">{ranks[2]?.nickname}</span>
             <br />
             <span className="text-gray-500 text-sm">{ranks[2]?.score}</span>
           </div>
@@ -174,23 +182,23 @@ function ShowRanking(props: rankProps) {
               </>
             ))}
         </div>
-        {isOutside10 && currentUserInfo && (
+        {isOutside10 && latestMyInfo && (
           <>
             <hr className="border-gray-300" />
             <div className="bg-yellow/50 py-2  -mx-4 flex items-center">
               <div className="pl-10 font-bold text-black w-20">
-                {currentUserRank + 1}
+                {latestMyRank + 1}
               </div>
               <img
-                src={currentUserInfo!.image_url}
+                src={latestMyInfo!.image_url}
                 className="w-8 h-8"
                 alt="profile"
               />
               <p className="flex-grow font-bold pl-4">
-                {currentUserInfo!.nickname}
+                {latestMyInfo!.nickname}
               </p>
               <p className="font-bold pr-10 text-gray-500">
-                {currentUserInfo!.score}
+                {latestMyInfo!.score}
               </p>
             </div>
           </>

@@ -6,8 +6,7 @@ import GameScore from "../components/GameScore";
 import Cookies from "js-cookie";
 import GameClaim from "../components/GameClaim";
 import { useNavigate } from "react-router-dom";
-import GameStory from "../components/GameStory"
-
+import GameStory from "../components/GameStory";
 
 type Position = {
   x: number;
@@ -21,11 +20,11 @@ function GamePage() {
   const [check, setCheck] = useState<number[]>([0]);
   const [panel, setPanel] = useState<PanelInImages[]>([]);
   const [marks, setMarks] = useState<Position[]>([]);
-  const [mode, setMode] = useState('game');
+  const [mode, setMode] = useState("game");
   const [lifeCount, setLifeCount] = useState(5);
   const [isFirstVisit, setIsFirstVisit] = useState(true);
   const [isClaimed, setIsClaimed] = useState(false);
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState("");
   const [imgId, setImgId] = useState(0);
 
   useEffect(() => {
@@ -37,30 +36,27 @@ function GamePage() {
         setPanel(data.polygon);
         setCheck(Array(data.polygon.length).fill(0));
         setImg(data.image_url);
-        console.log(data.polygon)
         setImgId(data.id);
       });
   }, []);
 
   useEffect(() => {
-    const visited = Cookies.get('visited');
+    const visited = Cookies.get("visited");
     if (visited) {
       setIsFirstVisit(false);
     }
-  }, [])
+  }, []);
 
   return (
     <div className="static">
-      {isFirstVisit && (
-        <GameStory
-          setIsFirstVisit={setIsFirstVisit}
-        />
-      )}
+      {isFirstVisit && <GameStory setIsFirstVisit={setIsFirstVisit} />}
       {!isFirstVisit && (
         <div>
-          <p className="absolute font-semibold flex top-[2vh] h-[5.28169vh] items-center w-full justify-center">태양광 패널 찾기</p>
+          <p className="absolute font-semibold flex top-[2vh] h-[5.28169vh] items-center w-full justify-center">
+            태양광 패널 찾기
+          </p>
           <GameButton />
-          {mode === 'game' && (
+          {mode === "game" && (
             <GamePlay
               panelsInImage={panel}
               round={round}
@@ -76,7 +72,7 @@ function GamePage() {
               img={img}
             />
           )}
-          {mode === 'score' && (
+          {mode === "score" && (
             <GameScore
               round={round}
               setRound={setRound}
@@ -98,7 +94,7 @@ function GamePage() {
               setImgId={setImgId}
             />
           )}
-          {mode === 'claim' && (
+          {mode === "claim" && (
             <GameClaim
               round={round}
               setRound={setRound}
