@@ -35,27 +35,29 @@ function KakaoMapDropDown(props: Props) {
   return (
     <>
       <div
-        className="absolute flex flex-row z-10 w-[59.183673vw] md:w-[12.083vw] h-[5.2816901vh] md:h-[4.167vh] left-[3.307vw] top-[0.926vh] rounded-md cursor-pointer shadow-lg bg-white top-[2vh]"
+        className="absolute flex flex-row z-10 w-[59.183673vw] h-[5.2816901vh] left-[3.307vw] top-[2vh] rounded-lg cursor-pointer shadow-lg bg-white"
         style={{
           outline: isDropDownOpen ? "3px solid #364F85" : "none",
           outlineOffset: "-1px",
         }}
         onClick={onDropDownClick}
       >
-        <div className="flex justify-center items-center w-[7.6335vw] md:w-[3vw] h-[5.2816901vh] md:h-[4.167vh] rounded-l-md bg-white">
-          <Logo className="h-[3.5211268vh] md:h-[2.78vh]" />
+        <div className="ml-2 flex justify-center items-center w-[7.6335vw] h-[5.2816901vh]">
+          <Logo className="h-[3.5211268vh]" />
         </div>
-        <div className="flex items-center w-[48vw] md:w-[9.083vw] h-[5.2816901vh] md:h-[4.167vh] rounded-r-sm bg-white">
-          <p className="text-sm text-slate-500">{props.selectedDistrict}</p>
-          <DownT className="absolute w-[3.0612245vw] md:w-[0.625vw] right-[3vw]" />
+        <div className="ml-2 flex items-center w-[48vw] h-[5.2816901vh]  rounded-r-lg bg-white">
+          <p className="text-sm font-bold text-slate-500">
+            {props.selectedDistrict}
+          </p>
+          <DownT className="absolute w-[3.0612245vw] right-[3vw]" />
         </div>
       </div>
       {isDropDownOpen && (
-        <div className="absolute z-10 w-[59.183673vw] md:w-[12.083vw] left-[3.307vw] top-[8.3149vh] bg-white rounded-md shadow-lg">
-          <ul className="bg-white rounded-md">
+        <div className="absolute z-10 w-[59.183673vw] left-[3.307vw] top-[8.3149vh] bg-white rounded-lg shadow-lg">
+          <ul className="bg-white rounded-lg">
             {DISTRICTS.map((district, index) => (
               <li
-                className="px-4 py-2 text-sm text-slate-500 hover:rounded-t-sm hover:bg-[#5D799F] hover:text-white cursor-pointer"
+                className="px-4 py-2 text-sm text-slate-500 hover:rounded-t-lg hover:bg-[#5D799F] hover:text-white cursor-pointer"
                 key={index}
                 onClick={onDistrictMenuClick(district)}
               >
