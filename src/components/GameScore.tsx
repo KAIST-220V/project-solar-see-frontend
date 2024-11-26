@@ -56,7 +56,7 @@ function GameScore(props: scoreProps) {
 
       return () => clearTimeout(timer);
     }
-  }, [props.lifeCount]);
+  }, [props.lifeCount, wrongClicks]);
 
   const logos = [
     ...Array(Math.max(0, props.lifeCount - wrongClicks))

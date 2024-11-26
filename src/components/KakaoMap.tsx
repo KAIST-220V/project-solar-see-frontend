@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import { Loc, MarkerType } from "../types/interface";
 import clusterer_1 from "../assets/clusterer_1.svg";

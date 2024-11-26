@@ -5,7 +5,6 @@ import GamePlay from "../components/GamePlay";
 import GameScore from "../components/GameScore";
 import Cookies from "js-cookie";
 import GameClaim from "../components/GameClaim";
-import { useNavigate } from "react-router-dom";
 import GameStory from "../components/GameStory"
 
 

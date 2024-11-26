@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Cookies from "js-cookie";
 import { ReactComponent as Logo } from "../assets/logo_100px.svg";
 import img1 from "../assets/page1.jpg";
@@ -34,7 +33,7 @@ function GameStory(props: Props) {
       <div className="flex overflow-auto snap-x snap-mandatory w-full h-[85dvh]">
         <div className="flex-none w-full h-full items-center justify-center snap-start">
           <div className="relative bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
-            <img src={img1} className="w-full h-full object-cover"></img>
+            <img src={img1} className="w-full h-full object-cover" alt=""></img>
           </div>
           <div className="relative pt-8 pl-8 pr-8 w-full text-center">
             <p className="text-xl text-black font-extrabold">
@@ -53,7 +52,7 @@ function GameStory(props: Props) {
         </div>
         <div className="flex-none w-full h-full items-center justify-center snap-start">
           <div className="relative bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
-            <img src={img2} className="w-full h-full object-cover"></img>
+            <img src={img2} className="w-full h-full object-cover" alt=""></img>
           </div>
           <div className="relative pt-8 pl-8 pr-8 w-full text-center">
             <p className="text-xl text-black font-extrabold">
@@ -73,7 +72,7 @@ function GameStory(props: Props) {
         </div>
         <div className="flex-none w-full h-full items-center justify-center snap-start">
           <div className="relative bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
-            <img src={img3} className="w-full h-full object-cover"></img>
+            <img src={img3} className="w-full h-full object-cover" alt=""></img>
           </div>
           <div className="relative pt-8 pl-8 pr-8 w-full text-center">
             <p className="text-xl text-black font-extrabold">
@@ -92,7 +91,7 @@ function GameStory(props: Props) {
         </div>
         <div className="flex-none w-full h-full items-center justify-center snap-start">
           <div className="relative bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
-            <img src={img4} className="w-full h-full object-cover"></img>
+            <img src={img4} className="w-full h-full object-cover" alt=""></img>
           </div>
           <div className="relative pt-8 pl-8 pr-8 w-full text-center">
             <p className="text-xl text-black font-extrabold">

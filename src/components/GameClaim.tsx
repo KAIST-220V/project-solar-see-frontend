@@ -4,10 +4,6 @@ import { ReactComponent as SelectedO } from "../assets/selected_O.svg";
 import { ReactComponent as DefaultX } from "../assets/default_X.svg";
 import { ReactComponent as SelectedX } from "../assets/selected_X.svg";
 import { useState, useEffect, useRef } from "react";
-import img1 from "../assets/page1.jpg";
-import img2 from "../assets/page2.jpg";
-import img3 from "../assets/page3.jpg";
-import img4 from "../assets/page4.jpg";
 
 type Position = {
   x: number;
