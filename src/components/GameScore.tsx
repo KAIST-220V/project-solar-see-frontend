@@ -5,6 +5,7 @@ import { ReactComponent as EmptyLogo } from "../assets/logo_outline.svg";
 import { ReactComponent as Correct } from "../assets/check1.svg";
 import { ReactComponent as Wrong } from "../assets/check2.svg";
 import { ReactComponent as OverLogo } from "../assets/gameover_100px.svg";
+import { ReactComponent as Home } from "../assets/home.svg";
 import { PanelInImages } from "../types/interface";
 import { v4 as uuidv4 } from "uuid";
 
@@ -82,7 +83,6 @@ function GameScore(props: scoreProps) {
         props.setPanel(data.polygon);
         props.setChecks(Array(data.polygon.length).fill(0));
         props.setImg(data.image_url);
-        console.log(data.polygon);
         props.setImgId(data.id);
       });
     props.setScore(props.score + correctClicks);
@@ -116,6 +116,10 @@ function GameScore(props: scoreProps) {
           </div>
         </div>
       )}
+      <Home
+          className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
+          onClick={() => navigate("/game")}
+        />
       <div className="flex flex-col relative top-[10dvh] h-[90dvh]">
         <div className="px-3">
           <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">

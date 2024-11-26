@@ -18,7 +18,6 @@ function GameRanking() {
       ? "showranks"
       : "addrank";
   const [mode, setMode] = useState(defaultMode);
-  console.log(mode);
   return (
     <div className="absolute flex flex-col items-center justify-center w-full h-full bg-white">
       {mode === "addrank" &&

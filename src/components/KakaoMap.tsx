@@ -109,7 +109,7 @@ function KakaoMap(props: Props) {
             }}
             clickable={true}
             onClick={() => {
-              props.setSelectedIndex((prev) => prev == index ? null : index);
+              props.setSelectedIndex((prev) => prev === index ? null : index);
             }}
             image={{
               src: clusterer_1,

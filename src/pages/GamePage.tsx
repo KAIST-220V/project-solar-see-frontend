@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import GameButton from "../components/GameButton";
 import { PanelInImages } from "../types/interface";
 import GamePlay from "../components/GamePlay";
 import GameScore from "../components/GameScore";
@@ -36,7 +35,6 @@ function GamePage() {
         setPanel(data.polygon);
         setCheck(Array(data.polygon.length).fill(0));
         setImg(data.image_url);
-        console.log(data.polygon)
         setImgId(data.id);
       });
   }, []);
@@ -58,7 +56,6 @@ function GamePage() {
       {!isFirstVisit && (
         <div>
           <p className="absolute font-semibold flex top-[2vh] h-[5.28169vh] items-center w-full justify-center">태양광 패널 찾기</p>
-          <GameButton />
           {mode === 'game' && (
             <GamePlay
               panelsInImage={panel}
