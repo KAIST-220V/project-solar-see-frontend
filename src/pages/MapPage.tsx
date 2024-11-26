@@ -19,7 +19,7 @@ function MapPage() {
   const mapRef = useRef<kakao.maps.Map | null>(null);
 
   useEffect(() => {
-    fetch("/data/solarPanels.json", {
+    fetch("https://solar-see.site/api/v1/map/image", {
       method: "GET",
     })
       .then((res) => res.json())

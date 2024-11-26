@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 import React from "react";
 import snack_bar_holder from "../assets/snack_bar_holder.png";
+import { MarkerType } from "../types/interface";
 
 type Props = {
   barIsExpanded: boolean;
   setBarExpand: React.Dispatch<React.SetStateAction<boolean>>;
-  markers: any;
+  markers: MarkerType[];
   selectedIndex: number;
   setSelectedIndex: React.Dispatch<React.SetStateAction<number | null>>;
 };
@@ -35,7 +36,8 @@ function KakaoMapSnackBar(props: Props) {
           const isOverThreshold = isOverOffsetThreshold || isOverDeltaThreshold;
           if (!isOverThreshold) return;
 
-          const isControlDown = info.offset.y > offsetThreshold || info.delta.y > deltaThreshold;
+          const isControlDown =
+            info.offset.y > offsetThreshold || info.delta.y > deltaThreshold;
           if (props.barIsExpanded && isControlDown) props.setBarExpand(false);
           else if (!props.barIsExpanded && isControlDown)
             props.setSelectedIndex(null);
@@ -55,26 +57,22 @@ function KakaoMapSnackBar(props: Props) {
         </div>
         <div className="ml-6 mr-6">
           <div className="text-xl text-blue font-roboto font-bold">
-            N{" "}
-            {props.markers[
-              props.selectedIndex
-            ].shape_attributes.mean_point_longitude.toFixed(4)}
-            °, E{" "}
-            {props.markers[
-              props.selectedIndex
-            ].shape_attributes.mean_point_latitude.toFixed(4)}
-            °
+            N {props.markers[props.selectedIndex].longitude.toFixed(4)}
+            °, E {props.markers[props.selectedIndex].latitude.toFixed(4)}°
           </div>
-          <div className="text-base">태양광 패널 ID: {props.selectedIndex}</div>
-          <div className="text-base">면적: 100㎡</div>
-          <div className="text-base">예상 발전량: 123,456W</div>
+          <div className="text-base">
+            태양광 패널 ID: {props.markers[props.selectedIndex].id}
+          </div>
+          <div className="text-base">
+            면적: {props.markers[props.selectedIndex].area_m2.toFixed(2)}㎡
+          </div>
+          <div className="text-base">예상 발전량: --- W</div>
         </div>
         <div>
           <div className="flex justify-center items-center m-6">
             <img
               alt="테스트"
-              src="img/test_image.png"
-              /*src=markers[i-1]["image_url"]*/
+              src={props.markers[props.selectedIndex].image_url}
               className="size-full"
               onClick={() => props.setSelectedIndex(null)}
             />
