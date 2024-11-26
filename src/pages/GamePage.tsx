@@ -19,11 +19,11 @@ function GamePage() {
   const [check, setCheck] = useState<number[]>([0]);
   const [panel, setPanel] = useState<PanelInImages[]>([]);
   const [marks, setMarks] = useState<Position[]>([]);
-  const [mode, setMode] = useState('game');
+  const [mode, setMode] = useState("game");
   const [lifeCount, setLifeCount] = useState(5);
   const [isFirstVisit, setIsFirstVisit] = useState(true);
   const [isClaimed, setIsClaimed] = useState(false);
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState("");
   const [imgId, setImgId] = useState(0);
 
   useEffect(() => {
@@ -40,23 +40,21 @@ function GamePage() {
   }, []);
 
   useEffect(() => {
-    const visited = Cookies.get('visited');
+    const visited = Cookies.get("visited");
     if (visited) {
       setIsFirstVisit(false);
     }
-  }, [])
+  }, []);
 
   return (
     <div className="static">
-      {isFirstVisit && (
-        <GameStory
-          setIsFirstVisit={setIsFirstVisit}
-        />
-      )}
+      {isFirstVisit && <GameStory setIsFirstVisit={setIsFirstVisit} />}
       {!isFirstVisit && (
         <div>
-          <p className="absolute font-semibold flex top-[2vh] h-[5.28169vh] items-center w-full justify-center">태양광 패널 찾기</p>
-          {mode === 'game' && (
+          <p className="absolute font-semibold flex top-[2vh] h-[5.28169vh] items-center w-full justify-center">
+            태양광 패널 찾기
+          </p>
+          {mode === "game" && (
             <GamePlay
               panelsInImage={panel}
               round={round}
@@ -72,7 +70,7 @@ function GamePage() {
               img={img}
             />
           )}
-          {mode === 'score' && (
+          {mode === "score" && (
             <GameScore
               round={round}
               setRound={setRound}
@@ -94,7 +92,7 @@ function GamePage() {
               setImgId={setImgId}
             />
           )}
-          {mode === 'claim' && (
+          {mode === "claim" && (
             <GameClaim
               round={round}
               setRound={setRound}
