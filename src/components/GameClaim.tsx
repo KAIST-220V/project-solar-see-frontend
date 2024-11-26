@@ -103,7 +103,7 @@ function GameClaim(props: scoreProps) {
                       .join(" ")}
                     fill="rgba(0, 0, 0, 0)"
                     stroke="#FF7729"
-                    strokeWidth="1"
+                    strokeWidth="0.5"
                   />
                 </svg>
                 <div>
