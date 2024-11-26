@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import GameButton from "../components/GameButton";
 import { PanelInImages } from "../types/interface";
 import GamePlay from "../components/GamePlay";
 import GameScore from "../components/GameScore";
 import Cookies from "js-cookie";
 import GameClaim from "../components/GameClaim";
-import { useNavigate } from "react-router-dom";
-import GameStory from "../components/GameStory";
+import GameStory from "../components/GameStory"
+
 
 type Position = {
   x: number;
@@ -55,7 +54,6 @@ function GamePage() {
           <p className="absolute font-semibold flex top-[2vh] h-[5.28169vh] items-center w-full justify-center">
             태양광 패널 찾기
           </p>
-          <GameButton />
           {mode === "game" && (
             <GamePlay
               panelsInImage={panel}

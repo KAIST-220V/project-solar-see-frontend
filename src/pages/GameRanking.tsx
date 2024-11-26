@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import RankingAdd from "../components/RankingAdd";
 import ShowRanking from "../components/ShowRanking";
@@ -18,7 +18,6 @@ function GameRanking() {
       ? "showranks"
       : "addrank";
   const [mode, setMode] = useState(defaultMode);
-
   return (
     <div className="absolute flex flex-col items-center justify-center w-full h-full bg-white">
       {mode === "addrank" &&

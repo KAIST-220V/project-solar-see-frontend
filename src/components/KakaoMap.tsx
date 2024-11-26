@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
+import React from "react";
+import { Map, MapMarker, MarkerClusterer, ZoomControl } from "react-kakao-maps-sdk";
 import { Loc, MarkerType } from "../types/interface";
 import clusterer_1 from "../assets/clusterer_1.svg";
 import clusterer_below10 from "../assets/clusterer_below10.svg";
@@ -22,6 +22,7 @@ function KakaoMap(props: Props) {
       level={8}
       className="w-full h-dvh"
       onCreate={(mapInstance) => (props.mapRef.current = mapInstance)}
+      onClick={() => props.setSelectedIndex(null)}
     >
       <MarkerClusterer
         averageCenter={true}
@@ -108,7 +109,7 @@ function KakaoMap(props: Props) {
             }}
             clickable={true}
             onClick={() => {
-              props.setSelectedIndex(index);
+              props.setSelectedIndex((prev) => prev === index ? null : index);
             }}
             image={{
               src: clusterer_1,
@@ -139,6 +140,7 @@ function KakaoMap(props: Props) {
           </MapMarker>
         ))}
       </MarkerClusterer>
+      <ZoomControl position={'BOTTOMRIGHT'} />
     </Map>
   );
 }

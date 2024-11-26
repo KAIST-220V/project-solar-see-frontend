@@ -1,7 +1,3 @@
-import React from "react";
-import { ReactComponent as CurrentLocation } from "../assets/current_location.svg";
-import { ReactComponent as ZoomIn } from "../assets/zoom_in.svg";
-import { ReactComponent as ZoomOut } from "../assets/zoom_out.svg";
 import { useNavigate } from "react-router-dom";
 
 function KakaoMapButtons() {

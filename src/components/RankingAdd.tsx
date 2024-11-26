@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ReactComponent as Prof1 } from "../assets/profile1.svg";
 import { ReactComponent as Prof2 } from "../assets/profile2.svg";
 import { ReactComponent as Prof3 } from "../assets/profile3.svg";

@@ -3,6 +3,8 @@ import { ReactComponent as FirstPlace } from "../assets/1st_place.svg";
 import { ReactComponent as SecondPlace } from "../assets/2nd_place.svg";
 import { ReactComponent as ThirdPlace } from "../assets/3rd_place.svg";
 import { useNavigate } from "react-router-dom";
+import GameButton from "./GameButton";
+import { ReactComponent as Home } from "../assets/home.svg";
 
 type Rank = {
   image_url: string;
@@ -83,7 +85,13 @@ function ShowRanking(props: rankProps) {
 
   return (
     <div className="flex flex-col h-dvh w-screen">
-      <main className="p-4">
+      <Home
+        className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
+        onClick={() => navigate("/game")}
+      />
+      <p className="absolute font-semibold flex top-[2vh] h-[5.28169vh] items-center w-full justify-center">태양광 패널 찾기</p>
+      <GameButton />
+      <main className="p-4 mt-[8vh]">
         <h2 className="text-center text-3xl font-bold mb-6">
           누적 점수 TOP 10
         </h2>
@@ -152,7 +160,7 @@ function ShowRanking(props: rankProps) {
         <div className="pt-4 -mx-4">
           {ranks.length > 0 &&
             topTen.map((user, index) => (
-              <>
+              <div key={`div${index}`}>
                 {index > 2 && (
                   <div
                     key={index}
@@ -179,7 +187,7 @@ function ShowRanking(props: rankProps) {
                 {index > 2 && index !== topTen.length - 1 && (
                   <hr className="border-gray-300" />
                 )}
-              </>
+              </div>
             ))}
         </div>
         {isOutside10 && latestMyInfo && (

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { ReactComponent as Logo } from "../assets/logo_100px.svg";
 import { ReactComponent as EmptyLogo } from "../assets/logo_outline.svg";
 import { ReactComponent as Correct } from "../assets/check1.svg";
+import { ReactComponent as Home } from "../assets/home.svg";
+import { useNavigate } from "react-router-dom";
 
 type Position = {
   x: number;
@@ -27,6 +29,7 @@ type Props = {
 function GamePlay(props: Props) {
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -121,6 +124,10 @@ function GamePlay(props: Props) {
           </div>
         </div>
       )}
+      <Home
+          className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
+          onClick={() => navigate("/game")}
+        />
       <div className="absolute flex flex-col top-[10dvh] h-[90dvh] w-full">
         <div className="px-3">
           <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
