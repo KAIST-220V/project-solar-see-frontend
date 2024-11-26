@@ -13,7 +13,7 @@ type Props = {
 
 function KakaoMapSnackBar(props: Props) {
   return (
-    <div className="absolute bottom-0 w-full h-screen overflow-hidden">
+    <div className="absolute bottom-0 w-full h-[100dvh] overflow-hidden">
       <motion.div
         initial="closed"
         className="absolute h-full w-full md:w-[400px] bottom-0 rounded-2xl z-10 bg-white will-change-transforms"
@@ -21,7 +21,7 @@ function KakaoMapSnackBar(props: Props) {
         dragConstraints={{ top: 0, bottom: 0 }}
         animate={props.barIsExpanded ? "opened" : "closed"}
         variants={{
-          opened: { top: "50dvh" },
+          opened: { top: "30dvh" },
           closed: { top: "80dvh" },
         }}
         transition={{
