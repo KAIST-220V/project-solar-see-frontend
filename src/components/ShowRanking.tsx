@@ -84,14 +84,14 @@ function ShowRanking(props: rankProps) {
   }
 
   return (
-    <div className="flex flex-col h-dvh w-screen">
+    <div className="flex flex-col h-dvh w-screen static">
       <Home
         className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
         onClick={() => navigate("/game")}
       />
       <p className="absolute font-semibold flex top-[2vh] h-[5.28169vh] items-center w-full justify-center">태양광 패널 찾기</p>
       <GameButton />
-      <main className="p-4 mt-[8dvh]">
+      <main className="p-4 mt-[10dvh]">
         <h2 className="text-center text-3xl font-bold mb-6">
           누적 점수 TOP 10
         </h2>
