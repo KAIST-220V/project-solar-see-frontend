@@ -10,7 +10,7 @@ type Props = {
   setIsFirstVisit: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const indexList = [0, 1, 2, 3]
+const indexList = [0, 1, 2, 3];
 
 function GameStory(props: Props) {
   const [currentView, setCurrentView] = useState(0);
@@ -41,15 +41,9 @@ function GameStory(props: Props) {
           </p>
         </div>
       </div>
-      {
-        (currentView !== 3) &&
-        <p className="animate-slide font-handwriting text-lg text-end mb-[-5dvh] text-gray-500 h-[5dvh]">
-          오른쪽으로 넘겨주세요 {">>"}
-        </p>
-      }
       <div
         ref={containerRef}
-        className="flex overflow-auto snap-x snap-mandatory w-full h-[75dvh]"
+        className="flex overflow-x-auto snap-x snap-mandatory w-full flex-grow scrollbar-hide"
         onScroll={handleScroll}
       >
         {[img1, img2, img3, img4].map((img, index) => (
@@ -57,7 +51,7 @@ function GameStory(props: Props) {
             key={index}
             className="flex-none w-full h-full items-center justify-center snap-start"
           >
-            <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
+            <div className="relative bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
               <img src={img} className="w-full h-full object-cover"></img>
             </div>
             <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
@@ -137,35 +131,47 @@ function GameStory(props: Props) {
       </div>
       <div
         style={{
-          width: '100%',
-          padding: '10px',
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '8px'
+          width: "100%",
+          padding: "10px",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "8px",
+          // boxShadow: "0px -4px 10px rgba(0, 0, 0, 0.25)",
         }}
       >
-        {
-          indexList.map((index) => {
-            if (index === currentView) {
-              return (
-                <svg key={index} width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="8" height="8" rx="4" fill="#FFCD00" />
-                </svg>
-
-              );
-            } else {
-              return (
-                <svg key={index} width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g opacity="0.3">
-                    <rect width="8" height="8" rx="4" fill="black" />
-                  </g>
-                </svg>
-              );
-            }
-          })
-        }
+        {indexList.map((index) => {
+          if (index === currentView) {
+            return (
+              <svg
+                key={index}
+                width="8"
+                height="8"
+                viewBox="0 0 8 8"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="8" height="8" rx="4" fill="#FFCD00" />
+              </svg>
+            );
+          } else {
+            return (
+              <svg
+                key={index}
+                width="8"
+                height="8"
+                viewBox="0 0 8 8"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g opacity="0.3">
+                  <rect width="8" height="8" rx="4" fill="black" />
+                </g>
+              </svg>
+            );
+          }
+        })}
       </div>
     </div>
   );

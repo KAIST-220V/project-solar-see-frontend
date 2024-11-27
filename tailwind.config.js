@@ -30,5 +30,5 @@ module.exports = {
       nanum: ["Nanum Barun Gothic", "sans-serif"],
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };

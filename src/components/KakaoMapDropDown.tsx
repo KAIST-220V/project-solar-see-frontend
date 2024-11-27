@@ -57,7 +57,7 @@ function KakaoMapDropDown(props: Props) {
           <ul className="bg-white rounded-lg">
             {DISTRICTS.map((district, index) => (
               <li
-                className="px-4 py-2 text-sm text-slate-500 hover:rounded-t-lg hover:bg-[#5D799F] hover:text-white cursor-pointer"
+                className="px-4 py-2 text-sm text-slate-500 hover:rounded-lg hover:bg-[#5D799F] hover:text-white cursor-pointer"
                 key={index}
                 onClick={onDistrictMenuClick(district)}
               >
