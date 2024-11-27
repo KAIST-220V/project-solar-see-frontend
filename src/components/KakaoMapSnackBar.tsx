@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import snack_bar_holder from "../assets/snack_bar_holder.png";
 import { MarkerType } from "../types/interface";
 
@@ -12,6 +12,47 @@ type Props = {
 };
 
 function KakaoMapSnackBar(props: Props) {
+  const [isReported, setIsReported] = useState(false);
+
+  const handleReport = () => {
+    if (isReported) {
+      return;
+    }
+
+    let prevListStr = localStorage.getItem("qwerty_list");
+    let list = [];
+
+    if (prevListStr !== null) {
+      try {
+        list = JSON.parse(prevListStr);
+      } catch (e) {
+        console.error("Error parsing JSON from localStorage:", e);
+        list = [];
+      }
+    }
+
+    list.push(`${props.markers[props.selectedIndex]['id']}`);
+    localStorage.setItem("qwerty_list", JSON.stringify(list));
+
+    setIsReported(true);
+  };
+
+  useEffect(() => {
+    let prevListStr = localStorage.getItem("qwerty_list");
+    let list = [];
+
+    if (prevListStr !== null) {
+      try {
+        list = JSON.parse(prevListStr);
+      } catch (e) {
+        console.error("Error parsing JSON from localStorage:", e);
+        list = [];
+      }
+    }
+
+    setIsReported(list.includes(`${props.markers[props.selectedIndex]['id']}`));
+  }, [props.selectedIndex]);
+  
   return (
     <div className="absolute bottom-0 w-full h-[100dvh] overflow-hidden">
       <motion.div
@@ -21,7 +62,7 @@ function KakaoMapSnackBar(props: Props) {
         dragConstraints={{ top: 0, bottom: 0 }}
         animate={props.barIsExpanded ? "opened" : "closed"}
         variants={{
-          opened: { top: "30dvh" },
+          opened: { top: "20dvh" },
           closed: { top: "80dvh" },
         }}
         transition={{
@@ -84,6 +125,22 @@ function KakaoMapSnackBar(props: Props) {
               onClick={() => props.setSelectedIndex(null)}
             />
           </div>
+        </div>
+        <div className="flex-col justify-center items-center m-6">
+          <div className="text-base text-slate-500">
+            {"혹시, 태양광 패널이 아닌가요?"}
+          </div>
+          <button
+            className={`rounded-lg w-full h-[5vh]${isReported ? ' bg-[#D9D9D9]' : ' bg-yellow'}`}
+            onClick={() => handleReport()}
+          >
+            {
+              isReported ?
+                "제보 되었어요"
+                :
+                "제보하기"
+            }
+          </button>
         </div>
       </motion.div>
     </div>
