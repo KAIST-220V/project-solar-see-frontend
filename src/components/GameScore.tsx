@@ -203,7 +203,7 @@ function GameScore(props: scoreProps) {
           <p className="text-3xl font-bold text-yellow">{correctClicks}점</p>
         </div>
 
-        {props.isClaimed ? (
+        {props.isClaimed || props.panel.length == correctClicks ? (
           gameOver ? (
             <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
               <button
