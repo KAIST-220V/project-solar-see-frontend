@@ -25,7 +25,9 @@ function KakaoMapSnackBar(props: Props) {
           closed: { top: "80dvh" },
         }}
         transition={{
-          duration: 0.5,
+          type: "tween",
+          ease: [0.25, 0.8, 0.5, 1], // 자연스러운 가속/감속
+          duration: 1.0, // 약간 짧게
         }}
         onDragEnd={(event, info) => {
           const offsetThreshold = 50;
@@ -35,6 +37,11 @@ function KakaoMapSnackBar(props: Props) {
           const isOverDeltaThreshold = Math.abs(info.delta.y) > deltaThreshold;
           const isOverThreshold = isOverOffsetThreshold || isOverDeltaThreshold;
           if (!isOverThreshold) return;
+
+          const target = event.target as HTMLElement;
+          if (target.style) {
+            target.style.transform = "translateY(0px)";
+          }
 
           const isControlDown =
             info.offset.y > offsetThreshold || info.delta.y > deltaThreshold;
