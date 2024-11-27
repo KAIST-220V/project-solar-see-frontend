@@ -63,9 +63,9 @@ function GameClaim(props: scoreProps) {
   return (
     <div>
       <BackButton
-          className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
-          onClick={() => props.setMode("score")}
-        />
+        className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
+        onClick={() => props.setMode("score")}
+      />
       <div className="relative flex flex-col top-[10dvh] h-[90dvh]">
         <div className="px-3 flex flex-col">
           <p className="text-[#FFA629] font-bold tracking-widest">
@@ -73,7 +73,7 @@ function GameClaim(props: scoreProps) {
             <span>의 실수 잡아내기</span>
           </p>
           <div className="flex flex-row items-center">
-            <span className="bg-[#FF7729] w-[4vw] h-[4vw] rounded-full flex items-center justify-center">
+            <span className="bg-[#FF7729] w-[5vw] h-[5vw] rounded-full flex items-center justify-center">
               <p className="text-white text-center ">{currentIndex + 1}</p>
             </span>
             <span className="ml-1">은 태양광 패널이 맞나요?</span>
@@ -102,9 +102,8 @@ function GameClaim(props: scoreProps) {
                         .map((point: number, j: number) => {
                           const yPoint =
                             props.panel[props.checks[i]].all_points_y[j] ?? 0; // 기본값 0
-                          return `${(point * 100) / 1024},${
-                            (yPoint * 100) / 1024
-                          }`;
+                          return `${(point * 100) / 1024},${(yPoint * 100) / 1024
+                            }`;
                         })
                         .join(" ")}
                       fill="rgba(0, 0, 0, 0)"
@@ -116,25 +115,23 @@ function GameClaim(props: scoreProps) {
                     <div
                       className="bg-white absolute w-[9vw] aspect-square rounded-md z-30 flex items-center justify-center"
                       style={{
-                        left: `min(calc(${
-                          ((props.panel[props.checks[i]].all_points_x.reduce(
-                            (acc, cur) => acc + cur,
-                            0
-                          ) /
+                        left: `min(calc(${((props.panel[props.checks[i]].all_points_x.reduce(
+                          (acc, cur) => acc + cur,
+                          0
+                        ) /
                             props.panel[props.checks[i]].all_points_x.length) *
                             100) /
-                            1024 -
+                          1024 -
                           4.5
-                        }vw), 91vw)`,
-                        top: `max(${
-                          (props.panel[props.checks[i]].all_points_y.reduce(
-                            (acc, cur) => (cur < acc ? cur : acc),
-                            Infinity
-                          ) *
+                          }vw), 91vw)`,
+                        top: `max(${(props.panel[props.checks[i]].all_points_y.reduce(
+                          (acc, cur) => (cur < acc ? cur : acc),
+                          Infinity
+                        ) *
                             100) /
-                            1024 -
+                          1024 -
                           14
-                        }vw, 0vw)`,
+                          }vw, 0vw)`,
                       }}
                     >
                       <div className="bg-[#FF7729] w-[6vw] h-[6vw] rounded-full flex items-center justify-center">
@@ -144,25 +141,23 @@ function GameClaim(props: scoreProps) {
                     <div
                       className="absolute w-0 h-0 border-l-[2.5vw] border-r-[2.5vw] border-t-[4vw] border-transparent border-t-white z-20"
                       style={{
-                        left: `min(calc(${
-                          ((props.panel[props.checks[i]].all_points_x.reduce(
-                            (acc, cur) => acc + cur,
-                            0
-                          ) /
+                        left: `min(calc(${((props.panel[props.checks[i]].all_points_x.reduce(
+                          (acc, cur) => acc + cur,
+                          0
+                        ) /
                             props.panel[props.checks[i]].all_points_x.length) *
                             100) /
-                            1024 -
+                          1024 -
                           2.5
-                        }vw), 94vw)`,
-                        top: `max(${
-                          (props.panel[props.checks[i]].all_points_y.reduce(
-                            (acc, cur) => (cur < acc ? cur : acc),
-                            Infinity
-                          ) *
+                          }vw), 94vw)`,
+                        top: `max(${(props.panel[props.checks[i]].all_points_y.reduce(
+                          (acc, cur) => (cur < acc ? cur : acc),
+                          Infinity
+                        ) *
                             100) /
-                            1024 -
+                          1024 -
                           7
-                        }vw, 0vw)`,
+                          }vw, 0vw)`,
                       }}
                     ></div>
                   </div>
@@ -180,12 +175,10 @@ function GameClaim(props: scoreProps) {
                   <Wrong
                     style={{
                       position: "absolute",
-                      left: `${
-                        props.marks[marks[i - props.checks.length]].x - 12
-                      }px`,
-                      top: `${
-                        props.marks[marks[i - props.checks.length]].y - 26
-                      }px`,
+                      left: `${props.marks[marks[i - props.checks.length]].x - 12
+                        }px`,
+                      top: `${props.marks[marks[i - props.checks.length]].y - 26
+                        }px`,
                       width: "27.9px",
                       height: "29px",
                       zIndex: 20,
@@ -195,12 +188,10 @@ function GameClaim(props: scoreProps) {
                     <div
                       className="bg-white absolute w-[9vw] aspect-square rounded-md z-30 flex items-center justify-center"
                       style={{
-                        left: `min(calc(${
-                          props.marks[marks[i - props.checks.length]].x
-                        }px - 4.5vw), 91vw)`,
-                        top: `max(0vw, calc(${
-                          props.marks[marks[i - props.checks.length]].y
-                        }px - 19vw))`,
+                        left: `min(calc(${props.marks[marks[i - props.checks.length]].x
+                          }px - 4.5vw), 91vw)`,
+                        top: `max(0vw, calc(${props.marks[marks[i - props.checks.length]].y
+                          }px - 19vw))`,
                       }}
                     >
                       <div className="bg-[#FF7729] w-[6vw] h-[6vw] rounded-full flex items-center justify-center">
@@ -210,12 +201,10 @@ function GameClaim(props: scoreProps) {
                     <div
                       className="absolute w-0 h-0 border-l-[2.5vw] border-r-[2.5vw] border-t-[4vw] border-transparent border-t-white z-20"
                       style={{
-                        left: `min(calc(${
-                          props.marks[marks[i - props.checks.length]].x
-                        }px - 2.5vw), 94vw)`,
-                        top: `max(0vw, calc(${
-                          props.marks[marks[i - props.checks.length]].y
-                        }px - 12vw))`,
+                        left: `min(calc(${props.marks[marks[i - props.checks.length]].x
+                          }px - 2.5vw), 94vw)`,
+                        top: `max(0vw, calc(${props.marks[marks[i - props.checks.length]].y
+                          }px - 12vw))`,
                       }}
                     ></div>
                   </div>
@@ -275,9 +264,8 @@ function GameClaim(props: scoreProps) {
           {Array.from({ length: marks.length + props.checks.length }).map(
             (_, i) => (
               <div
-                className={`w-[2vw] aspect-square rounded-full ${
-                  i === currentIndex ? "bg-[#444444]" : "bg-[#B3B3B3]"
-                }`}
+                className={`w-[2vw] aspect-square rounded-full ${i === currentIndex ? "bg-[#444444]" : "bg-[#B3B3B3]"
+                  }`}
                 key={i}
               ></div>
             )
@@ -296,11 +284,25 @@ function GameClaim(props: scoreProps) {
           ) : (
             <DefaultO
               className="w-[20vw]"
-              onClick={() =>
+              onClick={() => {
+                // auto-scroll
+                if (
+                  currentIndex <
+                  props.checks.length + marks.length - 1
+                ) {
+                  const container = containerRef.current;
+                  if (container) {
+                    const containerWidth = container.offsetWidth;
+                    container.scrollTo({
+                      left: (currentIndex + 1) * containerWidth,
+                      behavior: "smooth", // 부드럽게 스크롤
+                    });
+                  }
+                }
                 setPositive((prev) =>
                   prev.map((value, idx) => (idx === currentIndex ? 1 : value))
                 )
-              }
+              }}
             />
           )}
           {positive[currentIndex] === -1 ? (
@@ -315,11 +317,25 @@ function GameClaim(props: scoreProps) {
           ) : (
             <DefaultX
               className="w-[20vw]"
-              onClick={() =>
+              onClick={() => {
+                // auto-scroll
+                if (
+                  currentIndex <
+                  props.checks.length + marks.length - 1
+                ) {
+                  const container = containerRef.current;
+                  if (container) {
+                    const containerWidth = container.offsetWidth;
+                    container.scrollTo({
+                      left: (currentIndex + 1) * containerWidth,
+                      behavior: "smooth", // 부드럽게 스크롤
+                    });
+                  }
+                }
                 setPositive((prev) =>
                   prev.map((value, idx) => (idx === currentIndex ? -1 : value))
                 )
-              }
+              }}
             />
           )}
         </div>
