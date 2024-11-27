@@ -147,18 +147,18 @@ function ShowRanking(props: rankProps) {
             </div>
           </div>
 
-          <div className="flex justify-center space-x-12 mt-4 font-bold">
-            <div className="text-center">
+          <div className="flex justify-center space-x-4 mt-4 font-bold">
+            <div className="text-center w-16">
               <span className=" text-base">{ranks[1]?.nickname}</span>
               <br />
               <span className="text-gray-500 text-sm">{ranks[1]?.score}</span>
             </div>
-            <div className="text-center">
+            <div className="text-center w-20">
               <span className="text-base">{ranks[0]?.nickname}</span>
               <br />
               <span className="text-gray-500 text-sm">{ranks[0]?.score}</span>
             </div>
-            <div className="text-center">
+            <div className="text-center w-16">
               <span className="text-base ">{ranks[2]?.nickname}</span>
               <br />
               <span className="text-gray-500 text-sm">{ranks[2]?.score}</span>
