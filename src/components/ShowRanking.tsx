@@ -74,10 +74,10 @@ function ShowRanking(props: rankProps) {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-full w-full bg-white">
+      <div className="flex h-full w-full items-center justify-center bg-white">
         <div className="text-center">
-          <div className="loader border-t-yellow border-4 w-16 h-16 rounded-full animate-spin mx-auto"></div>
-          <p className="text-gray-500 mt-4">로딩 중...</p>
+          <div className="loader mx-auto h-16 w-16 animate-spin rounded-full border-4 border-t-yellow"></div>
+          <p className="mt-4 text-gray-500">로딩 중...</p>
         </div>
       </div>
     );
@@ -87,86 +87,86 @@ function ShowRanking(props: rankProps) {
     <div className="flex flex-col">
       <div className="h-[9dvh]">
         <Home
-          className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
+          className="absolute left-[6.4vw] top-[3vh] z-10 w-[5vw] cursor-pointer"
           onClick={() => navigate("/game")}
         />
-        <p className="absolute font-semibold flex top-[2vh] h-[5.28169vh] items-center w-full justify-center">
+        <p className="absolute top-[2vh] flex h-[5.28169vh] w-full items-center justify-center font-semibold">
           태양광 패널 찾기
         </p>
         <GameButton />
       </div>
       <div
-        className={`flex flex-col h-[${"calc(100dvh-9vh)"}] w-screen static`}
+        className={`flex flex-col h-[${"calc(100dvh-9vh)"}] static w-screen`}
       >
         <main className="p-4">
-          <h2 className="text-center text-3xl font-bold mb-6">
+          <h2 className="mb-6 text-center text-3xl font-bold">
             누적 점수 TOP 10
           </h2>
 
-          <div className="flex justify-center items-end space-x-4">
+          <div className="flex items-end justify-center space-x-4">
             {/* 상위 3등 표시 */}
             <div className="flex flex-col items-center">
-              <div className="relative w-16 h-16 md:w-20 md:h-20">
+              <div className="relative h-16 w-16 md:h-20 md:w-20">
                 <img
                   src={ranks[1].image_url}
-                  className={`w-full h-full rounded-lg ${
+                  className={`h-full w-full rounded-lg ${
                     ranks[1].is_mine
                       ? "border-4 border-solid border-yellow/50"
                       : ""
                   }`}
                   alt="Second place profile"
                 />
-                <SecondPlace className="absolute top-0 right-0 transform translate-x-2 -translate-y-2 w-6 h-6" />
+                <SecondPlace className="absolute right-0 top-0 h-6 w-6 -translate-y-2 translate-x-2 transform" />
               </div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="relative w-20 h-20 md:w-24 md:h-24">
+              <div className="relative h-20 w-20 md:h-24 md:w-24">
                 <img
                   src={ranks[0].image_url}
-                  className={`w-full h-full rounded-lg ${
+                  className={`h-full w-full rounded-lg ${
                     ranks[0].is_mine
                       ? "border-4 border-solid border-yellow/50"
                       : ""
                   }`}
                   alt="First place profile"
                 />
-                <FirstPlace className="absolute top-0 right-0 transform translate-x-2 -translate-y-2 w-6 h-6" />
+                <FirstPlace className="absolute right-0 top-0 h-6 w-6 -translate-y-2 translate-x-2 transform" />
               </div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="relative w-16 h-16 md:w-20 md:h-20">
+              <div className="relative h-16 w-16 md:h-20 md:w-20">
                 <img
                   src={ranks[2].image_url}
-                  className={`w-full h-full rounded-lg ${
+                  className={`h-full w-full rounded-lg ${
                     ranks[2].is_mine
                       ? "border-4 border-solid border-yellow/50"
                       : ""
                   }`}
                   alt="Third place profile"
                 />
-                <ThirdPlace className="absolute top-0 right-0 transform translate-x-2 -translate-y-2 w-6 h-6" />
+                <ThirdPlace className="absolute right-0 top-0 h-6 w-6 -translate-y-2 translate-x-2 transform" />
               </div>
             </div>
           </div>
 
-          <div className="flex justify-center space-x-4 mt-4 font-bold">
-            <div className="text-center w-16">
-              <span className=" text-base">{ranks[1]?.nickname}</span>
+          <div className="mt-4 flex justify-center space-x-4 font-bold">
+            <div className="w-16 text-center">
+              <span className="text-base">{ranks[1]?.nickname}</span>
               <br />
-              <span className="text-gray-500 text-sm">{ranks[1]?.score}</span>
+              <span className="text-sm text-gray-500">{ranks[1]?.score}</span>
             </div>
-            <div className="text-center w-20">
+            <div className="w-20 text-center">
               <span className="text-base">{ranks[0]?.nickname}</span>
               <br />
-              <span className="text-gray-500 text-sm">{ranks[0]?.score}</span>
+              <span className="text-sm text-gray-500">{ranks[0]?.score}</span>
             </div>
-            <div className="text-center w-16">
-              <span className="text-base ">{ranks[2]?.nickname}</span>
+            <div className="w-16 text-center">
+              <span className="text-base">{ranks[2]?.nickname}</span>
               <br />
-              <span className="text-gray-500 text-sm">{ranks[2]?.score}</span>
+              <span className="text-sm text-gray-500">{ranks[2]?.score}</span>
             </div>
           </div>
-          <div className="pt-4 -mx-4">
+          <div className="-mx-4 pt-4">
             {ranks.length > 0 &&
               topTen.map((user, index) => (
                 <div key={`div${index}`}>
@@ -176,18 +176,18 @@ function ShowRanking(props: rankProps) {
                       className={`${user.is_mine ? "bg-yellow/50" : ""} py-2`}
                     >
                       <div className="flex items-center">
-                        <div className="pl-10 font-bold text-black w-20">
+                        <div className="w-20 pl-10 font-bold text-black">
                           {index + 1}
                         </div>
                         <img
                           src={user.image_url}
-                          className="w-8 h-8"
+                          className="h-8 w-8"
                           alt="profile"
                         />
-                        <p className="flex-grow font-bold pl-4">
+                        <p className="flex-grow pl-4 font-bold">
                           {user.nickname}
                         </p>
-                        <p className="font-bold pr-10 text-gray-500">
+                        <p className="pr-10 font-bold text-gray-500">
                           {user.score}
                         </p>
                       </div>
@@ -202,19 +202,19 @@ function ShowRanking(props: rankProps) {
           {isOutside10 && latestMyInfo && (
             <>
               <hr className="border-gray-300" />
-              <div className="bg-yellow/50 py-2  -mx-4 flex items-center">
-                <div className="pl-10 font-bold text-black w-20">
+              <div className="-mx-4 flex items-center bg-yellow/50 py-2">
+                <div className="w-20 pl-10 font-bold text-black">
                   {latestMyRank + 1}
                 </div>
                 <img
                   src={latestMyInfo!.image_url}
-                  className="w-8 h-8"
+                  className="h-8 w-8"
                   alt="profile"
                 />
-                <p className="flex-grow font-bold pl-4">
+                <p className="flex-grow pl-4 font-bold">
                   {latestMyInfo!.nickname}
                 </p>
-                <p className="font-bold pr-10 text-gray-500">
+                <p className="pr-10 font-bold text-gray-500">
                   {latestMyInfo!.score}
                 </p>
               </div>
@@ -224,7 +224,7 @@ function ShowRanking(props: rankProps) {
 
         <footer className="p-4">
           <button
-            className="w-full py-3 bg-yellow text-black font-bold rounded shadow font-bold"
+            className="w-full rounded bg-yellow py-3 font-bold text-black shadow"
             onClick={() => navigate("/game/play")}
           >
             게임 다시하기

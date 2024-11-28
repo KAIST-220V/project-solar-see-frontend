@@ -53,7 +53,7 @@ function GameClaim(props: scoreProps) {
     return acc;
   }, []);
   const [positive, setPositive] = useState(
-    Array(props.checks.length + marks.length).fill(0)
+    Array(props.checks.length + marks.length).fill(0),
   );
 
   const handleClaim = () => {
@@ -63,36 +63,36 @@ function GameClaim(props: scoreProps) {
   return (
     <div>
       <BackButton
-        className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
+        className="absolute left-[6.4vw] top-[3vh] z-10 w-[5vw] cursor-pointer"
         onClick={() => props.setMode("score")}
       />
-      <div className="relative flex flex-col top-[10dvh] h-[90dvh]">
-        <div className="px-3 flex flex-col">
-          <p className="text-[#FFA629] font-bold tracking-widest">
+      <div className="relative top-[10dvh] flex h-[90dvh] flex-col">
+        <div className="flex flex-col px-3">
+          <p className="font-bold tracking-widest text-[#FFA629]">
             <span className="font-handwriting">AI</span>
             <span>의 실수 잡아내기</span>
           </p>
           <div className="flex flex-row items-center">
-            <span className="bg-[#FF7729] w-[5vw] h-[5vw] rounded-full flex items-center justify-center">
-              <p className="text-white text-center ">{currentIndex + 1}</p>
+            <span className="flex h-[5vw] w-[5vw] items-center justify-center rounded-full bg-[#FF7729]">
+              <p className="text-center text-white">{currentIndex + 1}</p>
             </span>
             <span className="ml-1">은 태양광 패널이 맞나요?</span>
           </div>
         </div>
         <div
           ref={containerRef}
-          className="relative flex flex-shrink-0 flex-row aspect-square mt-3 snap-x snap-mandatory overflow-x-auto w-full"
+          className="relative mt-3 flex aspect-square w-full flex-shrink-0 snap-x snap-mandatory flex-row overflow-x-auto"
         >
           {Array.from({ length: props.checks.length + marks.length }).map(
             (_, i) =>
               i < props.checks.length ? (
                 <div
-                  className="flex-none w-full snap-start aspect-square relative"
+                  className="relative aspect-square w-full flex-none snap-start"
                   key={`div-${i}`}
                 >
                   <img
                     src={props.img}
-                    className="w-full aspect-square"
+                    className="aspect-square w-full"
                     alt=""
                   />
                   <svg
@@ -118,12 +118,12 @@ function GameClaim(props: scoreProps) {
                   </svg>
                   <div>
                     <div
-                      className="bg-white absolute w-[9vw] aspect-square rounded-md z-30 flex items-center justify-center"
+                      className="absolute z-30 flex aspect-square w-[9vw] items-center justify-center rounded-md bg-white"
                       style={{
                         left: `min(calc(${
                           ((props.panel[props.checks[i]].all_points_x.reduce(
                             (acc, cur) => acc + cur,
-                            0
+                            0,
                           ) /
                             props.panel[props.checks[i]].all_points_x.length) *
                             100) /
@@ -133,7 +133,7 @@ function GameClaim(props: scoreProps) {
                         top: `max(${
                           (props.panel[props.checks[i]].all_points_y.reduce(
                             (acc, cur) => (cur < acc ? cur : acc),
-                            Infinity
+                            Infinity,
                           ) *
                             100) /
                             1024 -
@@ -141,17 +141,17 @@ function GameClaim(props: scoreProps) {
                         }vw, 0vw)`,
                       }}
                     >
-                      <div className="bg-[#FF7729] w-[6vw] h-[6vw] rounded-full flex items-center justify-center">
-                        <p className="text-white text-center ">{i + 1}</p>
+                      <div className="flex h-[6vw] w-[6vw] items-center justify-center rounded-full bg-[#FF7729]">
+                        <p className="text-center text-white">{i + 1}</p>
                       </div>
                     </div>
                     <div
-                      className="absolute w-0 h-0 border-l-[2.5vw] border-r-[2.5vw] border-t-[4vw] border-transparent border-t-white z-20"
+                      className="absolute z-20 h-0 w-0 border-l-[2.5vw] border-r-[2.5vw] border-t-[4vw] border-transparent border-t-white"
                       style={{
                         left: `min(calc(${
                           ((props.panel[props.checks[i]].all_points_x.reduce(
                             (acc, cur) => acc + cur,
-                            0
+                            0,
                           ) /
                             props.panel[props.checks[i]].all_points_x.length) *
                             100) /
@@ -161,7 +161,7 @@ function GameClaim(props: scoreProps) {
                         top: `max(${
                           (props.panel[props.checks[i]].all_points_y.reduce(
                             (acc, cur) => (cur < acc ? cur : acc),
-                            Infinity
+                            Infinity,
                           ) *
                             100) /
                             1024 -
@@ -173,12 +173,12 @@ function GameClaim(props: scoreProps) {
                 </div>
               ) : (
                 <div
-                  className="flex-none w-full h-full snap-start relative aspect-square"
+                  className="relative aspect-square h-full w-full flex-none snap-start"
                   key={`div-${i}`}
                 >
                   <img
                     src={props.img}
-                    className="w-full h-full aspect-square"
+                    className="aspect-square h-full w-full"
                     alt=""
                   />
                   <Wrong
@@ -197,7 +197,7 @@ function GameClaim(props: scoreProps) {
                   />
                   <div>
                     <div
-                      className="bg-white absolute w-[9vw] aspect-square rounded-md z-30 flex items-center justify-center"
+                      className="absolute z-30 flex aspect-square w-[9vw] items-center justify-center rounded-md bg-white"
                       style={{
                         left: `min(calc(${
                           props.marks[marks[i - props.checks.length]].x
@@ -207,12 +207,12 @@ function GameClaim(props: scoreProps) {
                         }px - 19vw))`,
                       }}
                     >
-                      <div className="bg-[#FF7729] w-[6vw] h-[6vw] rounded-full flex items-center justify-center">
-                        <p className="text-white text-center ">{i + 1}</p>
+                      <div className="flex h-[6vw] w-[6vw] items-center justify-center rounded-full bg-[#FF7729]">
+                        <p className="text-center text-white">{i + 1}</p>
                       </div>
                     </div>
                     <div
-                      className="absolute w-0 h-0 border-l-[2.5vw] border-r-[2.5vw] border-t-[4vw] border-transparent border-t-white z-20"
+                      className="absolute z-20 h-0 w-0 border-l-[2.5vw] border-r-[2.5vw] border-t-[4vw] border-transparent border-t-white"
                       style={{
                         left: `min(calc(${
                           props.marks[marks[i - props.checks.length]].x
@@ -224,28 +224,28 @@ function GameClaim(props: scoreProps) {
                     ></div>
                   </div>
                 </div>
-              )
+              ),
           )}
         </div>
-        <div className="flex flex-row space-x-1 justify-center mt-3">
+        <div className="mt-3 flex flex-row justify-center space-x-1">
           {Array.from({ length: marks.length + props.checks.length }).map(
             (_, i) => (
               <div
-                className={`w-[2vw] aspect-square rounded-full ${
+                className={`aspect-square w-[2vw] rounded-full ${
                   i === currentIndex ? "bg-[#444444]" : "bg-[#B3B3B3]"
                 }`}
                 key={i}
               ></div>
-            )
+            ),
           )}
         </div>
-        <div className="flex flex-row my-3 justify-evenly mx-7">
+        <div className="mx-7 my-3 flex flex-row justify-evenly">
           {positive[currentIndex] === 1 ? (
             <SelectedO
               className="w-[20vw]"
               onClick={() =>
                 setPositive((prev) =>
-                  prev.map((value, idx) => (idx === currentIndex ? 0 : value))
+                  prev.map((value, idx) => (idx === currentIndex ? 0 : value)),
                 )
               }
             />
@@ -265,7 +265,7 @@ function GameClaim(props: scoreProps) {
                   }
                 }
                 setPositive((prev) =>
-                  prev.map((value, idx) => (idx === currentIndex ? 1 : value))
+                  prev.map((value, idx) => (idx === currentIndex ? 1 : value)),
                 );
               }}
             />
@@ -275,7 +275,7 @@ function GameClaim(props: scoreProps) {
               className="w-[20vw]"
               onClick={() =>
                 setPositive((prev) =>
-                  prev.map((value, idx) => (idx === currentIndex ? 0 : value))
+                  prev.map((value, idx) => (idx === currentIndex ? 0 : value)),
                 )
               }
             />
@@ -295,15 +295,15 @@ function GameClaim(props: scoreProps) {
                   }
                 }
                 setPositive((prev) =>
-                  prev.map((value, idx) => (idx === currentIndex ? -1 : value))
+                  prev.map((value, idx) => (idx === currentIndex ? -1 : value)),
                 );
               }}
             />
           )}
         </div>
-        <div className="flex flex-grow flex-col-reverse w-full p-3">
+        <div className="flex w-full flex-grow flex-col-reverse p-3">
           <button
-            className="rounded-lg bg-[#FFA629] w-full h-[6.45533991vh] font-bold"
+            className="h-[6.45533991vh] w-full rounded-lg bg-[#FFA629] font-bold"
             onClick={handleClaim}
           >
             제보 완료하기

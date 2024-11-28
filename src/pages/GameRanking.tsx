@@ -19,7 +19,7 @@ function GameRanking() {
       : "addrank";
   const [mode, setMode] = useState(defaultMode);
   return (
-    <div className="absolute flex flex-col items-center justify-start w-full h-dvh bg-white">
+    <div className="absolute flex h-dvh w-full flex-col items-center justify-start bg-white">
       {mode === "addrank" &&
         location.state &&
         location.state.score !== null && (

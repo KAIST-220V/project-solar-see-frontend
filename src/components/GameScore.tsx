@@ -38,7 +38,7 @@ type scoreProps = {
 function GameScore(props: scoreProps) {
   const correctClicks = props.checks.filter((num: number) => num >= 1).length;
   const wrongClicks = props.marks.filter(
-    (value: Position) => value.pIndex === -1
+    (value: Position) => value.pIndex === -1,
   ).length;
 
   const navigate = useNavigate();
@@ -62,13 +62,13 @@ function GameScore(props: scoreProps) {
   const logos = [
     ...Array(Math.max(0, props.lifeCount - wrongClicks))
       .fill(null)
-      .map((_, index) => <Logo key={index} className="w-[10vw] h-[10vw]" />),
+      .map((_, index) => <Logo key={index} className="h-[10vw] w-[10vw]" />),
     ...Array(Math.min(5, Math.max(0, 5 - props.lifeCount + wrongClicks)))
       .fill(null)
       .map((_, index) => (
         <EmptyLogo
           key={props.lifeCount + index}
-          className="w-[10vw] h-[10vw]"
+          className="h-[10vw] w-[10vw]"
         />
       )),
   ];
@@ -103,34 +103,34 @@ function GameScore(props: scoreProps) {
     <div>
       {gameOverLoading && !props.isClaimed && (
         <div>
-          <div className="fixed top-0 left-0 w-screen h-[100dvh] z-30 bg-blue opacity-75 justify-center items-center"></div>
-          <div className="fixed top-[20vh] flex-col w-full h-[50vh] z-40 flex opacity-100 justify-center items-center">
-            <OverLogo className="w-[15vh] h-[15vh] z-40 opacity-100" />
+          <div className="fixed left-0 top-0 z-30 h-[100dvh] w-screen items-center justify-center bg-blue opacity-75"></div>
+          <div className="fixed top-[20vh] z-40 flex h-[50vh] w-full flex-col items-center justify-center opacity-100">
+            <OverLogo className="z-40 h-[15vh] w-[15vh] opacity-100" />
             <p className="font-handwriting text-4xl tracking-widest text-orange">
               <span>Round </span>
               <span>{props.round}</span>
             </p>
-            <p className="font-nanum font-semibold text-2xl tracking-widest text-orange">
+            <p className="font-nanum text-2xl font-semibold tracking-widest text-orange">
               <span>게임 오버</span>
             </p>
           </div>
         </div>
       )}
       <Home
-        className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
+        className="absolute left-[6.4vw] top-[3vh] z-10 w-[5vw] cursor-pointer"
         onClick={() => navigate("/game")}
       />
-      <div className="flex flex-col relative top-[10dvh] h-[90dvh]">
+      <div className="relative top-[10dvh] flex h-[90dvh] flex-col">
         <div className="px-3">
-          <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
+          <div className="mb-1 flex flex-row justify-between font-handwriting tracking-widest text-blue">
             <p>ROUND {props.round}</p>
             <p>
               SCORE {(props.score + correctClicks).toString().padStart(3, "0")}
             </p>
           </div>
         </div>
-        <div className="relative flex aspect-square mt-3">
-          <img src={props.img} className="w-full aspect-square" alt="" />
+        <div className="relative mt-3 flex aspect-square">
+          <img src={props.img} className="aspect-square w-full" alt="" />
           <svg
             className="absolute left-0 top-0 z-10"
             width="100%"
@@ -147,14 +147,14 @@ function GameScore(props: scoreProps) {
                         (point: number, j: number) =>
                           `${(point * 100) / 1024},${
                             (props.panel[i].all_points_y[j] * 100) / 1024
-                          }`
+                          }`,
                       )
                       .join(" ")}
                     fill="rgba(0, 0, 0, 0)"
                     stroke={`${count === 0 ? "#FF7729" : "rgb(127, 168, 255)"}`}
                     strokeWidth="0.5"
                   />
-                )
+                ),
             )}
           </svg>
           <ul>
@@ -189,25 +189,25 @@ function GameScore(props: scoreProps) {
           </ul>
         </div>
 
-        <div className="flex mt-3 justify-evenly">
+        <div className="mt-3 flex justify-evenly">
           {logos.map((logo, index) => (
             <div key={index}>{logo}</div>
           ))}
         </div>
 
-        <div className="flex flex-col items-center mt-3">
+        <div className="mt-3 flex flex-col items-center">
           <p>
             {props.panel.length}개 중 {correctClicks}개 맞힘, {wrongClicks}개
             틀림, {props.panel.length - correctClicks}개 놓침
           </p>
 
           <div className="flex">
-            <div className="text-3xl font-bold font-handwriting text-yellow flex-grow text-center">
+            <div className="flex-grow text-center font-handwriting text-3xl font-bold text-yellow">
               + {correctClicks} 점
             </div>
 
             {wrongClicks > 0 && (
-              <div className="text-3xl font-bold font-handwriting text-red-500 flex-grow text-center ml-6">
+              <div className="ml-6 flex-grow text-center font-handwriting text-3xl font-bold text-red-500">
                 - {wrongClicks} Life
               </div>
             )}
@@ -216,9 +216,9 @@ function GameScore(props: scoreProps) {
 
         {props.isClaimed || props.panel.length === correctClicks ? (
           gameOver ? (
-            <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
+            <div className="relative flex w-full flex-grow flex-col-reverse p-3">
               <button
-                className="rounded-lg bg-yellow w-full h-[6.45533991vh] font-bold"
+                className="h-[6.45533991vh] w-full rounded-lg bg-yellow font-bold"
                 onClick={() => {
                   props.setIsClaimed(false);
                   handleRanking();
@@ -228,9 +228,9 @@ function GameScore(props: scoreProps) {
               </button>
             </div>
           ) : (
-            <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
+            <div className="relative flex w-full flex-grow flex-col-reverse p-3">
               <button
-                className="rounded-lg bg-yellow w-full h-[6.45533991vh] font-bold"
+                className="h-[6.45533991vh] w-full rounded-lg bg-yellow font-bold"
                 onClick={() => {
                   props.setIsClaimed(false);
                   handleNextGame();
@@ -241,24 +241,24 @@ function GameScore(props: scoreProps) {
             </div>
           )
         ) : (
-          <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
-            <div className="justify-evenly flex">
+          <div className="relative flex w-full flex-grow flex-col-reverse p-3">
+            <div className="flex justify-evenly">
               <button
-                className="rounded-lg bg-[#FFA629] w-[44.2744809vw] h-[6.45533991vh] font-bold"
+                className="h-[6.45533991vh] w-[44.2744809vw] rounded-lg bg-[#FFA629] font-bold"
                 onClick={() => props.setMode("claim")}
               >
                 AI의 실수 잡아내기
               </button>
               {gameOver ? (
                 <button
-                  className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh] font-bold"
+                  className="h-[6.45533991vh] w-[44.2744809vw] rounded-lg bg-[#D9D9D9] font-bold"
                   onClick={handleRanking}
                 >
                   랭킹 등록하기
                 </button>
               ) : (
                 <button
-                  className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh] font-bold"
+                  className="h-[6.45533991vh] w-[44.2744809vw] rounded-lg bg-[#D9D9D9] font-bold"
                   onClick={handleNextGame}
                 >
                   다음 게임 시작하기

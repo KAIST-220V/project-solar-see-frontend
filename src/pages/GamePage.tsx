@@ -4,8 +4,7 @@ import GamePlay from "../components/GamePlay";
 import GameScore from "../components/GameScore";
 import Cookies from "js-cookie";
 import GameClaim from "../components/GameClaim";
-import GameStory from "../components/GameStory"
-
+import GameStory from "../components/GameStory";
 
 type Position = {
   x: number;
@@ -51,7 +50,7 @@ function GamePage() {
       {isFirstVisit && <GameStory setIsFirstVisit={setIsFirstVisit} />}
       {!isFirstVisit && (
         <div>
-          <p className="absolute font-semibold flex top-[2vh] h-[5.28169vh] items-center w-full justify-center">
+          <p className="absolute top-[2vh] flex h-[5.28169vh] w-full items-center justify-center font-semibold">
             태양광 패널 찾기
           </p>
           {mode === "game" && (

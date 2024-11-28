@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: SSH and deploy
         uses: appleboy/ssh-action@master
@@ -16,27 +16,27 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
-          port: ${{ secrets.SSH_PORT }} 
+          port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/project-solar-see-frontend || exit 1
-            
+
             echo "===== Git 브랜치 확인 ====="
             git checkout main
             git branch
-            
+
             echo "===== Git Pull 실행 ====="
             git pull
             git log -1 --format="%H" # 최신 커밋 해시 출력
-            
+
             echo "===== Node 버전 확인 ====="
             node -v
-            
+
             echo "===== NPM 설치 시작 ====="
             npm install ||  { echo "npm 패키키 설치 실패. 스크립트를 종료합니다."; exit 1; }
             npm list --depth=0 # 설치된 패키지 확인
-            
+
             echo "===== 빌드 시작 ====="
             npm run build ||  { echo "빌드 실패. 스크립트를 종료합니다."; exit 1; }
-            
+
             echo "===== 빌드 결과 확인 ====="
             ls -la build/ # 빌드 결과물 확인

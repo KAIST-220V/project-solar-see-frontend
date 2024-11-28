@@ -32,7 +32,7 @@ function MapPage() {
   };
 
   return (
-    <div className="h-dvh static">
+    <div className="static h-dvh">
       <KakaoMap
         mapCenter={mapCenter}
         mapRef={mapRef}

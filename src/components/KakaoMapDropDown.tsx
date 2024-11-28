@@ -35,29 +35,29 @@ function KakaoMapDropDown(props: Props) {
   return (
     <>
       <div
-        className="absolute flex flex-row z-10 w-[59.183673vw] h-[5.2816901vh] left-[3.307vw] top-[2vh] rounded-lg cursor-pointer shadow-lg bg-white"
+        className="absolute left-[3.307vw] top-[2vh] z-10 flex h-[5.2816901vh] w-[59.183673vw] cursor-pointer flex-row rounded-lg bg-white shadow-lg"
         style={{
           outline: isDropDownOpen ? "3px solid #364F85" : "none",
           outlineOffset: "-1px",
         }}
         onClick={onDropDownClick}
       >
-        <div className="ml-2 flex justify-center items-center w-[7.6335vw] h-[5.2816901vh]">
+        <div className="ml-2 flex h-[5.2816901vh] w-[7.6335vw] items-center justify-center">
           <Logo className="h-[3.5211268vh]" />
         </div>
-        <div className="ml-2 flex items-center w-[48vw] h-[5.2816901vh]  rounded-r-lg bg-white">
+        <div className="ml-2 flex h-[5.2816901vh] w-[48vw] items-center rounded-r-lg bg-white">
           <p className="text-sm font-bold text-slate-500">
             {props.selectedDistrict}
           </p>
-          <DownT className="absolute w-[3.0612245vw] right-[3vw]" />
+          <DownT className="absolute right-[3vw] w-[3.0612245vw]" />
         </div>
       </div>
       {isDropDownOpen && (
-        <div className="absolute z-10 w-[59.183673vw] left-[3.307vw] top-[8.3149vh] bg-white rounded-lg shadow-lg">
-          <ul className="bg-white rounded-lg">
+        <div className="absolute left-[3.307vw] top-[8.3149vh] z-10 w-[59.183673vw] rounded-lg bg-white shadow-lg">
+          <ul className="rounded-lg bg-white">
             {DISTRICTS.map((district, index) => (
               <li
-                className="px-4 py-2 text-sm text-slate-500 hover:rounded-lg hover:bg-[#5D799F] hover:text-white cursor-pointer"
+                className="cursor-pointer px-4 py-2 text-sm text-slate-500 hover:rounded-lg hover:bg-[#5D799F] hover:text-white"
                 key={index}
                 onClick={onDistrictMenuClick(district)}
               >

@@ -5,15 +5,15 @@ function GameButton() {
 
   return (
     <>
-      <div className="absolute flex justify-evenly items-center z-10 w-[26vw] h-[5.28169vh] left-[70vw] top-[2vh] rounded-lg text-sm bg-white shadow-custom ">
+      <div className="absolute left-[70vw] top-[2vh] z-10 flex h-[5.28169vh] w-[26vw] items-center justify-evenly rounded-lg bg-white text-sm shadow-custom">
         <div
-          className="w-[11.5vw] h-[4.2253vh] flex justify-center items-center rounded-sm hover:cursor-pointer"
+          className="flex h-[4.2253vh] w-[11.5vw] items-center justify-center rounded-sm hover:cursor-pointer"
           onClick={() => navigate("/")}
         >
-          <p className="w-fit h-fit text-blue font-semibold">지도</p>
+          <p className="h-fit w-fit font-semibold text-blue">지도</p>
         </div>
-        <div className="w-[11.5vw] h-[4.2253vh] flex justify-center items-center hover:cursor-pointer bg-blue rounded-lg">
-          <p className="w-fit h-fit text-white font-semibold">게임</p>
+        <div className="flex h-[4.2253vh] w-[11.5vw] items-center justify-center rounded-lg bg-blue hover:cursor-pointer">
+          <p className="h-fit w-fit font-semibold text-white">게임</p>
         </div>
       </div>
     </>

@@ -54,10 +54,10 @@ function KakaoMapSnackBar(props: Props) {
   }, [props.selectedIndex]);
 
   return (
-    <div className="absolute bottom-0 w-full h-[100dvh] overflow-hidden">
+    <div className="absolute bottom-0 h-[100dvh] w-full overflow-hidden">
       <motion.div
         initial="closed"
-        className="absolute h-full w-full md:w-[400px] bottom-0 rounded-2xl z-10 bg-white will-change-transforms"
+        className="will-change-transforms absolute bottom-0 z-10 h-full w-full rounded-2xl bg-white md:w-[400px]"
         drag="y"
         dragConstraints={{ top: 0, bottom: 0 }}
         animate={props.barIsExpanded ? "opened" : "closed"}
@@ -94,7 +94,7 @@ function KakaoMapSnackBar(props: Props) {
         }}
       >
         <div
-          className="flex justify-center items-center"
+          className="flex items-center justify-center"
           onClick={() => props.setBarExpand(!props.barIsExpanded)}
         >
           <img
@@ -104,7 +104,7 @@ function KakaoMapSnackBar(props: Props) {
           />
         </div>
         <div className="ml-6 mr-6">
-          <div className="text-xl text-blue font-roboto font-bold">
+          <div className="font-roboto text-xl font-bold text-blue">
             N {props.markers[props.selectedIndex].longitude.toFixed(4)}
             °, E {props.markers[props.selectedIndex].latitude.toFixed(4)}°
           </div>
@@ -117,7 +117,7 @@ function KakaoMapSnackBar(props: Props) {
           <div className="text-base">예상 발전량: --- W</div>
         </div>
         <div>
-          <div className="flex justify-center items-center m-6">
+          <div className="m-6 flex items-center justify-center">
             <img
               alt="테스트"
               src={props.markers[props.selectedIndex].image_url}
@@ -126,13 +126,13 @@ function KakaoMapSnackBar(props: Props) {
             />
           </div>
         </div>
-        <div className="flex-col justify-center items-center m-6">
+        <div className="m-6 flex-col items-center justify-center">
           <div className="text-base text-slate-500">
             {"혹시, 태양광 패널이 아닌가요?"}
           </div>
           <button
-            className={`rounded-lg w-full font-bold h-[5vh]${
-              isReported ? " bg-[#D9D9D9]" : " bg-yellow"
+            className={`w-full rounded-lg font-bold h-[5vh]${
+              isReported ? "bg-[#D9D9D9]" : "bg-yellow"
             }`}
             onClick={() => handleReport()}
           >

@@ -27,12 +27,12 @@ function GameStory(props: Props) {
   };
 
   return (
-    <div className="w-screen h-dvh font-roboto flex flex-col">
-      <div className="flex justify-between items-center w-full h-[10dvh] p-5">
-        <Logo className="w-[7vh] h-[7vh] max-h-xs max-w-xs"></Logo>
-        <div className="items-end flex flex-col">
+    <div className="flex h-dvh w-screen flex-col font-roboto">
+      <div className="flex h-[10dvh] w-full items-center justify-between p-5">
+        <Logo className="max-h-xs h-[7vh] w-[7vh] max-w-xs"></Logo>
+        <div className="flex flex-col items-end">
           <p
-            className="text-gray-500 font-handwriting"
+            className="font-handwriting text-gray-500"
             onClick={() => {
               props.setIsFirstVisit(false);
               Cookies.set("visited", "true", { expires: 7 });
@@ -44,16 +44,16 @@ function GameStory(props: Props) {
       </div>
       <div
         ref={containerRef}
-        className="flex overflow-x-auto snap-x snap-mandatory w-full flex-grow scrollbar-hide"
+        className="flex w-full flex-grow snap-x snap-mandatory overflow-x-auto scrollbar-hide"
         onScroll={handleScroll}
       >
         {[Img1, Img2, Img3, Img4, Img5].map((SVGComponent, index) => (
           <div
             key={index}
-            className="flex-none w-full h-full items-center justify-center snap-start"
+            className="h-full w-full flex-none snap-start items-center justify-center"
           >
             <div
-              className="relative bg-gray-200 aspect-none"
+              className="aspect-none relative bg-gray-200"
               style={{
                 height:
                   (55 / 100) * window.innerHeight > window.innerWidth
@@ -62,20 +62,20 @@ function GameStory(props: Props) {
               }}
             >
               <SVGComponent
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
                 preserveAspectRatio="none"
               />
             </div>
-            <div className="relative pt-8 pl-8 pr-8 w-full text-center">
+            <div className="relative w-full pl-8 pr-8 pt-8 text-center">
               {index === 0 && (
                 <>
-                  <p className="text-xl text-black font-extrabold">
+                  <p className="text-xl font-extrabold text-black">
                     전력은 저장이 어려워서
                   </p>
-                  <p className="text-xl text-black font-extrabold">
+                  <p className="text-xl font-extrabold text-black">
                     생산과 동시에 소비되어야 해요
                   </p>
-                  <p className="text-sm text-gray-500 mt-5">
+                  <p className="mt-5 text-sm text-gray-500">
                     전력 저장 시설은 위험하고 가격이 비싸요
                   </p>
                   <p className="text-sm text-gray-500">
@@ -85,13 +85,13 @@ function GameStory(props: Props) {
               )}
               {index === 1 && (
                 <>
-                  <p className="text-xl text-black font-extrabold">
+                  <p className="text-xl font-extrabold text-black">
                     생산된 에너지를 버리지 않기 위해
                   </p>
-                  <p className="text-xl text-black font-extrabold">
+                  <p className="text-xl font-extrabold text-black">
                     전력 수요 예측은 정확해야 해요
                   </p>
-                  <p className="text-sm text-gray-500 mt-3">
+                  <p className="mt-3 text-sm text-gray-500">
                     공급 부족에 의한 대규모 정전을 막고,
                   </p>
                   <p className="text-sm text-gray-500">
@@ -102,13 +102,13 @@ function GameStory(props: Props) {
               )}
               {index === 2 && (
                 <>
-                  <p className="text-xl text-black font-extrabold">
+                  <p className="text-xl font-extrabold text-black">
                     그런데 등록되지 않은 비계량
                   </p>
-                  <p className="text-xl text-black font-extrabold">
+                  <p className="text-xl font-extrabold text-black">
                     태양광 패널이 이를 어렵게 해요
                   </p>
-                  <p className="text-sm text-gray-500 mt-5">
+                  <p className="mt-5 text-sm text-gray-500">
                     발전량을 정확히 알 수 없는데
                   </p>
                   <p className="text-sm text-gray-500">
@@ -121,13 +121,13 @@ function GameStory(props: Props) {
               )}
               {index === 3 && (
                 <>
-                  <p className="text-xl text-black font-extrabold">
+                  <p className="text-xl font-extrabold text-black">
                     그래서 Team 220V는
                   </p>
-                  <p className="text-xl text-black font-extrabold">
+                  <p className="text-xl font-extrabold text-black">
                     SolarSee 프로젝트를 시작했어요
                   </p>
-                  <p className="text-sm text-gray-500 mt-5">
+                  <p className="mt-5 text-sm text-gray-500">
                     항공사진과 AI 기술을 활용해
                   </p>
                   <p className="text-sm text-gray-500">
@@ -140,10 +140,10 @@ function GameStory(props: Props) {
               )}
               {index === 4 && (
                 <>
-                  <p className="text-xl text-black font-extrabold">
+                  <p className="text-xl font-extrabold text-black">
                     지속가능한 미래,
                   </p>
-                  <p className="text-xl text-black font-extrabold">
+                  <p className="text-xl font-extrabold text-black">
                     여러분도 함께할 수 있어요!
                   </p>
                   <p className="text-sm text-gray-500">
@@ -153,7 +153,7 @@ function GameStory(props: Props) {
                     데이터의 정확도가 향상될 거예요.
                   </p>
                   <button
-                    className="rounded-lg bg-yellow w-full h-[6.45533991dvh] mt-5 font-bold"
+                    className="mt-5 h-[6.45533991dvh] w-full rounded-lg bg-yellow font-bold"
                     onClick={() => {
                       props.setIsFirstVisit(false);
                       Cookies.set("visited", "true", { expires: 7 });

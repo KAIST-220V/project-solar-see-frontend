@@ -43,19 +43,19 @@ function GamePlay(props: Props) {
   const newLogos = [
     ...Array(props.lifeCount)
       .fill(null)
-      .map((_, index) => <Logo key={index} className="w-[10vw] h-[10vw]" />),
+      .map((_, index) => <Logo key={index} className="h-[10vw] w-[10vw]" />),
     ...Array(5 - props.lifeCount)
       .fill(null)
       .map((_, index) => (
         <EmptyLogo
           key={props.lifeCount + index}
-          className="w-[10vw] h-[10vw]"
+          className="h-[10vw] w-[10vw]"
         />
       )),
   ];
 
   const handleImageClick = (
-    event: React.MouseEvent<SVGElement, MouseEvent>
+    event: React.MouseEvent<SVGElement, MouseEvent>,
   ) => {
     const { clientX, clientY } = event;
     const eventTarget = event.target as SVGElement;
@@ -71,7 +71,7 @@ function GamePlay(props: Props) {
 
   const handlePolygonClick = (
     key: number,
-    event: React.MouseEvent<SVGPolygonElement, MouseEvent>
+    event: React.MouseEvent<SVGPolygonElement, MouseEvent>,
   ) => {
     event.stopPropagation();
     const { clientX, clientY } = event;
@@ -86,7 +86,7 @@ function GamePlay(props: Props) {
         ]);
         setCount((count) => count + 1);
         props.setCheck((check) =>
-          check.map((cnt, i) => (i === key ? cnt + 1 : cnt))
+          check.map((cnt, i) => (i === key ? cnt + 1 : cnt)),
         );
       }
     }
@@ -94,14 +94,14 @@ function GamePlay(props: Props) {
 
   const handleMarkClick = (
     key: number,
-    event: React.MouseEvent<SVGSVGElement, MouseEvent>
+    event: React.MouseEvent<SVGSVGElement, MouseEvent>,
   ) => {
     event.stopPropagation();
     props.setMarks((marks) => marks.filter((_, i) => i !== key));
 
     if (props.marks[key].pIndex !== -1) {
       props.setCheck((check) =>
-        check.map((cnt, i) => (i === props.marks[key].pIndex ? cnt - 1 : cnt))
+        check.map((cnt, i) => (i === props.marks[key].pIndex ? cnt - 1 : cnt)),
       );
     }
 
@@ -112,26 +112,26 @@ function GamePlay(props: Props) {
     <div>
       {loading && (
         <div>
-          <div className="fixed top-0 left-0 w-screen h-[100dvh] z-30 bg-blue opacity-75 justify-center items-center"></div>
-          <div className="fixed top-[20vh] flex flex-col w-full h-[50vh] z-40 opacity-100 justify-center items-center">
-            <Logo className="w-[15vh] h-[15vh] z-40 opacity-100" />
+          <div className="fixed left-0 top-0 z-30 h-[100dvh] w-screen items-center justify-center bg-blue opacity-75"></div>
+          <div className="fixed top-[20vh] z-40 flex h-[50vh] w-full flex-col items-center justify-center opacity-100">
+            <Logo className="z-40 h-[15vh] w-[15vh] opacity-100" />
             <p className="font-handwriting text-4xl tracking-widest text-yellow">
               <span>Round </span>
               <span>{props.round}</span>
             </p>
-            <p className="font-nanum font-semibold text-2xl tracking-widest text-yellow">
+            <p className="font-nanum text-2xl font-semibold tracking-widest text-yellow">
               <span>패널 찾기 시작!</span>
             </p>
           </div>
         </div>
       )}
       <Home
-        className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
+        className="absolute left-[6.4vw] top-[3vh] z-10 w-[5vw] cursor-pointer"
         onClick={() => navigate("/game")}
       />
-      <div className="absolute flex flex-col top-[10dvh] h-[90dvh] w-full">
+      <div className="absolute top-[10dvh] flex h-[90dvh] w-full flex-col">
         <div className="px-3">
-          <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
+          <div className="mb-1 flex flex-row justify-between font-handwriting tracking-widest text-blue">
             <p>ROUND {props.round}</p>
             <p>SCORE {props.score.toString().padStart(3, "0")}</p>
           </div>
@@ -152,14 +152,14 @@ function GamePlay(props: Props) {
             <span>개의 패널을 선택해 주세요.</span>
           </p>
         </div>
-        <div className="relative flex aspect-square mt-3">
+        <div className="relative mt-3 flex aspect-square">
           <img
             src={props.img}
-            className="w-full select-none aspect-square"
+            className="aspect-square w-full select-none"
             alt=""
           />
           <svg
-            className="absolute left-0 top-0 z-10 w-full h-full"
+            className="absolute left-0 top-0 z-10 h-full w-full"
             viewBox="0 0 100 100"
             onClick={handleImageClick}
           >
@@ -170,7 +170,7 @@ function GamePlay(props: Props) {
                     (point: number, i: number) =>
                       `${(point * 100) / 1024},${
                         (pan.all_points_y[i] * 100) / 1024
-                      }`
+                      }`,
                   )
                   .join(" ")}
                 fill="rgba(0, 0, 0, 0)"
@@ -179,7 +179,7 @@ function GamePlay(props: Props) {
               />
             ))}
           </svg>
-          <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute left-0 top-0 h-full w-full">
             {props.marks.map((mark, index) => (
               <Correct
                 key={index}
@@ -196,16 +196,16 @@ function GamePlay(props: Props) {
             ))}
           </div>
         </div>
-        <div className="flex mt-3 justify-evenly">
+        <div className="mt-3 flex justify-evenly">
           {newLogos.map((logo, index) => (
             <div key={index}>{logo}</div>
           ))}
         </div>
-        <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
+        <div className="relative flex w-full flex-grow flex-col-reverse p-3">
           <button
-            className={`font-bold rounded-lg bg-yellow w-full h-[6.45533991vh] ${
+            className={`h-[6.45533991vh] w-full rounded-lg bg-yellow font-bold ${
               count < minSelectionRequired
-                ? "opacity-50 cursor-not-allowed"
+                ? "cursor-not-allowed opacity-50"
                 : ""
             }`}
             onClick={() => props.setMode("score")}
