@@ -30,6 +30,7 @@ function GamePlay(props: Props) {
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const minSelectionRequired = 1;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -125,9 +126,9 @@ function GamePlay(props: Props) {
         </div>
       )}
       <Home
-          className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
-          onClick={() => navigate("/game")}
-        />
+        className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
+        onClick={() => navigate("/game")}
+      />
       <div className="absolute flex flex-col top-[10dvh] h-[90dvh] w-full">
         <div className="px-3">
           <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
@@ -146,6 +147,8 @@ function GamePlay(props: Props) {
             <span className="font-handwriting">
               {props.panelsInImage.length}
             </span>
+            <span>개, 최소 </span>
+            <span className="font-handwriting">{minSelectionRequired}</span>
             <span>개의 패널을 선택해 주세요.</span>
           </p>
         </div>
@@ -200,10 +203,22 @@ function GamePlay(props: Props) {
         </div>
         <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
           <button
-            className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
+            className={`font-bold rounded-lg bg-yellow w-full h-[6.45533991vh] ${
+              count < minSelectionRequired
+                ? "opacity-50 cursor-not-allowed"
+                : ""
+            }`}
             onClick={() => props.setMode("score")}
+            disabled={count < minSelectionRequired}
           >
-            결과보기 ({count}/{props.panelsInImage.length})
+            {count < minSelectionRequired ? (
+              "패널을 선택해주세요"
+            ) : (
+              <>
+                결과보기{" "}
+                <span className="font-handwriting">{`(${count}/${props.panelsInImage.length})`}</span>
+              </>
+            )}
           </button>
         </div>
       </div>

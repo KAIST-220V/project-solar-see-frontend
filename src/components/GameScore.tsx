@@ -117,9 +117,9 @@ function GameScore(props: scoreProps) {
         </div>
       )}
       <Home
-          className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
-          onClick={() => navigate("/game")}
-        />
+        className="absolute top-[3vh] left-[6.4vw] w-[5vw] cursor-pointer z-10"
+        onClick={() => navigate("/game")}
+      />
       <div className="flex flex-col relative top-[10dvh] h-[90dvh]">
         <div className="px-3">
           <div className="flex flex-row justify-between tracking-widest mb-1 text-blue font-handwriting">
@@ -200,10 +200,21 @@ function GameScore(props: scoreProps) {
             {props.panel.length}개 중 {correctClicks}개 맞힘, {wrongClicks}개
             틀림, {props.panel.length - correctClicks}개 놓침
           </p>
-          <p className="text-3xl font-bold text-yellow">{correctClicks}점</p>
+
+          <div className="flex">
+            <div className="text-3xl font-bold font-handwriting text-yellow flex-grow text-center">
+              + {correctClicks} 점
+            </div>
+
+            {wrongClicks > 0 && (
+              <div className="text-3xl font-bold font-handwriting text-red-500 flex-grow text-center ml-6">
+                - {wrongClicks} Life
+              </div>
+            )}
+          </div>
         </div>
 
-        {props.isClaimed || props.panel.length == correctClicks ? (
+        {props.isClaimed || props.panel.length === correctClicks ? (
           gameOver ? (
             <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
               <button
