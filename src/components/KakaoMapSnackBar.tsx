@@ -31,7 +31,7 @@ function KakaoMapSnackBar(props: Props) {
       }
     }
 
-    list.push(`${props.markers[props.selectedIndex]['id']}`);
+    list.push(`${props.markers[props.selectedIndex]["id"]}`);
     localStorage.setItem("qwerty_list", JSON.stringify(list));
 
     setIsReported(true);
@@ -50,9 +50,9 @@ function KakaoMapSnackBar(props: Props) {
       }
     }
 
-    setIsReported(list.includes(`${props.markers[props.selectedIndex]['id']}`));
+    setIsReported(list.includes(`${props.markers[props.selectedIndex]["id"]}`));
   }, [props.selectedIndex]);
-  
+
   return (
     <div className="absolute bottom-0 w-full h-[100dvh] overflow-hidden">
       <motion.div
@@ -131,15 +131,12 @@ function KakaoMapSnackBar(props: Props) {
             {"혹시, 태양광 패널이 아닌가요?"}
           </div>
           <button
-            className={`rounded-lg w-full h-[5vh]${isReported ? ' bg-[#D9D9D9]' : ' bg-yellow'}`}
+            className={`rounded-lg w-full font-bold h-[5vh]${
+              isReported ? " bg-[#D9D9D9]" : " bg-yellow"
+            }`}
             onClick={() => handleReport()}
           >
-            {
-              isReported ?
-                "제보 되었어요"
-                :
-                "제보하기"
-            }
+            {isReported ? "제보 되었어요" : "제보하기"}
           </button>
         </div>
       </motion.div>

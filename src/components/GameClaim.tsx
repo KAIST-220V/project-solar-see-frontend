@@ -90,7 +90,11 @@ function GameClaim(props: scoreProps) {
                   className="flex-none w-full snap-start aspect-square relative"
                   key={`div-${i}`}
                 >
-                  <img src={props.img} className="w-full aspect-square" alt="" />
+                  <img
+                    src={props.img}
+                    className="w-full aspect-square"
+                    alt=""
+                  />
                   <svg
                     className="absolute left-0 top-0 z-10"
                     width="100%"
@@ -102,8 +106,9 @@ function GameClaim(props: scoreProps) {
                         .map((point: number, j: number) => {
                           const yPoint =
                             props.panel[props.checks[i]].all_points_y[j] ?? 0; // 기본값 0
-                          return `${(point * 100) / 1024},${(yPoint * 100) / 1024
-                            }`;
+                          return `${(point * 100) / 1024},${
+                            (yPoint * 100) / 1024
+                          }`;
                         })
                         .join(" ")}
                       fill="rgba(0, 0, 0, 0)"
@@ -115,23 +120,25 @@ function GameClaim(props: scoreProps) {
                     <div
                       className="bg-white absolute w-[9vw] aspect-square rounded-md z-30 flex items-center justify-center"
                       style={{
-                        left: `min(calc(${((props.panel[props.checks[i]].all_points_x.reduce(
-                          (acc, cur) => acc + cur,
-                          0
-                        ) /
+                        left: `min(calc(${
+                          ((props.panel[props.checks[i]].all_points_x.reduce(
+                            (acc, cur) => acc + cur,
+                            0
+                          ) /
                             props.panel[props.checks[i]].all_points_x.length) *
                             100) /
-                          1024 -
+                            1024 -
                           4.5
-                          }vw), 91vw)`,
-                        top: `max(${(props.panel[props.checks[i]].all_points_y.reduce(
-                          (acc, cur) => (cur < acc ? cur : acc),
-                          Infinity
-                        ) *
+                        }vw), 91vw)`,
+                        top: `max(${
+                          (props.panel[props.checks[i]].all_points_y.reduce(
+                            (acc, cur) => (cur < acc ? cur : acc),
+                            Infinity
+                          ) *
                             100) /
-                          1024 -
+                            1024 -
                           14
-                          }vw, 0vw)`,
+                        }vw, 0vw)`,
                       }}
                     >
                       <div className="bg-[#FF7729] w-[6vw] h-[6vw] rounded-full flex items-center justify-center">
@@ -141,23 +148,25 @@ function GameClaim(props: scoreProps) {
                     <div
                       className="absolute w-0 h-0 border-l-[2.5vw] border-r-[2.5vw] border-t-[4vw] border-transparent border-t-white z-20"
                       style={{
-                        left: `min(calc(${((props.panel[props.checks[i]].all_points_x.reduce(
-                          (acc, cur) => acc + cur,
-                          0
-                        ) /
+                        left: `min(calc(${
+                          ((props.panel[props.checks[i]].all_points_x.reduce(
+                            (acc, cur) => acc + cur,
+                            0
+                          ) /
                             props.panel[props.checks[i]].all_points_x.length) *
                             100) /
-                          1024 -
+                            1024 -
                           2.5
-                          }vw), 94vw)`,
-                        top: `max(${(props.panel[props.checks[i]].all_points_y.reduce(
-                          (acc, cur) => (cur < acc ? cur : acc),
-                          Infinity
-                        ) *
+                        }vw), 94vw)`,
+                        top: `max(${
+                          (props.panel[props.checks[i]].all_points_y.reduce(
+                            (acc, cur) => (cur < acc ? cur : acc),
+                            Infinity
+                          ) *
                             100) /
-                          1024 -
+                            1024 -
                           7
-                          }vw, 0vw)`,
+                        }vw, 0vw)`,
                       }}
                     ></div>
                   </div>
@@ -175,10 +184,12 @@ function GameClaim(props: scoreProps) {
                   <Wrong
                     style={{
                       position: "absolute",
-                      left: `${props.marks[marks[i - props.checks.length]].x - 12
-                        }px`,
-                      top: `${props.marks[marks[i - props.checks.length]].y - 26
-                        }px`,
+                      left: `${
+                        props.marks[marks[i - props.checks.length]].x - 12
+                      }px`,
+                      top: `${
+                        props.marks[marks[i - props.checks.length]].y - 26
+                      }px`,
                       width: "27.9px",
                       height: "29px",
                       zIndex: 20,
@@ -188,10 +199,12 @@ function GameClaim(props: scoreProps) {
                     <div
                       className="bg-white absolute w-[9vw] aspect-square rounded-md z-30 flex items-center justify-center"
                       style={{
-                        left: `min(calc(${props.marks[marks[i - props.checks.length]].x
-                          }px - 4.5vw), 91vw)`,
-                        top: `max(0vw, calc(${props.marks[marks[i - props.checks.length]].y
-                          }px - 19vw))`,
+                        left: `min(calc(${
+                          props.marks[marks[i - props.checks.length]].x
+                        }px - 4.5vw), 91vw)`,
+                        top: `max(0vw, calc(${
+                          props.marks[marks[i - props.checks.length]].y
+                        }px - 19vw))`,
                       }}
                     >
                       <div className="bg-[#FF7729] w-[6vw] h-[6vw] rounded-full flex items-center justify-center">
@@ -201,10 +214,12 @@ function GameClaim(props: scoreProps) {
                     <div
                       className="absolute w-0 h-0 border-l-[2.5vw] border-r-[2.5vw] border-t-[4vw] border-transparent border-t-white z-20"
                       style={{
-                        left: `min(calc(${props.marks[marks[i - props.checks.length]].x
-                          }px - 2.5vw), 94vw)`,
-                        top: `max(0vw, calc(${props.marks[marks[i - props.checks.length]].y
-                          }px - 12vw))`,
+                        left: `min(calc(${
+                          props.marks[marks[i - props.checks.length]].x
+                        }px - 2.5vw), 94vw)`,
+                        top: `max(0vw, calc(${
+                          props.marks[marks[i - props.checks.length]].y
+                        }px - 12vw))`,
                       }}
                     ></div>
                   </div>
@@ -212,60 +227,13 @@ function GameClaim(props: scoreProps) {
               )
           )}
         </div>
-        {/* <div className="flex overflow-auto snap-x snap-mandatory w-full h-[90vh]">
-          <div className="flex-none w-full h-full items-center justify-center snap-start">
-            <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
-              <img src={img1} className="w-full h-full object-cover"></img>
-            </div>
-            <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
-              <p className="text-xl text-black font-extrabold">전력 수요 예측을 어렵게 하는 범인,</p>
-              <p className="text-xl text-black font-extrabold">바로 비계량 태양광이에요</p>
-              <p className="text-sm text-gray-500 mt-5">비계량 태양광은 발전량이 측정되지 않는</p>
-              <p className="text-sm text-gray-500">태양광으로, 피크 전력 수요의 11%나 차지해요</p>
-            </div>
-          </div>
-          <div className="flex-none w-full h-full items-center justify-center snap-start">
-            <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
-              <img src={img2} className="w-full h-full object-cover"></img>
-            </div>
-            <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
-              <p className="text-xl text-black font-extrabold">그래서 Team 220V는</p>
-              <p className="text-xl text-black font-extrabold">SolarSee 프로젝트를 시작했어요</p>
-              <p className="text-sm text-gray-500 mt-3">SolarSee 프로젝트는</p>
-              <p className="text-sm text-gray-500">항공사진과 최신 AI기술을 활용하여</p>
-              <p className="text-sm text-gray-500">비계량 태양광 패널을 탐색하는 프로젝트이에요</p>
-            </div>
-          </div>
-          <div className="flex-none w-full h-full items-center justify-center snap-start">
-            <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
-              <img src={img3} className="w-full h-full object-cover"></img>
-            </div>
-            <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
-              <p className="text-xl text-black font-extrabold">여러분도 게임을 플레이하면서</p>
-              <p className="text-xl text-black font-extrabold">프로젝트에 참여할 수 있어요</p>
-              <p className="text-sm text-gray-500 mt-5">게임을 플레이하면서 모인 데이터는</p>
-              <p className="text-sm text-gray-500">AI 정확도 향상에 사용될 거예요</p>
-            </div>
-          </div>
-          <div className="flex-none w-full h-full items-center justify-center snap-start">
-            <div className="relative top-[5vh] bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
-              <img src={img4} className="w-full h-full object-cover"></img>
-            </div>
-            <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
-              <p className="text-xl text-black font-extrabold">그럼 지구의 미래를 위해서,</p>
-              <p className="text-xl text-black font-extrabold">게임을 시작해 볼까요?</p>
-              <button className="rounded-lg bg-yellow w-full h-[6.45533991vh] mt-5">
-                게임하기
-              </button>
-            </div>
-          </div>
-        </div> */}
         <div className="flex flex-row space-x-1 justify-center mt-3">
           {Array.from({ length: marks.length + props.checks.length }).map(
             (_, i) => (
               <div
-                className={`w-[2vw] aspect-square rounded-full ${i === currentIndex ? "bg-[#444444]" : "bg-[#B3B3B3]"
-                  }`}
+                className={`w-[2vw] aspect-square rounded-full ${
+                  i === currentIndex ? "bg-[#444444]" : "bg-[#B3B3B3]"
+                }`}
                 key={i}
               ></div>
             )
@@ -286,10 +254,7 @@ function GameClaim(props: scoreProps) {
               className="w-[20vw]"
               onClick={() => {
                 // auto-scroll
-                if (
-                  currentIndex <
-                  props.checks.length + marks.length - 1
-                ) {
+                if (currentIndex < props.checks.length + marks.length - 1) {
                   const container = containerRef.current;
                   if (container) {
                     const containerWidth = container.offsetWidth;
@@ -301,7 +266,7 @@ function GameClaim(props: scoreProps) {
                 }
                 setPositive((prev) =>
                   prev.map((value, idx) => (idx === currentIndex ? 1 : value))
-                )
+                );
               }}
             />
           )}
@@ -319,10 +284,7 @@ function GameClaim(props: scoreProps) {
               className="w-[20vw]"
               onClick={() => {
                 // auto-scroll
-                if (
-                  currentIndex <
-                  props.checks.length + marks.length - 1
-                ) {
+                if (currentIndex < props.checks.length + marks.length - 1) {
                   const container = containerRef.current;
                   if (container) {
                     const containerWidth = container.offsetWidth;
@@ -334,14 +296,14 @@ function GameClaim(props: scoreProps) {
                 }
                 setPositive((prev) =>
                   prev.map((value, idx) => (idx === currentIndex ? -1 : value))
-                )
+                );
               }}
             />
           )}
         </div>
         <div className="flex flex-grow flex-col-reverse w-full p-3">
           <button
-            className="rounded-lg bg-[#FFA629] w-full h-[6.45533991vh]"
+            className="rounded-lg bg-[#FFA629] w-full h-[6.45533991vh] font-bold"
             onClick={handleClaim}
           >
             제보 완료하기

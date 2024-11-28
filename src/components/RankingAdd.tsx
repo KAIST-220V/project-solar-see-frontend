@@ -125,7 +125,7 @@ function RankingAdd(props: userProps) {
           </p>
 
           <button
-            className={`w-[91.348601vw] mt-8 px-6 py-3 rounded
+            className={`w-[91.348601vw] mt-8 px-6 py-3 rounded font-bold 
                     ${
                       isButtonActive
                         ? "bg-yellow text-white"

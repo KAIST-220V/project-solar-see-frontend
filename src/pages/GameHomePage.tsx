@@ -40,7 +40,7 @@ function GameHomePage() {
 
       <div className="flex w-full p-3 flex-grow flex-col-reverse">
         <button
-          className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
+          className="rounded-lg bg-yellow w-full h-[6.45533991vh] font-bold"
           onClick={() => navigate("/game/play")}
         >
           시작하기

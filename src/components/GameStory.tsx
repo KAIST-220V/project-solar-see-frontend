@@ -58,10 +58,13 @@ function GameStory(props: Props) {
                 height:
                   (55 / 100) * window.innerHeight > window.innerWidth
                     ? `${window.innerWidth}px`
-                    : '55dvh',
+                    : "55dvh",
               }}
             >
-              <SVGComponent className="w-full h-full object-cover" preserveAspectRatio="none"/>
+              <SVGComponent
+                className="w-full h-full object-cover"
+                preserveAspectRatio="none"
+              />
             </div>
             <div className="relative pt-8 pl-8 pr-8 w-full text-center">
               {index === 0 && (
@@ -94,9 +97,7 @@ function GameStory(props: Props) {
                   <p className="text-sm text-gray-500">
                     공금 과잉으로 이미 발전된 에너지를
                   </p>
-                  <p className="text-sm text-gray-500">
-                    버리지 않기 위해서죠
-                  </p>
+                  <p className="text-sm text-gray-500">버리지 않기 위해서죠</p>
                 </>
               )}
               {index === 2 && (
@@ -152,7 +153,7 @@ function GameStory(props: Props) {
                     데이터의 정확도가 향상될 거예요.
                   </p>
                   <button
-                    className="rounded-lg bg-yellow w-full h-[6.45533991dvh] mt-5"
+                    className="rounded-lg bg-yellow w-full h-[6.45533991dvh] mt-5 font-bold"
                     onClick={() => {
                       props.setIsFirstVisit(false);
                       Cookies.set("visited", "true", { expires: 7 });

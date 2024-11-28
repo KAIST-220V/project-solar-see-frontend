@@ -218,7 +218,7 @@ function GameScore(props: scoreProps) {
           gameOver ? (
             <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
               <button
-                className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
+                className="rounded-lg bg-yellow w-full h-[6.45533991vh] font-bold"
                 onClick={() => {
                   props.setIsClaimed(false);
                   handleRanking();
@@ -230,7 +230,7 @@ function GameScore(props: scoreProps) {
           ) : (
             <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
               <button
-                className="rounded-lg bg-yellow w-full h-[6.45533991vh]"
+                className="rounded-lg bg-yellow w-full h-[6.45533991vh] font-bold"
                 onClick={() => {
                   props.setIsClaimed(false);
                   handleNextGame();
@@ -244,21 +244,21 @@ function GameScore(props: scoreProps) {
           <div className="relative flex flex-grow flex-col-reverse p-3 w-full">
             <div className="justify-evenly flex">
               <button
-                className="rounded-lg bg-[#FFA629] w-[44.2744809vw] h-[6.45533991vh]"
+                className="rounded-lg bg-[#FFA629] w-[44.2744809vw] h-[6.45533991vh] font-bold"
                 onClick={() => props.setMode("claim")}
               >
                 AI의 실수 잡아내기
               </button>
               {gameOver ? (
                 <button
-                  className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh]"
+                  className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh] font-bold"
                   onClick={handleRanking}
                 >
                   랭킹 등록하기
                 </button>
               ) : (
                 <button
-                  className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh]"
+                  className="rounded-lg bg-[#D9D9D9] w-[44.2744809vw] h-[6.45533991vh] font-bold"
                   onClick={handleNextGame}
                 >
                   다음 게임 시작하기
