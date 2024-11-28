@@ -10,7 +10,7 @@ type Props = {
   setIsFirstVisit: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const indexList = [0, 1, 2, 3];
+const indexList = [0, 1, 2, 3, 4];
 
 function GameStory(props: Props) {
   const [currentView, setCurrentView] = useState(0);
@@ -26,7 +26,7 @@ function GameStory(props: Props) {
   };
 
   return (
-    <div className="w-screen h-screen font-roboto flex flex-col">
+    <div className="w-screen h-dvh font-roboto flex flex-col">
       <div className="flex justify-between items-center w-full h-[10dvh] p-5">
         <Logo className="w-[7vh] h-[7vh] max-h-xs max-w-xs"></Logo>
         <div className="items-end flex flex-col">
@@ -46,15 +46,15 @@ function GameStory(props: Props) {
         className="flex overflow-x-auto snap-x snap-mandatory w-full flex-grow scrollbar-hide"
         onScroll={handleScroll}
       >
-        {[img1, img2, img3, img4].map((img, index) => (
+        {[img1, img2, img3, img4, img4].map((img, index) => (
           <div
             key={index}
             className="flex-none w-full h-full items-center justify-center snap-start"
           >
-            <div className="relative bg-gray-200 sm: h-[100vw] md:h-[55vh] md: aspect-none">
+            <div className="relative bg-gray-200 h-[55dvh] aspect-none">
               <img src={img} className="w-full h-full object-cover"></img>
             </div>
-            <div className="relative top-[5vh] pt-8 pl-8 pr-8 w-full text-center">
+            <div className="relative pt-8 pl-8 pr-8 w-full text-center">
               {index === 0 && (
                 <>
                   <p className="text-xl text-black font-extrabold">
