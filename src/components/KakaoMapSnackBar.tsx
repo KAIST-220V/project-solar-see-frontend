@@ -62,7 +62,7 @@ function KakaoMapSnackBar(props: Props) {
         dragConstraints={{ top: 0, bottom: 0 }}
         animate={props.barIsExpanded ? "opened" : "closed"}
         variants={{
-          opened: { top: "20dvh" },
+          opened: { top: "10dvh" },
           closed: { top: "80dvh" },
         }}
         transition={{
