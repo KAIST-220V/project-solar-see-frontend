@@ -110,7 +110,9 @@ function ShowRanking(props: rankProps) {
                 <img
                   src={ranks[1].image_url}
                   className={`w-full h-full rounded-lg ${
-                    ranks[1].is_mine ? "border-4 border-solid border-gray" : ""
+                    ranks[1].is_mine
+                      ? "border-4 border-solid border-yellow/50"
+                      : ""
                   }`}
                   alt="Second place profile"
                 />
@@ -137,7 +139,7 @@ function ShowRanking(props: rankProps) {
                   src={ranks[2].image_url}
                   className={`w-full h-full rounded-lg ${
                     ranks[2].is_mine
-                      ? "border-4 border-solid border-orange/50"
+                      ? "border-4 border-solid border-yellow/50"
                       : ""
                   }`}
                   alt="Third place profile"
