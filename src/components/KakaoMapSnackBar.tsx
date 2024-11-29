@@ -131,7 +131,7 @@ function KakaoMapSnackBar(props: Props) {
             {"혹시, 태양광 패널이 아닌가요?"}
           </div>
           <button
-            className={`w-full rounded-lg font-bold h-[5vh]${
+            className={`h-[5vh] w-full rounded-lg font-bold ${
               isReported ? "bg-[#D9D9D9]" : "bg-yellow"
             }`}
             onClick={() => handleReport()}
