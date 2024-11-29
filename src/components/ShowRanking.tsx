@@ -224,7 +224,7 @@ function ShowRanking(props: rankProps) {
 
         <footer className="p-4">
           <button
-            className="w-full rounded bg-yellow py-3 font-bold text-black shadow"
+            className="w-full rounded-lg bg-yellow py-3 font-bold text-black shadow"
             onClick={() => navigate("/game/play")}
           >
             게임 다시하기
